@@ -2,10 +2,8 @@ language: bash
 
 env:
     global:
-    - GIT_AUTHOR_EMAIL=gepuro@gmail.com
-    - GIT_AUTHOR_NAME~gepuro
-    - HUGO_VERSION=0.32.1
-    - GIT_URL=https://git@github.com/gepuro/gepulog.git
+      - HUGO_VERSION=0.32.1
+      - GIT_URL=https://git@github.com/gepuro/gepulog.git
 
 install:
   - wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
