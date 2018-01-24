@@ -5,6 +5,8 @@ title = "gepulog"
 theme = "hugo-thema-one"
 googleAnalytics = ""
 
+publishdir = "public"
+
 [params]
     navigation = ["archives.md", "about.md"]
 

@@ -6,10 +6,13 @@ cd ../gepulog
 echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 
 # Build the project.
-hugo # if using a theme, replace with `hugo -t <YOURTHEME>`
+hugo -t hugo-theme-one # if using a theme, replace with `hugo -t <YOURTHEME>`
 
 # Go To Public folder
-cd public
+cd `dirname $0`
+cp -r ../gepulog/public/* docs/
+cd docs
+
 # Add changes to git.
 git add .
 
