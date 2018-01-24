@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on gepulog</title>
-    <link>http://gepulog.github.io/gepulog/tags/</link>
+    <link>https://gepuro.github.io/gepulog/tags/</link>
     <description>Recent content in Tags on gepulog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     
-        <atom:link href="http://gepulog.github.io/gepulog/tags/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://gepuro.github.io/gepulog/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Test</title>
-      <link>http://gepulog.github.io/gepulog/tags/test/</link>
+      <link>https://gepuro.github.io/gepulog/tags/test/</link>
       <pubDate>Wed, 24 Jan 2018 16:30:27 +0900</pubDate>
       
-      <guid>http://gepulog.github.io/gepulog/tags/test/</guid>
+      <guid>https://gepuro.github.io/gepulog/tags/test/</guid>
       <description></description>
     </item>
     
