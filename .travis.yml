@@ -15,7 +15,7 @@ install:
   - wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
   - tar zxvf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
-before_deploy:
+#before_deploy:
 #  - git remote set-url origin ${GIT_URL}
 #  - git fetch origin gh-pages:remotes/origin/gh-pages
 #  - git worktree add -B gh-pages public origin/gh-pages
