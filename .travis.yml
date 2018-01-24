@@ -17,7 +17,8 @@ install:
 
 before_deploy:
   - git remote set-url origin ${GIT_URL}
-  - ./hugo
+  - ls -la
+  - ./hugo -t hugo-theme-one
 
 deploy:
   skip_cleanup: true
