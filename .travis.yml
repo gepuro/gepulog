@@ -9,7 +9,8 @@ env:
     - GIT_URL=https://git@github.com/gepuro/gepulog.git
 
 before_install:
-  - bash -c 'ls -la'
+  - bash -c 'echo $encrypted_6d24ef37b060_key'
+  - bash -c 'echo $encrypted_6d24ef37b060_iv'
   - openssl aes-256-cbc -K $encrypted_6d24ef37b060_key -iv $encrypted_6d24ef37b060_iv -in gepulog.enc -out .ssh/gepulog -d
   - tar xvf secrets.tar
 
