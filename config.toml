@@ -1,4 +1,4 @@
-baseURL = "http://gepuro.github.io/gepulog/"
+baseURL = "https://gepuro.github.io/gepulog/"
 languageCode = "ja"
 title = "gepulog"
 
