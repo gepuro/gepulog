@@ -3,43 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://gepulog.github.io/about/</loc>
+    <loc>http://gepulog.github.io/gepulog/about/</loc>
     <lastmod>2018-01-24T16:50:27+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://gepulog.github.io/posts/test/</loc>
+    <loc>http://gepulog.github.io/gepulog/posts/test/</loc>
     <lastmod>2018-01-24T16:30:27+09:00</lastmod>
   </url>
   
   <url>
-    <loc>http://gepulog.github.io/archives/</loc>
+    <loc>http://gepulog.github.io/gepulog/archives/</loc>
   </url>
   
   <url>
-    <loc>http://gepulog.github.io/categories/</loc>
+    <loc>http://gepulog.github.io/gepulog/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://gepulog.github.io/posts/</loc>
-    <lastmod>2018-01-24T16:30:27+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://gepulog.github.io/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://gepulog.github.io/tags/test/</loc>
+    <loc>http://gepulog.github.io/gepulog/posts/</loc>
     <lastmod>2018-01-24T16:30:27+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://gepulog.github.io/</loc>
+    <loc>http://gepulog.github.io/gepulog/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/gepulog/tags/test/</loc>
+    <lastmod>2018-01-24T16:30:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/gepulog/</loc>
     <lastmod>2018-01-24T16:50:27+09:00</lastmod>
     <priority>0</priority>
   </url>
