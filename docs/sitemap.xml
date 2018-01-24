@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://gepulog.github.io/about/</loc>
+    <lastmod>2018-01-24T16:50:27+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/posts/test/</loc>
+    <lastmod>2018-01-24T16:30:27+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/archives/</loc>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/posts/</loc>
+    <lastmod>2018-01-24T16:30:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/tags/test/</loc>
+    <lastmod>2018-01-24T16:30:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gepulog.github.io/</loc>
+    <lastmod>2018-01-24T16:50:27+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

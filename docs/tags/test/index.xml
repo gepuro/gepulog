@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on gepulog</title>
+    <link>http://gepulog.github.io/tags/test/</link>
+    <description>Recent content in Test on gepulog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 24 Jan 2018 16:30:27 +0900</lastBuildDate>
+    
+        <atom:link href="http://gepulog.github.io/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Test</title>
+      <link>http://gepulog.github.io/posts/test/</link>
+      <pubDate>Wed, 24 Jan 2018 16:30:27 +0900</pubDate>
+      
+      <guid>http://gepulog.github.io/posts/test/</guid>
+      <description>&lt;p&gt;テスト&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;print(&amp;quot;hello world&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;テスト1&lt;/li&gt;
+&lt;li&gt;テスト2&lt;/li&gt;
+&lt;li&gt;テスト3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gepuro.net&#34;&gt;http://gepuro.net&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
