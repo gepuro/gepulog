@@ -5,12 +5,10 @@ env:
     - GIT_AUTHOR_EMAIL=gepuro@gmail.com
     - GIT_AUTHOR_NAME~gepuro
     - HUGO_VERSION=0.32.1
-    - secure: "Pw475F/bEiP8yIyZAPTwu6tHXMHTtC5u52pm5eZWYXiYQPuWdTvTe1X14tGimWtbTUX95joVduEpZmAVnKa53U6u3Fv9kiEP0RWCxGXCbxJ98a69MfNb58b+s2qftfwxwXrlOPE1o9Uz9qjkmwwHGoObuMeH776reAxuBsMGppjMq2Bje78fqlKUtmnlRT3EzpNCQbCv954RBTLWwZUZ9/JHjuv7/57Q0PwbHuGoMEN6nXloxHVObFQ33odAma2U7WRTN4CtV8rsA/zs6llbCGK/4kfZb5xaYnHcWXExRLZAuhQifXB5mHeBtNgt7nFzXaGEJ5P9vakSeU2X6A+2T6WWn33oqkMf4yK0MMdYda/ABhyz0pEKUzXcF1UZQUdxaSNaIz9uU6w1ZrmZeHefKeLkhxBAwenYsSNTMkHHFtKyhtYoK6M7BpmZZkNgNrN3oDIUEhVbe5qW23wWHcaUQIXCDs0hBwLiY9EiwyBG0lClfEBObRcLB4cdUYw/fwRMvxerLmg3tv3AIiSJBTSV1IyUaj3amkysTNRiX4hSQ8GKNLV/uFoawJfgTcEImgoi4+y52/DBNz0fhSJeNx0x4l11pgVlkb6TuhkR3Lk2Ol06raNCSNWG9sZLiJ9MfkZ+klAz2qFArCSpa4F2JJAIVQDZ6+QxMwpLkq/s3AuuS/Y="
     - GIT_URL=https://git@github.com/gepuro/gepulog.git
 
 before_install:
-  - bash -c 'echo $encrypted_6d24ef37b060_key'
-  - bash -c 'echo $encrypted_6d24ef37b060_iv'
+  - mkdir -p .ssh
   - openssl aes-256-cbc -K $encrypted_6d24ef37b060_key -iv $encrypted_6d24ef37b060_iv -in gepulog.enc -out .ssh/gepulog -d
   - tar xvf secrets.tar
 
