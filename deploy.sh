@@ -18,7 +18,11 @@ fi
 git commit -m "$msg"
 
 # Push source and build repos.
-git push --force origin master
+git branch tmp
+git checkout master
+git merge tmp
+git push origin master
+git branch -d tmp
 
 # show status
 git status
