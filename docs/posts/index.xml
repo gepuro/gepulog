@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on gepulog</title>
-    <link>http://gepulog.github.io/gepulog/posts/</link>
+    <link>http://gepuro.github.io/gepulog/posts/</link>
     <description>Recent content in Posts on gepulog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Wed, 24 Jan 2018 16:30:27 +0900</lastBuildDate>
     
-        <atom:link href="http://gepulog.github.io/gepulog/posts/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="http://gepuro.github.io/gepulog/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Test</title>
-      <link>http://gepulog.github.io/gepulog/posts/test/</link>
+      <link>http://gepuro.github.io/gepulog/posts/test/</link>
       <pubDate>Wed, 24 Jan 2018 16:30:27 +0900</pubDate>
       
-      <guid>http://gepulog.github.io/gepulog/posts/test/</guid>
+      <guid>http://gepuro.github.io/gepulog/posts/test/</guid>
       <description>&lt;p&gt;テスト&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;print(&amp;quot;hello world&amp;quot;)
