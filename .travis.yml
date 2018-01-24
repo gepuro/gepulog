@@ -20,6 +20,11 @@ before_deploy:
   - ls -la
   - ./hugo -t hugo-theme-one
   - ls -la docs/
+  - ls -la docs/posts/
+
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x deploy.sh
 
 deploy:
   skip_cleanup: true
