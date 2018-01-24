@@ -19,6 +19,7 @@ before_deploy:
   - git remote set-url origin ${GIT_URL}
   - ls -la
   - ./hugo -t hugo-theme-one
+  - ls -la docs/
 
 deploy:
   skip_cleanup: true
