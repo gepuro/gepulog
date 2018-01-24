@@ -17,11 +17,11 @@ install:
 
 before_deploy:
   - git remote set-url origin ${GIT_URL}
-  - ./hugo -t hugo-theme-one
+  - ./hugo
 
 deploy:
-  - git add docs
-  - msg="rebuilding site `date`"
-  - git commit -m "$msg"
-  - git push origin master
-
+  skip_cleanup: true
+  provider: script
+  script: deploy.sh
+  on:
+    branch: master
