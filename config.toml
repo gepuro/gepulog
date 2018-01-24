@@ -1,0 +1,12 @@
+baseURL = "http://gepulog.github.io/"
+languageCode = "ja"
+title = "gepulog"
+
+theme = "hugo-thema-one"
+googleAnalytics = ""
+
+publishdir = "docs"
+
+[params]
+    navigation = ["archives.md", "about.md"]
+
