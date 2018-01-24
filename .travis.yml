@@ -20,8 +20,8 @@ before_deploy:
   - ./hugo -t hugo-theme-one
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: deploy.sh
-  on:
-    branch: master
+  - git add docs
+  - msg="rebuilding site `date`"
+  - git commit -m "$msg"
+  - git push origin master
+
