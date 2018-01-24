@@ -5,7 +5,7 @@ env:
     - GIT_AUTHOR_EMAIL=gepuro@gmail.com
     - GIT_AUTHOR_NAME~gepuro
     - HUGO_VERSION=0.32.1
-    - GIT_URL=https://git@github.com/gepuro/gepulog.git
+    - GIT_URL=git@github.com:gepuro/gepulog.git
 
 before_install:
   - mkdir -p .ssh
@@ -16,8 +16,9 @@ install:
   - tar zxvf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 before_deploy:
+  - git remote set-url origin ${GIT_URL}
   - ./hugo -t hugo-theme-one
-  
+
 deploy:
   skip_cleanup: true
   provider: script
