@@ -1,5 +1,5 @@
 ---
-title: ioslidesにおけるロゴのサイズを変える
+title: "ioslidesにおけるロゴのサイズを変える"
 date: 2015-12-2T8:48:16+09:00
 draft: false
 tags: [R言語]
