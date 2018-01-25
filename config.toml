@@ -1,8 +1,40 @@
 baseURL = "http://blog.gepuro.net/"
 languageCode = "ja"
 title = "gepulog"
-
 theme = "kiss-master"
 googleAnalytics = "UA-37803439-1"
-
+copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2018"
+disqusShortname = ""
 publishdir = "docs"
+
+# Number of posts per page
+Paginate = 5
+enableRobotsTXT = true
+
+[params.info]
+adsense = "" # Adsense ID (ID only, without ca-pub-)
+enableSocial = false # Adds OpenGraph and Twitter cards
+homeTitle = "gepulog" # Title for home page
+poweredby = false # Adds powered by hugo and kiss below Copyright
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+
+[params.social]
+
+twitter = "gepuro"
+github = "gepuro"
+email = ""
+linkedin = ""
+facebook = ""
+instagram = ""
+codepen = ""
+
+[taxonomies]
+tag ="tags"
+
+[blackfriday]
+hrefTargetBlank = true
