@@ -8,7 +8,7 @@ disqusShortname = ""
 publishdir = "docs"
 
 # Number of posts per page
-Paginate = 5
+Paginate = 20
 enableRobotsTXT = true
 
 [params.info]
