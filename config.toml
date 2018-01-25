@@ -2,7 +2,7 @@ baseURL = "https://gepuro.github.io/gepulog/"
 languageCode = "ja"
 title = "gepulog"
 
-theme = "hugo-thema-one"
+theme = "kiss-master"
 googleAnalytics = "UA-37803439-1"
 
 publishdir = "docs"

@@ -11,7 +11,7 @@ install:
 
 before_deploy:
   - mkdir docs
-  - ./hugo -t hugo-theme-one
+  - ./hugo -t kiss-master
 
 # Deploy to GitHub pages
 deploy:
