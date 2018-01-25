@@ -1,6 +1,6 @@
 ---
 title: "ioslidesにおけるロゴのサイズを変える"
-date: 2015-12-2T08:48:16+09:00
+date: 2015-12-02T08:48:16+09:00
 draft: false
 tags: [R言語]
 aliases:
