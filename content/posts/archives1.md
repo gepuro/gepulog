@@ -1,9 +1,7 @@
 ---
 title: Blogを引っ越した&作った
-date: '2013-01-20'
-slug: moving-blog-from-hatena-dialy
-tags: [product]
-weight: 10
+date: 2013-01-24T16:50:27+09:00
+tags: [product, hoge]
 aliases:
     - /archives/1
 ---
