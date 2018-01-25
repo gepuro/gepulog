@@ -6,7 +6,3 @@ theme = "kiss-master"
 googleAnalytics = "UA-37803439-1"
 
 publishdir = "docs"
-
-[params]
-    navigation = ["about.md"]
-
