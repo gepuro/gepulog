@@ -12,6 +12,7 @@ install:
 before_deploy:
   - mkdir docs
   - ./hugo -t kiss-master
+  - echo 'blog.gepuro.net' > docs/CNAME
 
 # Deploy to GitHub pages
 deploy:
