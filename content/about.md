@@ -3,7 +3,4 @@ title: "About"
 date: 2018-01-24T16:50:27+09:00
 ---
 
-
-[One](https://github.com/resugary/hugo-theme-one) is a minimal blog theme for Hugo, which is forked from [onetwothree](https://github.com/schollz/onetwothree). 
-
-Source code is released under the MIT license on GitHub. Feel free to use if you want to learn more or contribute.
+[gepuro](https://twitter.com/gepuro) です。備忘録としてブログを書いています。

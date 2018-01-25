@@ -8,5 +8,5 @@ googleAnalytics = ""
 publishdir = "docs"
 
 [params]
-    navigation = ["archives.md", "about.md"]
+    navigation = ["archives.md"]
 
