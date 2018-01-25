@@ -1,5 +1,5 @@
 ---
-title: SQLite3をPythonから使っていたら「sqlite3.OperationalError: database or disk is full」というエラーが出た
+title: SQLite3をPythonから使っていたら、sqlite3.OperationalError database or disk is fullというエラーが出た
 date: 2016-08-04T16:54:14+09:00
 draft: false
 tags: [Python3, SQLite3]
