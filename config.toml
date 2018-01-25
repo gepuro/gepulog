@@ -3,10 +3,10 @@ languageCode = "ja"
 title = "gepulog"
 
 theme = "hugo-thema-one"
-googleAnalytics = ""
+googleAnalytics = "UA-37803439-1"
 
 publishdir = "docs"
 
 [params]
-    navigation = ["archives.md"]
+    navigation = ["about.md"]
 
