@@ -18,7 +18,7 @@
           {{- end -}}
           {{- end -}}
           {{if .Site.Params.Info.RSS }}
-          <a class="level-item" href="{{ .Site.BaseURL }}/feed.xml" target='_blank' rel='noopener'>
+          <a class="level-item" href="{{ .Site.BaseURL }}/{{ .outputFormats.RSS.baseName }}.xml" target='_blank' rel='noopener'>
             <span class="icon">
               <i class>
                 {{- partial "svg/icons" "rss" -}}
