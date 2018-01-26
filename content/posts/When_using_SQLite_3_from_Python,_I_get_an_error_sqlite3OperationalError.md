@@ -31,7 +31,7 @@ $ df -h
 
 
 
-```
+```sql
 
 conn = sqlite3.connect("data.db")
 
