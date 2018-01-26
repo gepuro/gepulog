@@ -10,13 +10,13 @@ publishdir = "docs"
 # Number of posts per page
 Paginate = 20
 enableRobotsTXT = true
-RSS = true
 
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
 enableSocial = false # Adds OpenGraph and Twitter cards
 homeTitle = "gepulog" # Title for home page
 poweredby = false # Adds powered by hugo and kiss below Copyright
+RSS = true
 
 [params.opengraph.facebook]
 admins = [] # array of Facebook IDs
