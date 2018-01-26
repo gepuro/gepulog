@@ -8,7 +8,7 @@ disqusShortname = ""
 publishdir = "docs"
 PygmentsCodeFences = true
 PygmentesUseClasses = false
-PygmentesStyle = “friendly”
+PygmentesStyle = “monokai”
 
 # Number of posts per page
 Paginate = 20
