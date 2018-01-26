@@ -7,6 +7,7 @@ copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2018"
 disqusShortname = ""
 publishdir = "docs"
 pygmentsCodeFences = true
+PygmentsStyle = "monokai"
 
 # Number of posts per page
 Paginate = 20
