@@ -11,11 +11,34 @@
 {{ if .Site.Params.Info.enableSocial }}
 {{- partial "social/opengraph" . -}}
 {{ end }}
+<link rel="shortcut icon" href="image/favicon.ico" />
 <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css"/>
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
 <link rel="preload" as="style" href="{{ .Site.BaseURL }}/css/monokai.css" onload="this.rel='stylesheet'" />
-<link rel="shortcut icon" href="image/favicon.ico" />
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\[','\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+             extensions: ["AMSmath.js", "AMSsymbols.js"] }
+      }
+    });
+    </script>
+    
+<script type="text/x-mathjax-config">
+<!--
+    MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]] } });
+-->
+</script>
+    
+<link rel="preload" as="script" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"> </script>
+  
 </head>
 <body>
