@@ -24,12 +24,13 @@ aliases:
 $\phi(x)$は単調増加であるから、$x \leq X \leq x + \Delta x$と$Y \leq Y \leq y + \Delta y$は論理的に同値であるので、
 
 
-
-\begin{align\*}
+<p>
+\begin{align}
 
 P(y \leq Y \leq y + \Delta y) = P(x \leq X \leq x + \Delta x)
 
-\end{align\*} 
+\end{align} 
+</p>
 
 確率変数$X$, $Y$の密度関数を$f(x)$, $g(y)$とおく。
 
@@ -37,14 +38,13 @@ P(y \leq Y \leq y + \Delta y) = P(x \leq X \leq x + \Delta x)
 
 ここで、$P(x \leq X \leq x + \Delta x) = f(x) \Delta x$であるから、
 
-
-~~~~
+<p>
 \begin{align\*}
 
 g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy )
 
 \end{align\*}
-~~~~
+</p>
 
 となる。
 
@@ -53,13 +53,11 @@ g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy )
 関数$y=\phi(x)$をxについて解いた逆関数を$x=\psi(y)$とすると、
 
 
-`
 \begin{align\*}
 
 g(y) = f(\psi(y)) * | d \psi(y) / d y |
 
 \end{align\*}
-`
 
 
 
