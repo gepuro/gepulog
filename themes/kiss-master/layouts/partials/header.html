@@ -15,6 +15,7 @@
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
+<link rel='stylesheet' href="{{ .Site.BaseURL }}/monokai.css"/>
 <link rel="shortcut icon" href="image/favicon.ico" />
 </head>
 <body>

@@ -6,9 +6,8 @@ googleAnalytics = "UA-37803439-1"
 copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2018"
 disqusShortname = ""
 publishdir = "docs"
-PygmentsCodeFences = true
-PygmentesUseClasses = false
-PygmentesStyle = "monokai"
+pygmentsCodefences = true # ```で囲んだコードをハイライトする設定
+pygmentsUseClasses = true # <span stype="xxxx">で色付けをするのではなく、<span class="className">classで分ける
 
 # Number of posts per page
 Paginate = 20
