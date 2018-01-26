@@ -39,11 +39,11 @@ P(y \leq Y \leq y + \Delta y) = P(x \leq X \leq x + \Delta x)
 ここで、$P(x \leq X \leq x + \Delta x) = f(x) \Delta x$であるから、
 
 <p>
-\begin{align\*}
+\begin{align}
 
 g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy )
 
-\end{align\*}
+\end{align}
 </p>
 
 となる。
@@ -53,17 +53,16 @@ g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy )
 関数$y=\phi(x)$をxについて解いた逆関数を$x=\psi(y)$とすると、
 
 
-\begin{align\*}
+<p>
+\begin{align}
 
 g(y) = f(\psi(y)) * | d \psi(y) / d y |
 
-\end{align\*}
-
+\end{align}
+</p>
 
 
 として求められる。
-
-
 
 
 
@@ -82,8 +81,8 @@ $y = \phi(x) = x^2$の逆関数は、$x = \psi(y) = \sqrt{y}$となる。
 よって、
 
 
-
-\begin{align\*}
+<p>
+\begin{align}
 
 g(y) &= f(\psi(y)) * | d \psi(y) / d y | \\\\
 
@@ -91,8 +90,8 @@ g(y) &= f(\psi(y)) * | d \psi(y) / d y | \\\\
 
 & = \frac{1}{2 \sqrt{y}}
 
-\end{align\*}
-
+\end{align}
+</p>
 
 
 となる。
