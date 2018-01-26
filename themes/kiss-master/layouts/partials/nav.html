@@ -17,8 +17,8 @@
           </a>
           {{- end -}}
           {{- end -}}
-          {{if .Site.Rss }}
-          <a class="level-item" href='/{{ print ( $.outputFormats.RSS ) }}.xml'  target='_blank' rel='noopener'>
+          {{if .Site.RSS }}
+          <a class="level-item" href='/{{ print ( $.outputFormats.RSS ) }}.xml' target='_blank' rel='noopener'>
             <span class="icon">
               <i class>
                 {{- partial "svg/icons" "rss" -}}

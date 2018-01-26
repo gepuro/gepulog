@@ -10,7 +10,7 @@ publishdir = "docs"
 # Number of posts per page
 Paginate = 20
 enableRobotsTXT = true
-rss = true
+RSS = true
 
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
