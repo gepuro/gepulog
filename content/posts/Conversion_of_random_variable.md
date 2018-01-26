@@ -38,12 +38,13 @@ P(y \leq Y \leq y + \Delta y) = P(x \leq X \leq x + \Delta x)
 ここで、$P(x \leq X \leq x + \Delta x) = f(x) \Delta x$であるから、
 
 
-
+```
 \begin{align\*}
 
 g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy )
 
 \end{align\*}
+```
 
 となる。
 
