@@ -16,6 +16,14 @@
             </span>
           </a>
           {{- end -}}
+          {{if .Site.Rss }}
+          <a class="level-item" href='/{{ print ( $.outputFormats.RSS ) }}.xml'>
+            <span class="icon">
+              <i class>
+                {{- partial "svg/icons" rss -}}
+              </i>
+            </span>
+          </a>
           {{- end -}}
         </nav>
       </div>

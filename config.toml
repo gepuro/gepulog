@@ -10,6 +10,7 @@ publishdir = "docs"
 # Number of posts per page
 Paginate = 20
 enableRobotsTXT = true
+rss = true
 
 [params.info]
 adsense = "" # Adsense ID (ID only, without ca-pub-)
@@ -38,3 +39,11 @@ tag ="tags"
 
 [blackfriday]
 hrefTargetBlank = true
+
+[outputs]
+home = ["RSS", "HTML"]
+
+[outputFormats]
+[outputFormats.RSS]
+mediatype = "application/rss"
+baseName = "feed"
