@@ -6,8 +6,9 @@ googleAnalytics = "UA-37803439-1"
 copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2018"
 disqusShortname = ""
 publishdir = "docs"
-pygmentsCodeFences = true
-PygmentsStyle = "monokai"
+PygmentsCodeFences = true
+PygmentesUseClasses = false
+PygmentesStyle = “friendly”
 
 # Number of posts per page
 Paginate = 20
