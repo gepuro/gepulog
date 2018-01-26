@@ -15,7 +15,7 @@
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
-<link rel='stylesheet' href="{{ .Site.BaseURL }}/css/monokai.css"/>
+<link rel="preload" as="style" href="{{ .Site.BaseURL }}/css/monokai.css" onload="this.rel='stylesheet'" />
 <link rel="shortcut icon" href="image/favicon.ico" />
 </head>
 <body>
