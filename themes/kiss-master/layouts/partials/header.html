@@ -17,6 +17,6 @@
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
-<link rel="preload" as="style" href="{{ .Site.BaseURL }}/css/monokai.css"/>
+<link rel="stylesheet" href="{{ .Site.BaseURL }}/css/monokai.css"/>
 </head>
 <body>
