@@ -17,6 +17,6 @@
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
-<style type="text/css">{{ readFile "/themes/kiss-master/static/css/monokai.css" | safeCSS }}</style>
+<style type="text/css">{{ readFile "/themes/kiss-master/static/css/monokai.css"}}</style>
 </head>
 <body>
