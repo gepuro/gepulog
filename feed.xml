@@ -1,0 +1,2331 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom/">
+  <channel>
+    <title>gepulog</title>
+    <link>http://blog.gepuro.net/feed.xml</link>
+    <description>Recent content on gepulog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>&amp;copy; &lt;a href=&#34;https://github.com/gepuro&#34;&gt;gepuro&lt;/a&gt; 2013</copyright>
+    <lastBuildDate>Sat, 27 Jan 2018 23:30:37 +0900</lastBuildDate>
+    
+        <atom:link href="http://blog.gepuro.net/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>github pagesにブログを引っ越しました</title>
+      <link>http://blog.gepuro.net/posts/move_blog_in_github_pages/</link>
+      <pubDate>Sat, 27 Jan 2018 23:30:37 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/move_blog_in_github_pages/</guid>
+      <description>2013年の1月にさくらVPSでブログを運用していましたが、github pagesに引っ越しをしました。ここ暫くはブログの更新が止まってしまっていたので気分転換をしたかったのと、VPSを安いプランに変更するための前準備です。
+今回のブログは、
+ hugo github pages travis  を利用しています。
+ブログのテーマは、kiss を使っていて、一部に編集を加えています。hugoはmarkdownで記事を書くことが出来るのですが、前のブログもmarkdownで書いていたので、簡単な変換スクリプトを作成して移行しました。具体的には、
+ ページのurlを英字にするために、記事タイトルにgoogle翻訳をかけて変換 日付の書式をhugoに合わせる 前のブログで記事のurlが変わってしまうため、リダイレクトの設定をする。aliasesで解決 タグの設定方法をhugo形式に合わせる  です。
+ブログの投稿はgithubのmasterブランチにmarkdownで書いた記事をpushすると、travisの自動ビルドが走り、githubのgh-pagesブランチにpushされます。github pagesには独自ドメインを設定することが出来るので、記事のurlを変えることなく移動できました。
+travisの設定  .travis.yml を リポジトリの直下に置く ビルドのslack通知。 図解: Travis CIの結果をSlack通知する方法 deployのfqdnに独自ドメインを指定する。ここでの設定がgithub pagesの設定に反映されます githubのtokenの設定, https://github.com/settings/tokens の　Personal access tokens　を取得して、travisの　https://travis-ci.org/gepuro/gepulog/settings にある Environment Variables に追加  slack通知用にtravisコマンドを入れた時に、ubuntuのaptからインストールしたのですが、バージョンが古いせいか上手く動きませんでした。 ( bash on ubuntu on windowsを使っています。 ) そのため、gemからインストールしました。この時のrubyのバージョンは2.0.0 です。ruby2.0-devとか色々足りなかったのでエラーメッセージを見ながらインストールしました。
+language: bash env: global: - HUGO_VERSION=0.32.1 - GIT_URL=https://git@github.com/gepuro/gepulog.git notifications: slack: secure: &quot;TSEF4UkzYqZfzxxv398nzhmU7nP5OnrC6Sc+MJ7DhiWjSX+s846Msgwj6svzyBfp+FspYo7mXYC4faFgd2zod90g8XD9apmPQ9yBeP8+f2psap7PP3FtHney4OB6nFbFRsxo+Ue9YjXyMj6qycAgQ3pe7+ol8L+ZirxFVlYKoQUoE1nNElVtsVQro2D/j2UVWvV0ZttiSXQcO+AoF7+uEZAvGleGMXXR29u0AB7cLN11ASWhN8k4x5XyoBd7+L57GcgGs4OuBiUO1RB4SmoevdY+e5ozLoaoXUcw/n8TH59In4jz9ziVZ/9lMaItTblQMkKx4i9cDPCqfj0x9aKNhkYRM2uLHdL4zTPHTrwVHP/fW1p1sM+IU97cWH4/1RU9cntnUMewu3WDDNLzaapiK+4gV5d/AAVnaEoLzsXySHUfUT//Zi3h/DdcLLM+LTjfhOhxbfo2Hepnc6BYqYzeY8LSjUfL4TJpgV1wM/clnnOE0x/Gh8SNL2YvTaxzCj+2EZFF5uPPHsyWsIFaMG2+6hsnKNeRNrsSUUx5kARUN+rxfSVCJpp5ddb3x98lIrNvJ/oRSUy4iDR0xuTY+WJM142hqp5QPeQqriU9OjKNBCRU8wrfDLEuQEZTqgVjl+KrZTemBVlhk/f3jfNP2PgSnK6sjhgOhyYmG9I1uZTE+9Y=&quot; install: - wget https://github. </description>
+    </item>
+    
+    <item>
+      <title>awscliを使おうとしたらget_environ_proxies() missing 1 required positional argument: no_proxyと怒られた話</title>
+      <link>http://blog.gepuro.net/posts/trying_to_use_awscli_would_talk_about_get_environ_proxies__missing_1_required_positional_argument/</link>
+      <pubDate>Fri, 12 May 2017 14:06:55 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/trying_to_use_awscli_would_talk_about_get_environ_proxies__missing_1_required_positional_argument/</guid>
+      <description>ある日、いつも通りに
+$ aws s3 ls  と実行したら、
+get_environ_proxies() missing 1 required positional argument: 'no_proxy'  と怒られました。
+手元の環境は、Ubuntu16.04で、 awscliのバージョンは aws-cli/1.11.13 Python/3.5.2 Linux/4.4.0-75-generic botocore/1.4.70 です。
+エラーメッセージでググッても何も出てこないので、再起動をしてみたり、awscliをダウングレードしたりしましたが、結果は変わらず。
+最終的には、
+$ sudo pip3 install --upgrade boto3  と実行して、boto3のバージョンを最新にあげたら直りました。
+めでたし、めでたし。 </description>
+    </item>
+    
+    <item>
+      <title>AWS AthenaでPartitionの設定をする</title>
+      <link>http://blog.gepuro.net/posts/set_partition_on_aws_athena/</link>
+      <pubDate>Thu, 16 Feb 2017 00:31:29 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/set_partition_on_aws_athena/</guid>
+      <description>AWS re:Invent 2016で発表されたAthenaというサービスを試してみました。このサービスはS3上にあるデータに対してSQLでデータを取得することが出来ます。一言で言えば、AWS版のBigQueryです。
+gzで圧縮されたままのデータに対してもクエリを投げることができ、データをスキャンした量に応じて課金されます。2017年2月15日現在では、1TB あたり5USDと非常に安いです。
+BigQuery同様に巨大なデータをうっかりスキャンしてしまうとお金が飛んでいくので注意です。参考: BigQueryで150万円溶かした人の顔
+というわけで、日付毎にPartitionを切りましょうという話です。
+Englishが得意な皆さんは、https://docs.aws.amazon.com/athena/latest/ug/partitions.html見てもらえば一発ですが、備忘録のために書き残します。
+データの準備 下にあるデータを仮定します。
+ $ cat 20170101.tsv a 1 a 2 a 3 $ cat 20170102.tsv b 1 b 2 b 3 $ cat 20170103.tsv c 1 c 2 c 3  S3に保存する こんな感じです。年月日ごとにログを保存してあるような、よく見る形式です。
+ $ aws s3 ls athenatest.aws.gepuro.net --recursive 2017-02-15 19:27:10 0 20170101/ 2017-02-15 19:27:28 12 20170101/20170101.tsv 2017-02-15 19:27:15 0 20170102/ 2017-02-15 19:27:42 12 20170102/20170102.tsv 2017-02-15 19:27:18 0 20170103/ 2017-02-15 19:27:53 12 20170103/20170103. </description>
+    </item>
+    
+    <item>
+      <title>jupyter notebookをubuntu 16.04にインストールするときにハマった罠</title>
+      <link>http://blog.gepuro.net/posts/trap_that_i_was_hooked_when_installing_jupyter_notebook_on_ubuntu_1604/</link>
+      <pubDate>Tue, 04 Oct 2016 15:01:12 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/trap_that_i_was_hooked_when_installing_jupyter_notebook_on_ubuntu_1604/</guid>
+      <description>手元の端末にjupyter notebookをインストールしていなかったので、機嫌良くpip3 install jupyterでインストールしてjupyter notebookで起動したところ、
+ Native kernel (python3) is not available  というメッセージが表示された。ブラウザから「New」を見てもPython3の文字は表示されていない。
+改めてjupyterを次のようにしてインストールした
+ $ pip3 install --upgrade jupyter  すると、
+ Exception: Traceback (most recent call last): File &quot;/usr/lib/python3/dist-packages/pip/req/req_install.py&quot;, line 1006, in check_if_exists self.satisfied_by = pkg_resources.get_distribution(str(no_marker)) File &quot;/usr/share/python-wheels/pkg_resources-0.0.0-py2.py3-none-any.whl/pkg_resources/__init__.py&quot;, line 535, in get_distribution dist = get_provider(dist) File &quot;/usr/share/python-wheels/pkg_resources-0.0.0-py2.py3-none-any.whl/pkg_resources/__init__.py&quot;, line 415, in get_provider return working_set.find(moduleOrReq) or require(str(moduleOrReq))[0] File &quot;/usr/share/python-wheels/pkg_resources-0.0.0-py2.py3-none-any.whl/pkg_resources/__init__.py&quot;, line 695, in find raise VersionConflict(dist, req) pkg_resources.VersionConflict: (ipython 2.4.1 (/usr/lib/python3/dist-packages), Requirement. </description>
+    </item>
+    
+    <item>
+      <title>データサイエンスLT祭り 2夜目で発表してきました</title>
+      <link>http://blog.gepuro.net/posts/i_presented_it_at_the_2nd_night_of_the_data_science_lt_festival/</link>
+      <pubDate>Tue, 13 Sep 2016 20:13:03 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_presented_it_at_the_2nd_night_of_the_data_science_lt_festival/</guid>
+      <description>久しぶりにLTをした気がします。少しだけ便利になると思うので、使ってもらえると嬉しいです。
+  Rstudio上でのパッケージインストールを便利にするaddin4githubinstall  from gepuro </description>
+    </item>
+    
+    <item>
+      <title>SQLite3をPythonから使っていたら、sqlite3.OperationalError database or disk is fullというエラーが出た</title>
+      <link>http://blog.gepuro.net/posts/when_using_sqlite_3_from_python_i_get_an_error_sqlite3operationalerror/</link>
+      <pubDate>Thu, 04 Aug 2016 16:54:14 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/when_using_sqlite_3_from_python_i_get_an_error_sqlite3operationalerror/</guid>
+      <description>タイトルの通りで頭を抱えていました。
+Bashで
+ $ df -h  を実行してもディスクは溢れていなかったのです。
+ググってみるとSQLITE3 VACUUM, “database or disk is full”という人がいたので覗いたら解決しました。
+conn = sqlite3.connect(&#34;data.db&#34;) cur = self.conn.cursor() cur.execute(&#34;&#34;&#34; pragma temp_store_directory=&#39;/tmp&#39; &#34;&#34;&#34;) conn.commit() のようにして、一時ディレクトリを指定したら動くようになりました。
+デフォルトでは、どこに持ってるのだろうか？そこまでは調べていません。
+また、
+ vacuum;  というのも覚えました。
+SQLite3でデータを追加したり消したりするとゴミが溜まってくるそうで、それを削除出来るとのことです。
+データベースが大きくなった時に活躍しそうなので、ついでにメモしておきます。 </description>
+    </item>
+    
+    <item>
+      <title>統計的学習の基礎4.4~を読みました</title>
+      <link>http://blog.gepuro.net/posts/foundation_of_statistical_learning_44_i_read/</link>
+      <pubDate>Sun, 31 Jul 2016 15:54:01 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/foundation_of_statistical_learning_44_i_read/</guid>
+      <description>統計的学習の基礎読書会で発表してきました。以下がその時の資料です。
+  統計的学習の基礎 4.4～  from gepuro </description>
+    </item>
+    
+    <item>
+      <title>ATOMで数式を改行する方法</title>
+      <link>http://blog.gepuro.net/posts/how_to_break_formulas_with_atom/</link>
+      <pubDate>Thu, 14 Jul 2016 14:34:04 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/how_to_break_formulas_with_atom/</guid>
+      <description>動作環境は、mathjax-warapperを入れて、markdown-preview-plusでプレビューを確認している。
+下の方法で改行出来た。
+ \[ \begin{align} y &amp;= x + x + x \\ &amp;= 3 x \end{align} \]   </description>
+    </item>
+    
+    <item>
+      <title>Python3で「if a in b」をするときはsetを使うべし</title>
+      <link>http://blog.gepuro.net/posts/when_using_if_a_in_b_in_python_3_use_set/</link>
+      <pubDate>Fri, 08 Jul 2016 08:17:07 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/when_using_if_a_in_b_in_python_3_use_set/</guid>
+      <description>タイトルの通りです。下のコードで確認しました。
+データが増えてくると1万倍は変わるようです。
+ Python 3.5.1 |Anaconda 2.4.1 (64-bit)| (default, Dec 7 2015, 15:00:12) [MSC v.1900 64 bit (AMD64)] Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. IPython 4.0.1 -- An enhanced Interactive Python. ? -&gt; Introduction and overview of IPython's features. %quickref -&gt; Quick reference. help -&gt; Python's own help system. object? -&gt; Details about 'object', use 'object??' for extra details. In [1]: %cpaste Pasting code; enter '--' alone on the line to stop or use Ctrl-D. </description>
+    </item>
+    
+    <item>
+      <title>numpy上で平均を求める v.s. Pandasで平均を求める</title>
+      <link>http://blog.gepuro.net/posts/find_average_on_numpy_find_average_with_vs_pandas/</link>
+      <pubDate>Thu, 07 Jul 2016 11:33:25 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/find_average_on_numpy_find_average_with_vs_pandas/</guid>
+      <description>計算の待ち時間が長く感じることが増えたので調べる
+結論は、numpyのみで計算した方が早い。
+以下で確認した。
+ Python 3.5.1+ (default, Mar 30 2016, 22:46:26) Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. IPython 2.4.1 -- An enhanced Interactive Python. ? -&gt; Introduction and overview of IPython's features. %quickref -&gt; Quick reference. help -&gt; Python's own help system. object? -&gt; Details about 'object', use 'object??' for extra details. In [1]: %cpaste Pasting code; enter '--' alone on the line to stop or use Ctrl-D. :import numpy as np :import time : :start = time. </description>
+    </item>
+    
+    <item>
+      <title>Pandasのappendが遅くて萎えた話</title>
+      <link>http://blog.gepuro.net/posts/talk_about_pandas_append_late_and_withered/</link>
+      <pubDate>Wed, 06 Jul 2016 21:49:06 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/talk_about_pandas_append_late_and_withered/</guid>
+      <description>あまりにも処理に時間がかかるので、下のコードで確認した。
+gepruo@ubuntu$ ipython3 Python 3.5.1+ (default, Mar 30 2016, 22:46:26) Type &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information. IPython 2.4.1 -- An enhanced Interactive Python. ? -&gt; Introduction and overview of IPython&#39;s features.%quickref -&gt; Quick reference.help -&gt; Python&#39;s own help system. object? -&gt; Details about &#39;object&#39;, use &#39;object??&#39; for extra details. In [1]: %cpaste Pasting code; enter &#39;--&#39; alone on the line to stop or use Ctrl-D. :import pandas as pd :import time :start = time. </description>
+    </item>
+    
+    <item>
+      <title>『詳解 Apache Spark』出版記念イベントに参加しました</title>
+      <link>http://blog.gepuro.net/posts/i_participated_in_the_publication_commemoration_event_detailed_apache_spark/</link>
+      <pubDate>Wed, 11 May 2016 20:50:41 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_participated_in_the_publication_commemoration_event_detailed_apache_spark/</guid>
+      <description>最近はSparkに触れていなかったのですが、日本語の情報も豊富になってきたのを感じました。
+自分も書きたい。
+ブログネタでやるかなあ。と思った一日でした。
+データ分析業界の理想と現実 - Spark普及の歴史を添えて（下田倫大さん）  Spark登場時に私は夢とロマンを見ました！
+ 現実は厳しい・・・。
+ ガンガン使おう
+ 2013年: 大規模データ処理といえばHadoopで集計
+ 2014年: Sparkとの出会い, インドで使ってた
+ 第一印象: Python, Rのインターフェースがある！
+ 2015年: ブレインパッド社としてビジネスモデル的にSparkのメリットが大きくない
+ コンサル/SI は新しい技術導入が遅くなりがち
+ ニーズが必要
+ DeltaCubeという自社開発プロダクトで導入
+ 案件が効率化からイノベーションに変化
+  データマネジメントツールDeltaCubeでのSpark利用（師岡一成さん）  2014年に触り始めた
+ 2015年に本格的に
+ DeltaCube: プライベートDMPのログからセグメントを作成ツール
+ 2014年に開発が始まり、リリースまで2年ぐらいかかった
+ 初期
+ 行動ログを手動で検索して、セグメントを作成
+ データサイズは数TB, presto, impalaを使った
+  中期(2015年)
+*　機能的にマニアック路線
+ 広告運用の手間がかからないようにしたい
+ 自動でユーザをクラスタリング(DeltaCube)
+ Rtosterで自動ABテスト
+ ETL, MLlib </description>
+    </item>
+    
+    <item>
+      <title>jqコマンドで正規表現を使う</title>
+      <link>http://blog.gepuro.net/posts/use_regular_expressions_with_jq_command/</link>
+      <pubDate>Sun, 24 Jan 2016 17:29:34 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/use_regular_expressions_with_jq_command/</guid>
+      <description>日常的に利用しているjqコマンドですが、最新バージョンを入れれば正規表現が使えると知ったので、インストールしました。
+OSはubuntu 14.04です。
+基本的には、
+https://stedolan.github.io/jq/download/に従えばよいですが、正規表現を利用するには外部ライブラリのインストールが必要なようです。
+下のようにしてインストールした。余分なライブラリが入っているだろうが、調査するのが面倒だったので、apt-cache search onigでヒットしたものを全部突っ込んだ。
+ sudo apt-get install libjruby-joni-java libonig-dev libonig2 libonig2-dbg lua-rex-onig lua-rex-onig-dev  あとは、公式の通りにインストールするだけ。
+ git clone https://github.com/stedolan/jq.git cd jq autoreconf -i ./configure --disable-maintainer-mode make sudo make install  手元の環境では、./configure &ndash;disable-maintainer-mode &ndash;prefix=/usr/local/をしておいたり、pacoを使ってインストールしています。 </description>
+    </item>
+    
+    <item>
+      <title>Dockerでapacheを使う</title>
+      <link>http://blog.gepuro.net/posts/use_apache_with_docker/</link>
+      <pubDate>Sun, 24 Jan 2016 17:03:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/use_apache_with_docker/</guid>
+      <description>忘れそうなので、メモしておく。
+ ENV APACHE_RUN_USER www-data ENV APACHE_RUN_GROUP www-data ENV APACHE_PID_FILE /var/run/apache2.pid ENV APACHE_RUN_DIR /var/run/apache2 ENV APACHE_LOG_DIR /var/log/apache2 ENV APACHE_LOCK_DIR /var/lock/apache2 CMD [&quot;/usr/sbin/apache2&quot;, &quot;-D&quot;, &quot;FOREGROUND&quot;]   </description>
+    </item>
+    
+    <item>
+      <title>Python3のFlaskをwsgiで動かす</title>
+      <link>http://blog.gepuro.net/posts/move_python_3s_flask_with_wsgi/</link>
+      <pubDate>Fri, 22 Jan 2016 23:37:58 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/move_python_3s_flask_with_wsgi/</guid>
+      <description>自分の環境ではdocker上で動かしていましたが、本筋には影響を与えないので省略します。
+Flaskのドキュメントであるmod_wsgi (Apache)に書いてあるし、Python2の頃は試したことあるから、余裕だろうと油断していた。
+ sudo apt-get install -y apache2 \ apache2-mpm-prefork \ apache2-utils \ libexpat1 \ ssl-cert \ libapache2-mod-wsgi-py3  上のようにインストールした。
+また、
+/etc/apache2/sites-available/000-default.conf
+を
+ &lt;VirtualHost *:80&gt; ServerName example.com WSGIDaemonProcess app user=www-data group=www-data WSGIScriptAlias / /app/app.wsgi &lt;Directory /app&gt; WSGIProcessGroup app WSGIApplicationGRoup %{GLOBAL} # Order deny,allow # Allow from all Require all granted &lt;/Directory&gt; &lt;/VirtualHost&gt;  にします。dockerで動かすだけなので、ファイルを直に編集しています。
+ハマりポイント1 libapache2-mod-wsgi-py3をインストールする。
+パッケージ名から想像できるが、wsgiはPython3とPython2系で異なる。
+ハマりポイント2 apacheの設定では、
+Require all grantedを使う。
+Python2系では、
+Order deny,allow
+Allow from all </description>
+    </item>
+    
+    <item>
+      <title>ユーザのアクセス元の街を可視化してみる</title>
+      <link>http://blog.gepuro.net/posts/visualize_the_city_from_which_the_user_accessed/</link>
+      <pubDate>Fri, 22 Jan 2016 21:39:06 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/visualize_the_city_from_which_the_user_accessed/</guid>
+      <description>当ブログのユーザのアクセス元を可視化しました。
+アクセス元のipアドレスからhttps://freegeoip.net/より提供されるAPIを用いて、どの街かを特定しました。
+観測期間は適当です。(freegeoipでデータを取得し始めてからで、過去に遡るのは面倒だった)
+以下が結果です。パレート図で描きました。
+久しぶりにパレート図を見たわけですが、円グラフに比べて見やすいなあと感じます。もっと流行るとイイなあ。
+それにしても、mountain viewって何だろうか。
+最後にコードです。
+ cat data/* | jq -r ' select(.site==&quot;blog.gepuro.net&quot;) | select(.geo.city != null) | [.cid, .geo.city] | @csv' | sort | uniq | header -a '&quot;cid&quot;,&quot;city&quot;' | q -H -O -d ',' ' select case city when &quot;&quot; then &quot;unknown&quot; else city end as city , count(1) as count from - group by city order by 2 desc ' | Rio -r -e 'df %&gt;% mutate(crank=1:n())' | Rio -r -e 'rbind(df[df$crank&lt;10,c(&quot;city&quot;,&quot;count&quot;)], data. </description>
+    </item>
+    
+    <item>
+      <title>シェルスクリプトでアクセスログを用いてページ間の類似度を求める</title>
+      <link>http://blog.gepuro.net/posts/find_similarity_between_pages_by_using_access_log_in_shell_script/</link>
+      <pubDate>Thu, 21 Jan 2016 20:11:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/find_similarity_between_pages_by_using_access_log_in_shell_script/</guid>
+      <description>協調フィルタリングです。
+協調フィルタリングに関しては、「協調フィルタリングについてまとめてみた。」が詳しく書かれており参考になります。
+データセットは、いつものようにwebビーコンのログです。
+使用したコマンド  jq
+ q
+ sed
+ awk
+ mcmd
+ http://datascienceatthecommandline.com/
+ など
+  実際のコマンド もう少しクールに書けるような気がします。
+ cat data/* | # jsonからデータを取り出してcid, urlのデータを得る jq -c -r 'select(.site==&quot;blog.gepuro.net&quot;)| [.cid, .url] | @csv' | sed -e 's/\?.*&quot;$/&quot;/' | grep &quot;http://blog.gepuro.net/archives/&quot; | sed -e 's/http\:\/\/blog\.gepuro\.net\/archives\///' | header -a '&quot;cid&quot;,&quot;url&quot;' | # cidごとにurlのビューをカウントして横持ちにする q -H -O -d ',' &quot; select cid, url, count(1) as view from - group by cid, url &quot; | mcross k=cid f=view s=url v=0 | cat &gt; tmp/cross. </description>
+    </item>
+    
+    <item>
+      <title>トップページからページングして2ページ目へのアクセスはあるのか</title>
+      <link>http://blog.gepuro.net/posts/is_there_access_to_the_second_page_by_paging_from_the_top_page/</link>
+      <pubDate>Mon, 18 Jan 2016 23:36:06 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/is_there_access_to_the_second_page_by_paging_from_the_top_page/</guid>
+      <description>サイトの顔になるトップページですが、過去の記事へと遡ってくれる人は、どれほどいるのでしょうか。
+蓄積しているログを集計しました。
+集計期間は、2015/9/14から2016/1/18です。
+トップページのPV数482のうち、2ページ目への遷移は16でした。
+また、遷移した合計数は123でした。
+意外にもサイト内を巡回してくれるのですね。
+遷移先を上位から
+|URL|PV数|
+|-|-|
+|http://blog.gepuro.net/page/2 | 16 |
+|http://blog.gepuro.net/archives/118 | 9 |
+|http://blog.gepuro.net/category/統計/ | 8 |
+|http://blog.gepuro.net/archives/131 | 7 |
+|http://blog.gepuro.net/archives/129 | 6 |
+|http://blog.gepuro.net/archives/133 | 6 |
+|http://blog.gepuro.net/archives/136 | 6 |
+|http://blog.gepuro.net/archives/134 | 5 |
+|http://blog.gepuro.net/archives/135 | 5 |
+|http://blog.gepuro.net/archives/119 | 4 |
+となっていました。
+集計期間から推測すると、右側にある「最近の投稿一覧」もクリックされているようです。
+他の記事へアクセスして貰いやすくするためには、自動ロードも必要なのかもしれないです。
+http://www.infinite-scroll.com/infinite-scroll-jquery-plugin/　こういうのも使ってみたいなあ。
+集計用のコマンド  cat data/* | jq -r ' select(.url == &quot;http://blog.gepuro.net/&quot;) | [.sid, .date, .url] | @csv' | q -H -O -d ',' ' select count(1) as pv_toppage from - ' echo cat data/* | jq -r ' select(. </description>
+    </item>
+    
+    <item>
+      <title>サイトのロゴ画像はクリックされるのか</title>
+      <link>http://blog.gepuro.net/posts/will_the_website_logo_image_be_clicked/</link>
+      <pubDate>Fri, 08 Jan 2016 01:39:01 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/will_the_website_logo_image_be_clicked/</guid>
+      <description>一般的なwebサイトでは、タイトルのロゴ画像にトップページへのリンクを張っています。とは言え、これをクリックしてくれる人って、一体何人いるのだろうかと疑問に感じたので、調べてみました。
+計測方法 ロゴ画像のリンクを「http://blog.gepuro.net/?from=logo」として、webビーコンを確認する。
+JSONで保存しているので、jqコマンドやqコマンドを下のように使う。
+cat data/* | jq -r &#39; select(.site==&#34;blog.gepuro.net&#34;) | select(.unixtime &gt;= 1450334421 and .unixtime &lt;= 1452177993) | [.sid, .url] | @csv&#39; | header -a &#39;&#34;sid&#34;,&#34;url&#34;&#39; | q -H -O -d &#39;,&#39; &#39; select sid, max( case when url = &#34;http://blog.gepuro.net/?from=logo&#34; then 1 else 0 end ) as logo_flag from - group by sid &#39; | q -H -O -d &#39;,&#39; &#39; select count(1) as session_cnt, sum(logo_flag) as click_logo_cnt, 1. </description>
+    </item>
+    
+    <item>
+      <title>ABテスト#1 - (似ている|似てない)記事一覧の表示数を変える</title>
+      <link>http://blog.gepuro.net/posts/ab_test__1__similar__not_similar_change_the_number_of_display_of_article_list/</link>
+      <pubDate>Thu, 07 Jan 2016 00:53:51 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/ab_test__1__similar__not_similar_change_the_number_of_display_of_article_list/</guid>
+      <description>ABテストを実装&amp;実施してみる で試してみたABテストの結果です。
+個別の記事を開いた時、下部に表示させていた&rdquo;似ている記事&rdquo;、&rdquo;似ていない記事&rdquo;の表示数を変えてみました。
+ パターンA: それぞれ5件
+ パターンB: それぞれ3件
+  結果は、
+|パターン|pv数|session数|pv数/session数|
+|-|-|-|-|
+| A | 333 | 230 | 1.45 |
+| B | 297 | 226 | 1.31 |
+ウィルコクソンの順位和検定を使いました。
+ Asymptotic Wilcoxon rank sum test data: df[df$ab == 0, ]$pv and df[df$ab == 1, ]$pv W = 25835, p-value = 0.02378 alternative hypothesis: true mu is not equal to 0  パターンAとパターンBのpv数は、有意水準5%で中央値が等しいという帰無仮説を棄却する。
+パターンAの勝ちですね。 </description>
+    </item>
+    
+    <item>
+      <title>2015年を振り返る</title>
+      <link>http://blog.gepuro.net/posts/i_look_back_on_2015/</link>
+      <pubDate>Mon, 28 Dec 2015 00:04:11 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_look_back_on_2015/</guid>
+      <description>今年も早いもので2015年が終わろうとしています。一年を振り返りたいと思います。
+ブログのアクセス数から振り返る セッション数は11856で、ビュー数は17032でした。去年のアクセスに比べれば多くなりましたが、今年は伸びが無かったです。来年は記事のクオリティを上げたり、頻度を上げるように努力せねば。
+最もビューが多かった記事は、ハードディスクの寿命分布を比較 で、この記事が元になってバイトに結びついたのは嬉しかったです。大学時代の専攻は信頼性工学でしたので、仕事に直接活かすことが出来たのは良い経験でした。
+所属組織から振り返る 2015年3月に電気通信大学大学院を卒業しました。先生方や研究室の仲間達には大変お世話になりました。今でも時々交流があるので嬉しいです。
+2015年4月からは、新天地で会社員になりました。学生時代に磨いてきたスキルを活かせています。最初の一ヶ月はOJT形式で先輩社員の下で教わり、それ以降は先輩と共に仕事をしたり、１人で案件を担当することもありました。１人で担当した案件によって、局内表彰を頂くことが出来ました！
+また、社外向けの勉強会で発表したり、来年の1月は新卒向けのイベントに登壇したりと対外的な活動も出来るようになりました。
+10月には始めての海外出張をさせて頂いたりと刺激的な会社員生活をしています。
+コミュニティから振り返る 去年に引き続き、今年もJapan.Rを主催させて頂きました。二回目という事もあり、&rdquo;去年に比べて&rdquo;スムーズに運営できたと思います。
+また、知人の紹介によってR言語コミュニティ以外にも交友関係を築き始めているので、こちらは継続して頑張りたい。
+エンジニアとして振り返る 個人で作っている（途中の）ものとして、いくつかあるので記しておきます。
+ gepuro task views
+ webビーコンを作った 
+ ラズパイでラジコン
+  どれも開発段階ですが、多くの学びがあって楽しいです。
+他には、scala及びSparkの勉強を始めたり、dockerを使うようになったり、テストコードを意識的に書くようになったり、AWSを使ったりとエンジニアとしての成長を続けています。
+来年は何を作ろうかな。
+趣味から振り返る 3月に台湾に行きました。旅の記録をブログに書いていなかったので、その時のtwilogを張っておきます。
+ 2015年03月06日(金)
+ 2015年03月07日(土)
+ 2015年03月08日(日)
+ 2015年03月09日(月)
+ 2015年03月10日(火)
+ 2015年03月11日(水)
+ 2015年03月12日(木)
+ 2015年03月13日(金)
+ 2015年03月14日(土)
+ 2015年03月15日(日)
+ 2015年03月16日(月)
+ 2015年03月17日(火)
+ 2015年03月18日(水)
+ 2015年03月19日(木)
+ 2015年03月20日(金)
+ 2015年03月21日(土)
+ 2015年03月22日(日)
+ 2015年03月23日(月)
+  twilogのリンクを貼っていたら、縦に長くなってしまいました。約2週間かけて、台湾の一周（1040km）を完走しました。学生最後の最高に楽しい思い出です。 </description>
+    </item>
+    
+    <item>
+      <title>ABテストを実装&amp;実施してみる</title>
+      <link>http://blog.gepuro.net/posts/implement_and_execute_the_ab_test/</link>
+      <pubDate>Wed, 23 Dec 2015 16:19:07 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/implement_and_execute_the_ab_test/</guid>
+      <description>このブログでABテストを実施するにあたって、悩んだ事をつらつらと書きます。
+既にあるwebビーコンを活かしたい webビーコンを作った にあるように、このブログには自作ビーコンが埋め込まれています。google analyticsでは拾いきれないログを取得する動機で作ったのですが、これを活かしきれていませんでした。
+今回はABテストを実装する上で、このログを有効活用しようと思います。
+悩んだ実装方法  アプリ側でwebビーコンが持つIDを使いたい
+ 新規ユーザの場合、htmlのレンダリングが先なので、IDを特定できない
+ webビーコンにABテストを仕込む
+ アプリとwebビーコンが密結合になってしまう
+ 独立したサービスとして動かしたい
+  ABテスト用のアプリを新たにつくる
+ dom操作で書き換えれば出来そうだが、重くなりそう   最終的な実装方法  アプリ側でアクセス元のipアドレスを取得
+ 偶数ならA、奇数ならBを出す
+  検証方法 webビーコンにABというカラムを追加して、偶数か奇数かを記録しておけば、後から確認が簡単になる。
+ワンライナーで、こんな感じで現状を確認出来るようにした。
+ cat data/* | jq -r ' select(.site==&quot;blog.gepuro.net&quot;) | select(.ab==1 or .ab==0) | select(.ymd &gt;= 20151221) | [.sid, .ab] | @csv' | header -a '&quot;sid&quot;,&quot;ab&quot;' | csvsql --query &quot;select sid,ab,count(1) as view from stdin group by sid, ab&quot; | csvsql --query &quot; select ab, 1. </description>
+    </item>
+    
+    <item>
+      <title>dockerコンテナの稼働状況を一覧する</title>
+      <link>http://blog.gepuro.net/posts/list_the_operating_status_of_the_docker_container/</link>
+      <pubDate>Fri, 18 Dec 2015 22:00:35 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/list_the_operating_status_of_the_docker_container/</guid>
+      <description>コンテナの稼働状況は下のようにして確認出来る。
+docker stats [OPTIONS] CONTAINER [CONTAINER...] しかしながら、コンテナ名orIDを入力するのは面倒ってわけで、一発で表示できるコマンドを作った。
+#!/bin/sh  docker inspect --format=&#39;{{.Name}}&#39; $(docker ps -q) | sed -e &#34;s/\///g&#34; | xargs docker stats また、コンテナのipアドレスを調べたい時は、
+#!/bin/sh  docker inspect --format &#39;{{.Name}},{{.NetworkSettings.IPAddress}}&#39; $(docker ps -q) | sed -e &#34;s/\///g&#34; とすれば良い。
+これをpathの通る場所に置いておけば、dockerライフがより素敵になる！！！ </description>
+    </item>
+    
+    <item>
+      <title>Japan.R 2015を開催しました</title>
+      <link>http://blog.gepuro.net/posts/japanr_2015_was_held/</link>
+      <pubDate>Sun, 06 Dec 2015 19:09:03 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/japanr_2015_was_held/</guid>
+      <description>R advent Calendarの12月6日担当です。更新日が12月7日になってしまいました。（寝落ちしてた）
+12月5日にJapan.R 2015を開催しました。ATNDでの登録数は197人と昨年同様の盛り上がりでした。
+スタッフの皆さん、参加者のみなさん、ありがとうございます。
+懇親会の参加者は約70人で、二次会の参加者は約40人でした。眠かったので帰りましたが、三次会もあったようです。
+また、会場提供をして頂いた株式会社リクルートコミュニケーションズさん、ありがとうございます。
+当日の様子はtogetterにまとめています。
+ Japan.R 2015 前半セッション
+ Japan.R 2015 後半セッション
+ Japan.R 2015 LT大会以降
+  http://www.ustream.tv/channel/kbWLTTuAtLhに当日の録画もあります。
+また、僕自身もLT大会に参加しました！
+  gepuro task views  from Atsushi Hayakawa 
+今年もR言語にお世話になりました。来年以降もR言語コミュニティに貢献していけたらと思います。来年もJapan.Rを開催しますので、よろしくお願いします。
+Enjoy R! </description>
+    </item>
+    
+    <item>
+      <title>ioslidesにおけるロゴのサイズを変える</title>
+      <link>http://blog.gepuro.net/posts/change_the_logo_size_in_ioslides/</link>
+      <pubDate>Wed, 02 Dec 2015 08:48:16 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/change_the_logo_size_in_ioslides/</guid>
+      <description>スライドをRmdで書くgepuroです。
+デフォルトのままでは、ロゴのサイズがピクセル単位で固定されているので、画像によっては歪んで表示されてしまう。
+それでは困るので、 CSSを弄りました。
+また、
+タイトル以外のページに現れるロゴは邪魔なので、
+background-size: 0px 0px;として、消しています。
+slide.Rmd title: &#34;タイトル&#34; author: &#34;@gepuro&#34; output_format: ioslides_presentation: css: logo.css logo: logo.png mystyle.css /* トップのロゴの大きさを変える */ aside.gdbar img { width: 180px; height: 47.2px; position: absolute; right: -5px; top: 15px; margin: 8px 15px; } /* 他のページのロゴの大きさを変える */ slides &gt; slide:not(.nobackground):before { font-size: 12pt; content: &#34;&#34;; position: absolute; bottom: 20px; left: 60px; background: url(logo.png) no-repeat 0 50%; -webkit-background-size: 30px 30px; -moz-background-size: 30px 30px; -o-background-size: 30px 30px; background-size: 0px 0px; padding-left: 40px; height: 30px; line-height: 1. </description>
+    </item>
+    
+    <item>
+      <title>Rmarkdownのioslidesで右下に画像を配置する方法</title>
+      <link>http://blog.gepuro.net/posts/how_to_place_the_image_in_the_lower_right_with_ioslides_in_rmarkdown/</link>
+      <pubDate>Thu, 26 Nov 2015 15:04:37 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/how_to_place_the_image_in_the_lower_right_with_ioslides_in_rmarkdown/</guid>
+      <description>もう少し綺麗な方法があると思うけど、下で出来た。
+&lt;style&gt; .bottom_right img { position: relative; left: 500px; top: 180px; }&lt;/style&gt; &lt;div class=&#34;bottom_right&#34; markdown=&#34;1&#34;&gt; &lt;img src=&#34;logo.png&#34;, width=&#34;300px&#34;&gt; &lt;/div&gt; kazutanさんに教えてもらった方法
+&lt;aside class=&#34;gdbar right bottom&#34;&gt;&lt;img src=&#34;hoge.png&#34;&gt;&lt;/aside&gt; ありがとうございます！ </description>
+    </item>
+    
+    <item>
+      <title>implyでアクセスログの分析</title>
+      <link>http://blog.gepuro.net/posts/analysis_of_access_log_with_imply/</link>
+      <pubDate>Thu, 29 Oct 2015 10:28:59 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/analysis_of_access_log_with_imply/</guid>
+      <description>webビーコンを作った という記事を投稿してから、暫く経ちました。
+データも集まり初めてきたところで、分析を始めたいと思います。
+最近、僕の中で話題のdruidという時系列なデータが得意なデータベースがあります。
+このデータベースは、秒間300万イベントでも捌けるらしいです。（関係者談）
+これを利用したpivotというUIツールがあります。開発している会社は、implyというサンフランシスコにあるベンチャー企業です。
+この企業がduirdやpivotをパッケージにしたimplyというソフトウェアを提供しています。
+今回は、これを使ってデータを分析してみます。
+http://imply.gepuro.netにアクセスすると、当ブログで収集しているデータを見れます。（ただし、10月28日の分しか登録していません。早く全部入れたい・・・）
+使い方については、少しずつ書いていきたいと思います。 </description>
+    </item>
+    
+    <item>
+      <title>サーバの引越</title>
+      <link>http://blog.gepuro.net/posts/move_server/</link>
+      <pubDate>Sat, 17 Oct 2015 12:16:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/move_server/</guid>
+      <description>当ブログのサーバを引っ越しました。運用開始時期にはdockerが流行っておらずLXCを直接弄っていましたが、時代の流れに乗ってdockerに変えました。
+また、さくらVPSを利用しているのですが大阪リージョンから石狩リージョンに変更したのでpingが遅くなっています。
+今後ともよろしくお願いします。 </description>
+    </item>
+    
+    <item>
+      <title>2つの画像を比較</title>
+      <link>http://blog.gepuro.net/posts/compare_two_images/</link>
+      <pubDate>Fri, 09 Oct 2015 01:38:54 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/compare_two_images/</guid>
+      <description>Pythonで２つの画像の比較をしたい。
+シェル上で実行するなら、
+diff img1.png img2.png で良い。
+Pythonでは、
+img1.tostring() == img2.tostring() で比較出来る。
+もっと綺麗な方法がある気がする。その時は加筆する。 </description>
+    </item>
+    
+    <item>
+      <title>sparkの開発環境はspark-notebookが良さげ</title>
+      <link>http://blog.gepuro.net/posts/the_development_environment_of_spark_is_good_sparknotebook/</link>
+      <pubDate>Fri, 02 Oct 2015 16:00:13 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/the_development_environment_of_spark_is_good_sparknotebook/</guid>
+      <description>spark-notebookです。
+何でもnotebookの時代ですね。
+RStudio好きとしては、ブラウザで使えるIDEもあると嬉しい。
+現時点での最新版は下で使える模様
+docker pull andypetrella/spark-notebook:0.6.2-SNAPSHOT-scala-2.10.4-spark-1.5.0-hadoop-2.7.1-with-hive-with-parquet docker run -p 9000:9000 -p 4040-4045:4040-4045 andypetrella/spark-notebook:0.6.2-SNAPSHOT-scala-2.10.4-spark-1.5.0-hadoop-2.7.1-with-hive-with-parquet  scalaもsparkもスタート地点に立っていないレベルだけど、出来ることから少しずつ学ぶ。 </description>
+    </item>
+    
+    <item>
+      <title>新しいdockerをubuntuに入れる</title>
+      <link>http://blog.gepuro.net/posts/put_a_new_docker_in_ubuntu/</link>
+      <pubDate>Fri, 02 Oct 2015 15:51:50 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/put_a_new_docker_in_ubuntu/</guid>
+      <description>ubuntu14.04でapt-getから入るのは古めなので、動かないことが多い。
+Ubuntuに最新のDockerをインストールするに書いてあるし、何番煎じか分からないけど、すぐに忘れるのでメモ
+curl -sSL https://get.docker.com/ubuntu/ | sh </description>
+    </item>
+    
+    <item>
+      <title>webビーコンを作った</title>
+      <link>http://blog.gepuro.net/posts/i_made_a_web_beacon/</link>
+      <pubDate>Mon, 14 Sep 2015 22:24:23 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_made_a_web_beacon/</guid>
+      <description>google analyticsでアクセスログを取ってるのだけれど、セッション毎のデータを利用するのは有料だったので、自分で作ってみた。
+ な感じのプログラムに対して、
+&lt;script type=&quot;text/javascript&quot;&gt;document.write(&quot;&lt;img src=&#039;http://beacon.gepuro.net/?site=blog.gepuro.net&quot;);document.write(&quot;&amp;referrer=&quot;+encodeURIComponent(document.referrer)+&quot;&#039;&gt;&quot;);&lt;/script&gt; な感じにタグを埋め込んで使う。
+このサイトでデータを集めて、何かに使うつもり。 </description>
+    </item>
+    
+    <item>
+      <title>library(ranger)とlibrary(randomForest)の速度を比較する</title>
+      <link>http://blog.gepuro.net/posts/compare_the_speed_of_library_ranger_and_library_randomforest/</link>
+      <pubDate>Thu, 10 Sep 2015 23:06:48 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/compare_the_speed_of_library_ranger_and_library_randomforest/</guid>
+      <description>Predicting Titanic deaths on Kaggle V: Rangerを読んでいたら、 「ranger早いぜ」というのを見つけたので試してみた。
+library(&quot;ranger&quot;) library(&quot;randomForest&quot;) ## randomForest 4.6-10 ## Type rfNews() to see new features/changes/bug fixes. ## ## Attaching package: 'randomForest' ## ## The following object is masked from 'package:ranger': ## ## importance data(&quot;iris&quot;) # http://d.hatena.ne.jp/a_bicky/20101225/1293258748 test &lt;- function(code, ic = 1000) { expr &lt;- substitute(code) print(system.time(for (i in 1:ic) { eval(expr) })) } test( ranger(Sepal.Length~., data=iris, mtry=2, num.trees = 500, write.forest=TRUE) ) ## user system elapsed ## 71. </description>
+    </item>
+    
+    <item>
+      <title>「データサイエンティスト養成読本　機械学習入門編」を読みました</title>
+      <link>http://blog.gepuro.net/posts/i_have_read_data_scientist_training_book_reading_machine_learning_introductory_edition/</link>
+      <pubDate>Wed, 09 Sep 2015 23:12:18 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_have_read_data_scientist_training_book_reading_machine_learning_introductory_edition/</guid>
+      <description> 献本を頂きました。ありがとうございます。&#10;これを読んで勉強します！ pic.twitter.com/9HjYqGbAl7
+&mdash; 12/5にJapanRやるgepuro (@gepuro) 2015, 9月 4  技評さんからご寄贈いただきました。ありがとう御座います！
+tjoさんの『データサイエンティスト養成読本 機械学習入門編』ご恵贈いただきましたやchezouさんの「データサイエンティスト養成読本 機械学習入門編」を読んだにも書評が上がっています。
+僕は偉い事を言える立場ではないので、一読者としての感想文になります。
+初学者から中級者の人にとってタメになる
+内容が詰まっています。
+第1部 序盤の「機械学習を使いたい人のための入門口座」、「機械学習の基礎知識」、「ビジネスに導入する機械学習」、「深層学習最前線」では、基礎的な知識から最新の手法まで書かれており、素早くトレンドを掴むのに良いかと思います。
+特に、「深層学習最前線」では数式をほぼ使わずに話が進んでいきスラスラ読めるので、面白かったです。
+KDD CUP 2015で登場するxgboostやstackingやblend(stackingと同じ？)の話が出ると嬉しかったです。
+第2部 また、「機械学習ソフトウェアの外観」、「Pythonによる機械学習入門」、「推薦システム入門」、「Pythonで機械学習入門」、「推薦システム入門」、「Pythonで画像認識にチャレンジ」、「Jubatusによる異常検知」では、実際に仕事で使う上で参考になるコードが多く出てきます。コピペで実践できるので、助かります！！
+実際にモデリングしていると課題になるクロスバリデーションやサンプリング、モデルの評価指標の話が少なかったので、寂しく感じました。
+また、モデリングに使用したコードやデータの管理方法も知りたかったです。皆さんがどうしてるのか気になります。
+最後に リンクを張っておきます。
+  </description>
+    </item>
+    
+    <item>
+      <title>実行速度のボトルネックをplopで見つける</title>
+      <link>http://blog.gepuro.net/posts/find_the_execution_speed_bottleneck_with_plop/</link>
+      <pubDate>Sat, 05 Sep 2015 15:02:45 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/find_the_execution_speed_bottleneck_with_plop/</guid>
+      <description>2016/10/6の追記 python3 setup.py install でインストールするだけで良く、下にあるソースコードの変更は不必要になった。
+以降は2016/9/5に書いた記事 Plop: Low-overhead profiling for Pythonにあるようにdropboxの中の人が開発したplopというツールがある。
+これを使えば、プログラムの累積実行時間をメソッド単位で計測でき、コールグラフも作成出来る。pythonが遅いと感じた時に、簡単にボトルネックになっている箇所を発見出来るので便利！
+しかしながら、https://github.com/bdarnell/plopにあるコードはpython2系でしか動かないので、3系でも動くように修正した。
+面倒だったので、計測用のコードしか修正してないです。可視化は2系のまま。
+使い方 計測 python3 -m plop.collector myscript.py  可視化 python -m plop.viewer --datadir=/tmp  
+コード collector.py from __future__ import with_statement import collections import signal import sys import _thread as thread from plop import platform import time class Collector(object): MODES = { 'prof': (platform.ITIMER_PROF, signal.SIGPROF), 'virtual': (platform.ITIMER_VIRTUAL, signal.SIGVTALRM), 'real': (platform.ITIMER_REAL, signal.SIGALRM), } def __init__(self, interval=0.01, mode='virtual'): self. </description>
+    </item>
+    
+    <item>
+      <title>RでCSVファイルを一行ずつ読み込む</title>
+      <link>http://blog.gepuro.net/posts/r_reads_the_csv_file_line_by_line/</link>
+      <pubDate>Sat, 08 Aug 2015 00:01:27 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/r_reads_the_csv_file_line_by_line/</guid>
+      <description>メモリを節約するんじゃ 学習データはサンプリングするからメモリに載せられるけど、 予測対象はメモリに乗らない時に一行ずつ読み込んで処理をさせたい。
+f &lt;- file(&quot;data.csv&quot;, &quot;r&quot;) while(1){ line &lt;- readLines(f, n=1) if(length(line) == 0){ break }else{ line.f &lt;- textConnection(line) line.df &lt;- read.csv(line.f, header = FALSE, sep=&quot;,&quot;) } write.table(line.df, stdout(), row.names=F, col.names=F, sep=&quot;,&quot;) } 標準入力から受け取る時は、
+file(&quot;data.csv&quot;, &quot;r&quot;) を
+file(&quot;stdin&quot;) にすれば良さそう
+
+参考  http://stackoverflow.com/questions/9370609/piping-stdin-to-r   追記  奥村先生版です。
+「RでCSVを1行ずつ」のいいかげん版：&#10;while (length((line = readLines(f,n=1))) &gt; 0) {&#10; x = unlist(strsplit(line, &quot;,&quot;))&#10;https://t.co/fTpnA5CVIr
+&mdash; Haruhiko Okumura (@h_okumura) August 8, 2015   追記2  hoxo_mさんバージョンです。 </description>
+    </item>
+    
+    <item>
+      <title>「Japan.R開催のお知らせ」と「Rでワンライナー」というタイトルで第49回R勉強会＠東京（#TokyoR）にて発表してきました</title>
+      <link>http://blog.gepuro.net/posts/i_announced_it_at_the_49th_r_study_meeting__tokyo_tokyor_with_the_title_japanr_holding_event_and_r_one_by_one_liner/</link>
+      <pubDate>Sun, 19 Jul 2015 21:21:49 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_announced_it_at_the_49th_r_study_meeting__tokyo_tokyor_with_the_title_japanr_holding_event_and_r_one_by_one_liner/</guid>
+      <description>「Japan.R開催のお知らせ」と「Rでワンライナー」  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>kmeansとkmedoidsを比較してみる</title>
+      <link>http://blog.gepuro.net/posts/compare_kmeans_and_kmedoids/</link>
+      <pubDate>Wed, 17 Jun 2015 23:30:37 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/compare_kmeans_and_kmedoids/</guid>
+      <description>やったこと kmeansとkmedoidsの比較をしてみました。 アルゴリズムの詳細は下の参考文献を見てください。
+ざっくりとした説明をすると、 kmeansはクラスタの中心を重心として距離を2乗で評価するのに対して、 kmedoidsはクラスタの中心をデータ点として距離を1乗で評価します。
+ パッケージの読み込み library("ggplot2") library("cluster")   サンプルデータ作成、可視化用関数 makeSampleData &lt;- function(sd){ df1 &lt;- data.frame(x = rnorm(20, mean=1, sd=sd), y = rnorm(20, mean=1, sd=sd), cluster = rep(1, 20)) df2 &lt;- data.frame(x = rnorm(20, mean=1, sd=sd), y = rnorm(20, mean=3, sd=sd), cluster = rep(2, 20)) df3 &lt;- data.frame(x = rnorm(20, mean=3, sd=sd), y = rnorm(20, mean=1, sd=sd), cluster = rep(3, 20)) df4 &lt;- data.frame(x = rnorm(20, mean=3, sd=sd), y = rnorm(20, mean=3, sd=sd), cluster = rep(4, 20)) df5 &lt;- data. </description>
+    </item>
+    
+    <item>
+      <title>確率変数の変換</title>
+      <link>http://blog.gepuro.net/posts/conversion_of_random_variable/</link>
+      <pubDate>Sat, 02 May 2015 15:51:39 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/conversion_of_random_variable/</guid>
+      <description>何度か勉強しているのだけれど、毎回確認しているのでブログに書いておく。
+数式転がし 確率変数 $X$ に対して、その関数の確率分布を求める。（例: $X^2$, $\log(X)$)
+変換の関数を$Y=\phi(X)$とする。$\phi(x)$は単調増加。
+$\phi(x)$は単調増加であるから、$x \leq X \leq x + \Delta x$と$Y \leq Y \leq y + \Delta y$は論理的に同値であるので、
+ \begin{align} P(y \leq Y \leq y + \Delta y) = P(x \leq X \leq x + \Delta x) \end{align} 確率変数$X$, $Y$の密度関数を$f(x)$, $g(y)$とおく。
+ここで、$P(x \leq X \leq x + \Delta x) = f(x) \Delta x$であるから、
+ \begin{align} g(y) = f(x) \Delta x / \Delta y \approx f(x) ( dx / dy ) \end{align} となる。 </description>
+    </item>
+    
+    <item>
+      <title>時系列解析の入門に良い資料</title>
+      <link>http://blog.gepuro.net/posts/good_material_for_introduction_to_time_series_analysis/</link>
+      <pubDate>Wed, 29 Apr 2015 10:00:36 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/good_material_for_introduction_to_time_series_analysis/</guid>
+      <description>オハイオ州立大学のRobert de Jong先生が公開されている講義資料？がよさ気なので、紹介します。
+ Lecture 1: Stationary Time Series∗
+ Lecture 2: ARMA Models∗
+ Lecture 3: Spectral Analysis∗
+ Lecture 4: Asymptotic Distribution Theory∗
+ Lecture 5: Linear Regressions∗
+ Lecture 6: Vector Autoregression∗
+ Lecture 7: Processes with Deterministic Trends∗
+ Lecture 8: Univariate Processes with Unit Roots∗
+ [Lecture 9: Multivariate Unit Root Processes and
+   Cointegration](http://www.econ.ohio-state.edu/dejong/note9.pdf)
+ Lecture 10: Further Topics∗  誤植 部分的にしか読んでいないけど、誤植がありました。他にも誤植がありそう。 </description>
+    </item>
+    
+    <item>
+      <title>時系列解析入門 1章</title>
+      <link>http://blog.gepuro.net/posts/introduction_to_time_series_analysis_1/</link>
+      <pubDate>Sat, 18 Apr 2015 13:13:37 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/introduction_to_time_series_analysis_1/</guid>
+      <description>北川先生の時系列解析入門の読書記録です。
+1.1 時系列データ 時間の経過とともに不規則に変動する現象の記録が時系列
+1.2 時系列の分類 連続時間時系列と離散時間時系列  連続時間時系列
+ 例：アナログレコーダ  離散時間時系列
+ 例：一時間おきに計測された気圧   一変量時系列と多変量時系列  一変量
+ 観測時点で一種類の情報  多変量
+ ２つ以上の情報   定常時系列と非定常時系列  時間的に変化しない一定の確率的モデルの実現値とみなせる
+ 定常時系列  平均が時間とともに変動、平均のまわりの変動の仕方が時間的に変化
+ 非定常時系列   ガウス型時系列と非ガウス型時系列  時系列の分布が正規分布に従う
+ ガウス型時系列  時系列の分布が正規分布に従わない
+ 非ガウス型時系列   非ガウス型時系列のように上下非対称性が見られても、データを変換することによって、近似的にガウス時系列とみなせる場合がある
+線形時系列と非線型時系列  線形なモデルの出力として表現できるような時系列
+ 線形時系列  非線形なモデルが必要な時系列
+ 非線型時系列   欠測値と異常値  何らかの理由で観測値が記録されない
+ 欠測値  現象の異常な振る舞い・観測装置の異常など </description>
+    </item>
+    
+    <item>
+      <title>python3による日付の扱い方メモ</title>
+      <link>http://blog.gepuro.net/posts/how_to_handle_dates_with_python_3/</link>
+      <pubDate>Sat, 28 Mar 2015 00:44:34 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/how_to_handle_dates_with_python_3/</guid>
+      <description>twitterのAPIによるとタイムスタンプ  Wed Dec 24 11:34:28 +0000 2014  python3で処理する from datetime import datetime, timezone, timedelta time = &#34;Wed Dec 24 11:34:28 +0000 2014&#34; d = datetime.strptime(time, &#39;%a %b %d %H:%M:%S %z %Y&#39;) とすると、dは
+datetime.datetime(2014, 12, 24, 20, 34, 28, tzinfo=datetime.timezone(datetime.timedelta(0, 32400), &#39;JST&#39;)) となる。
+unixtimeを得る d.timestamp() とすればよく、結果は
+ 1419420868.0  となる。
+日本時間にする JST = timezone(timedelta(hours=+9), &#39;JST&#39;) d = datetime.fromtimestamp(d.timestamp(), JST) とする。
+文字列として出力 d.strftime(&#34;%Y/%m/%d %H:%M:%S&#34;) で出力は
+ '2014/12/24 20:34:28'  となる。 </description>
+    </item>
+    
+    <item>
+      <title>dplyrの暗黒面</title>
+      <link>http://blog.gepuro.net/posts/dark_side_of_dplyr/</link>
+      <pubDate>Tue, 24 Feb 2015 00:47:34 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/dark_side_of_dplyr/</guid>
+      <description>&gt; library(dplyr) &gt; iris %&gt;% + summarise_(heikin = &#34;mean(Sepal.Length)&#34;) heikin 1 5.843333 と実行できるが、
+&gt; myfunc &lt;- function(x){ + mean(x) + } &gt; iris %&gt;% + summarise_(heikin = &#34;myfunc(Sepal.Length)&#34;) Error in summarise_impl(.data, dots) : could not find function &#34;myfunc&#34; は実行出来ない。
+&gt; iris %&gt;% + summarise_(heikin = as.formula(&#34;~myfunc(Sepal.Length)&#34;)) heikin 1 5.843333 とすれば、実行できた。 </description>
+    </item>
+    
+    <item>
+      <title>最強のハードディスクはどれだ？</title>
+      <link>http://blog.gepuro.net/posts/which_hardest_disk_is_the_strongest/</link>
+      <pubDate>Sun, 22 Feb 2015 02:05:34 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/which_hardest_disk_is_the_strongest/</guid>
+      <description>第46回R勉強会＠東京（#TokyoR）でLTをしてきました。
+資料は、こちらです。
+  最強のハードディスクはどれだ？  from Atsushi Hayakawa 
+また、https://github.com/gepuro/gweibullplotでワイブルプロットのパッケージを公開しました。本資料を作成する際に用いた関数とは別のものです。(研究室秘伝のソースでライセンスが謎なため) </description>
+    </item>
+    
+    <item>
+      <title>ハードディスクの寿命分布を比較</title>
+      <link>http://blog.gepuro.net/posts/compare_life_distributions_of_hard_disks/</link>
+      <pubDate>Sat, 07 Feb 2015 20:27:46 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/compare_life_distributions_of_hard_disks/</guid>
+      <description>Hard Drive Data Setsに4万台以上のハードディスクに関するデータが公開されている。これらの寿命分布を推定してみようと思う。
+公開されているデータをSQLiteに展開し、前処理 create table total_days as select serial_number, model, count(*) as total_days, max(failure) as failure, min(date(date)) as min_date, max(date(date)) as max_date from drive_stats group by serial_number ; Rで読み込み、解析準備 library(RSQLite) library(dplyr) drv&lt;-dbDriver(&#34;SQLite&#34;) con&lt;-dbConnect(drv,dbname=&#34;drive_stats.db&#34;) totaldays &lt;- dbGetQuery(con,&#34;select * from total_days&#34;) head(totaldays) totaldays %&gt;% group_by(model) %&gt;% summarise(model_sum = n()) %&gt;% arrange(model_sum) hdd.df &lt;- totaldays %&gt;% filter(model %in% c(&#34;ST4000DM000&#34;, &#34;HGST HMS5C4040ALE640&#34;)) weib.df &lt;- data.frame( x = hdd.df$total_days, condition = ifelse(hdd.df$model == &#34;ST4000DM000&#34;, 1, 2), status = hdd. </description>
+    </item>
+    
+    <item>
+      <title>指数分布の確率プロット</title>
+      <link>http://blog.gepuro.net/posts/probability_plot_of_exponential_distribution/</link>
+      <pubDate>Mon, 26 Jan 2015 22:12:13 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/probability_plot_of_exponential_distribution/</guid>
+      <description>2年ぐらい前にお勉強用に書いたコードを再利用するために発掘したので、共有しておきます。
+&ldquo;exp&rdquo;の箇所を好きな分布に書きかえれば流用できるかと思います。
+exponential.plot &lt;- function(x){ qq &lt;- function(x){ n &lt;- length(x) qexp((1:n - 1/2)/n, rate=mean(x))[order(order(x))] # ミラーランク } probs&lt;- c(0.001, 0.01, 0.1, 1, 5, 10, 20, 30, 50, 70, 80, 90, 95, 99, 99.9, 99.99, 99.999) / 100 plot(c(min(x), max(x)), qexp(c(probs[1], probs[length(probs)])), type=&#34;n&#34;, xaxt=&#34;n&#34;, yaxt=&#34;n&#34;, ylab=&#34;Cumulative Percent&#34;, xlab=&#34;Observed Value&#34;) abline(h=qexp(probs), v=as.integer(seq(min(x), max(x))), col=&#34;grey&#34;) abline(h=qexp(0.5)) axis(side=2, at=qexp(probs[c(4,8:17)]), las=1, labels=as.character(probs[c(4,8:17)]*100), cex.axis=0.8) axis(side=1, as.integer(seq(min(x), max(x))), cex.axis=0.8) points(x, qq(x)) model &lt;- lm(qq(x) ~ x - 1) abline(model) print(paste(&#34;r-squared&#34;,summary(model)$r. </description>
+    </item>
+    
+    <item>
+      <title>2014年度のアクセス数</title>
+      <link>http://blog.gepuro.net/posts/number_of_accesses_for_fy_2014/</link>
+      <pubDate>Wed, 31 Dec 2014 17:31:02 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/number_of_accesses_for_fy_2014/</guid>
+      <description>2014年がもうすぐ終わります。このブログを振り返るためにアクセスを載せます。
+12月は記事の投稿が多くなったおかげで、多くの方にアクセスして頂きました。
+流入元では、約40%がgoogleからの検索で、約25%がtwitterからでした。
+一番人気の記事はhttp://blog.gepuro.net/archives/72で、検索エンジンからのアクセスが多いです。統計関連の記事でないのが寂しいですが、この調子で技術ネタを投稿していきたいです。また、最近増えている雑記カテゴリな記事もネタを思い付き次第書いてきます。
+2015年もgepulogをよろしくお願いします。 </description>
+    </item>
+    
+    <item>
+      <title>新卒社会人のお金の計算をしてみる</title>
+      <link>http://blog.gepuro.net/posts/i_will_try_to_calculate_money_for_new_graduates/</link>
+      <pubDate>Tue, 23 Dec 2014 23:26:15 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_will_try_to_calculate_money_for_new_graduates/</guid>
+      <description>ひとり暮らしの生活にかかるお金を計算してみた。
+初任給 大卒の初任給は19万8000円！まさかこれより低賃金な奴はいないよなｗｗｗｗｗｗｗと煽っている人がいますが、初任給の手取りを20万円として計算してみる。
+食費 ひとり暮らしの生活で変動の自由度が最も高い食費を見る。
+単身世帯では男性は女性より月1.2万円食費が多いによれば、単身男性の食費の割合は28.3%になっている。初任給20万円 * 0.283 = 56000円になる。飲み会や外食が多いのだろうか。食費の計算をしていた時は3万〜4万程度になることが多かった。社会人になるとランチが1000円を超える事も多いと思うので、朝100円 + ランチ1000円 + 夜400円=1500円/日 として、30日で4万5000円。土日はランチが安くなったり、週一で飲み会に参加すれば、5万6000円程度になるのだろうか。
+住居費 その年収なら、どんな家に住める？（1）によれば住居費が収入の25%を超えると家計を圧迫するとの事。理想的な20%とすると家賃は20万円 * 0.2 = 4万円となる。都内ひとり暮らしで4万の家賃に住むならば、郊外に住む必要がある。感覚値であるが、都内で比較的に家賃が安い調布であっても5万円程度は必要になる。ギリギリである25%ならば家賃が5万円となる。実際にはもっと高い人が多いだろう。
+初任給 - 食費 - 住居費 ここまでで残ったお金を計算すると、
+20万円 - 5万6000円 - 5万 = 9万4000円になる。
+生活費を残りのお金でやりくりする必要がある。
+水道代や光熱費 6年間生活してる中での感覚値では、合計1万円程度になる。
+参考に、家賃、食費、光熱費…気になる一人暮らしの出費平均を見ても、同じ程度である。
+通信費 携帯料金については、
+https://www.nttdocomo.co.jp/iphone/charge/index.htmlにある5GBプランならば、7200円になる。MVNOなどを駆使すれば、もう少し抑えられるだろう。
+コンピュータのインターネット回線は、5000円ぐらいだろうか。合計すると1万2000円になる。
+残りのお金を再計算する 9万4000円 - 1万円 - 1万2000円 = 7万2000円
+奨学金の返済 苦学生にとっては忘れてはいけないお金である。
+http://www.jasso.go.jp/henkan/henkanrei/daigaku/を見れば、国立で自宅外の学生の返還月額は14,400円となっている。大学院に進学すれば、もう少し増えるだろう。
+年金など 国民年金保険料って、いくら？を見れば、1万5250円。
+住民税の税率で確認して、10%。20万 * 0.1 / 12 = 約8000円です。住民税は一年目はかからないですが、一年で昇給すれば嬉しいですね。（汗
+都道府県別　国民健康保険料ランキングを見ると東京の１人当たりの額は8万2936円になる。月額にすると、約7000円になる。
+残ったお金は？ 7万2000円 - 1万4000円 - 1万5000円 - 8000円 - 7000円 = 2万8000円 </description>
+    </item>
+    
+    <item>
+      <title>回帰木＋ヒストグラムの図を描く</title>
+      <link>http://blog.gepuro.net/posts/draw_a_picture_of_regression_tree__histogram/</link>
+      <pubDate>Mon, 22 Dec 2014 19:22:52 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/draw_a_picture_of_regression_tree__histogram/</guid>
+      <description>回帰木の下にヒストグラムがあると格好良いと思ったので、メモしておく。
+library(&#34;party&#34;) data(cars) model &lt;- ctree(dist~., data=cars) t.style &lt;- node_hist(model, ymax=0.06, xscale=c(0,150), col=&#34;red&#34;, fill=hsv(0.6, 0.5, 1)) plot(model, terminal_panel = t.style) 参考  [Rによるデータサイエンス13「樹木モデル」  ](http://www.slideshare.net/takemikami/r13-9821987) </description>
+    </item>
+    
+    <item>
+      <title>集計時の順序を曜日で並べる</title>
+      <link>http://blog.gepuro.net/posts/arrange_the_order_of_tabulation_by_day_of_the_week/</link>
+      <pubDate>Mon, 22 Dec 2014 18:31:01 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/arrange_the_order_of_tabulation_by_day_of_the_week/</guid>
+      <description>weekdays()を使って、Date型から曜日を取得できる。
+&gt; (today &lt;- Sys.Date()) [1] &#34;2014-12-22&#34; &gt; str(weekdays(today)) chr &#34;月曜日&#34; 戻り値が文字列になってるので、集計時に曜日順にならない。
+&gt; x &lt;- c(&#34;月曜日&#34;,&#34;日曜日&#34;, &#34;火曜日&#34;, &#34;日曜日&#34;, &#34;土曜日&#34;) &gt; table(x) x 火曜日 月曜日 土曜日 日曜日 1 1 1 2  factor型にしてlevelsを指定することによって、順番を制御できる。
+&gt; yobi &lt;- factor(x, levels=paste(c(&#34;日&#34;, &#34;月&#34;, &#34;火&#34;, &#34;水&#34;, &#34;木&#34;, &#34;金&#34;, &#34;土&#34;), &#34;曜日&#34;, sep=&#34;&#34;)) &gt; table(yobi) yobi 日曜日 月曜日 火曜日 水曜日 木曜日 金曜日 土曜日 2 1 1 0 0 0 1  嬉しい！
+twitterで教えてもらった書き方は、曜日順での集計に関するメモ書き です。 </description>
+    </item>
+    
+    <item>
+      <title>Japan.R 2014を支える技術</title>
+      <link>http://blog.gepuro.net/posts/technology_to_support_japanr_2014/</link>
+      <pubDate>Fri, 19 Dec 2014 02:19:39 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/technology_to_support_japanr_2014/</guid>
+      <description>R Advent Calendar 2014の18日目担当です。
+12月6日にJapan.R 2014が開催されました。
+総勢250名を超える方に参加して頂いて非常に嬉しいです。@0kayuさんを始め、会場提供およびスポンサーになって頂いたフリークアウトさん、
+当日に手伝いをしてくれた方々、ありがとうございます！
+Japan.R 2014を開催するまでの話を書きます。
+主催の一人に選ばれる ヤフー株式会社で開催されたJapan.R 2013での二次会後に、
+主催の@holidayworkingさんに無茶振りされました。その時にいた@0kayuさんも巻き添え？になってしまいました。
+2010年のJapan.Rに参加して以来、頻繁にTokyo.Rに参加していてRコミュニティに貢献したかったので、受けることにしました。
+開催準備  6月頃に、12月6日にフリークアウトで開催することを決定
+ 7月に参加して勉強会の懇親会で、パネルディスカッションのアイディアを頂く
+ パネラー探しを始める。最終的に決まったのは9月下旬  30分枠の発表をお願い出来た
+ 7月に
+ オプトの@shsaixさん
+ フリークアウトの@yanaokiさん
+  後に
+ RCOの@TJO_datasciさん
+ @teramonagiさんや@dichikaさんの紹介で@AriLamsteinさん
+   8月のTokyo.RでLTの募集を開始する（google docsのフォームを利用）
+ 開催内容を紹介する。http://www.slideshare.net/yurieoka37/japanr
+ 10月にフリークアウトさんがスポンサーになってくれることが決まった。ありがとうございます！
+ 10月下旬にATNDをたてる
+ Bar doradoraのお願いをする
+ 11月上旬に@0kayuさんとピザを食いながら、パネルディスカッションの内容を打ち合わせ。ピザ生地が旨かった。
+ 11月下旬に某社の会議室を貸して頂いて、パネラーの皆さんに集まってもらってパネルディスカッションの内容を打ち合わせ
+ 12月始め
+ レガラートで食べ物を注文
+ パネルディスカッション用のマイクをレンタル
+ 二次会のエイトを予約
+  当日
+ 11:15に当日スタッフの集合
+ 会場の準備 </description>
+    </item>
+    
+    <item>
+      <title>オタクは未婚が多いのか？</title>
+      <link>http://blog.gepuro.net/posts/do_you_have_many_unmarried_geeks/</link>
+      <pubDate>Mon, 15 Dec 2014 17:56:24 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/do_you_have_many_unmarried_geeks/</guid>
+      <description>2013年度のアイドル市場は前年度比約2割増／オタクの約7割は未婚者【オタク市場に関する調査】という見出しに衝撃を受けたので、オタク？の１人として、未婚率について少し調べてみた。統計的なツッコミを歓迎します。
+オタクの年齢層 オタクの半数は関東在住、今年最も支持されたのは「東方Project」　SMS「おたくま」が発表の記事では、
+という調査結果があり、21才〜25才が最も高い割合になっている。
+年代別の未婚率 年齢階級別既婚・未婚の構成比に掲載されている国勢調査のまとめには、
+と書かれており、20才〜24才では約90%が未婚で25才〜29才では約60%が未婚となっている。
+まとめ オタクのボリュームゾーンの年代と、国勢調査の未婚率を並べて見てみると、オタク⇛未婚率が高いとは言えなさそうだ。
+こんな事を気にしてるからモテないんだと言われると凹むので、言う時は優しめにお願いします。 </description>
+    </item>
+    
+    <item>
+      <title>Rstanでブログが検索結果に出ない話</title>
+      <link>http://blog.gepuro.net/posts/talk_about_blogs_not_appearing_in_search_results_in_rstan/</link>
+      <pubDate>Sun, 14 Dec 2014 13:03:40 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/talk_about_blogs_not_appearing_in_search_results_in_rstan/</guid>
+      <description>で表示されないけど、
+でなら表示される。
+Rstan単独で検索してブログが表示される人もいるので、検索エンジンに嫌われてる可能性が高くて涙目です。
+ちなみに、「stan ワイブル」で検索すれば、上位にヒットしました。 </description>
+    </item>
+    
+    <item>
+      <title>xargsまたはparalellを用いてＲを並列処理させる</title>
+      <link>http://blog.gepuro.net/posts/parallelize_r_with_xargs_or_paralell/</link>
+      <pubDate>Thu, 11 Dec 2014 17:26:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/parallelize_r_with_xargs_or_paralell/</guid>
+      <description> list.txtから入力を受け取り、hoge.Rで並列処理をさせる。
+hoge.R argv &lt;- commandArgs(TRUE) argv &lt;- strsplit(argv, &#34;,&#34;)[[1]] par1 &lt;- as.numeric(argv[1]) par2 &lt;- as.numeric(argv[2]) print(par1) print(par2) list.txt 1,1 1,2 2,1 2,2 xargsを用いる場合 cat list.txt | xargs -P8 -n1 Rscript hoge.R paralellを用いる場合 cat list.txt | parallel -j 8 Rscript hoge.R {} </description>
+    </item>
+    
+    <item>
+      <title>Rstanで重回帰分析</title>
+      <link>http://blog.gepuro.net/posts/multiple_regression_analysis_with_rstan/</link>
+      <pubDate>Wed, 10 Dec 2014 23:27:52 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/multiple_regression_analysis_with_rstan/</guid>
+      <description>ワイブルばかりだったので、メジャーな重回帰分析をしてみた。Rstanにハマりつつある。
+linear_regression.stan data { int&lt;lower=1&gt; J; // number of data int&lt;lower=1&gt; K; // number of covariate real y[J]; matrix[J,K] x; } parameters { real&lt;lower=0&gt; sd0; vector[K] beta; real beta0; } model { for(j in 1:J){ increment_log_prob(normal_log(y[j], x[j] * beta + beta0, sd0)); } } linear_regression.R library(rstan) n &lt;- 100 x1 &lt;- rnorm(n, mean=1, sd=0.1) x2 &lt;- rnorm(n, mean=1, sd=0.1) beta1 &lt;- 1 beta2 &lt;- 2 beta0 &lt;- 3 y &lt;- beta1 * x1 + beta2 * x2 + beta0 data. </description>
+    </item>
+    
+    <item>
+      <title>Rstanでワイブル回帰の推定（説明変数複数バージョン）</title>
+      <link>http://blog.gepuro.net/posts/estimation_of_weibull_regression_with_rstan_explanatory_variables_multiple_versions/</link>
+      <pubDate>Thu, 04 Dec 2014 18:43:05 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/estimation_of_weibull_regression_with_rstan_explanatory_variables_multiple_versions/</guid>
+      <description>matrixやvectorの使い方を覚えた。
+weibull_regression.stan data { int&lt;lower=1&gt; J; // number of data int&lt;lower=1&gt; K; // number of covariate int status[J]; real&lt;lower=0&gt; tt[J]; matrix[J,K] x; } parameters { real&lt;lower=1, upper=3&gt; m; vector[K] beta; real beta0; } transformed parameters { real&lt;lower=0&gt; eta[J]; for (j in 1:J) eta[j] &lt;- exp(x[j]*beta + beta0); } model { for(j in 1:J){ if(status[j] == 1){ increment_log_prob(weibull_log(tt[j], m, eta[j])); } if(status[j] == 0){ increment_log_prob(weibull_ccdf_log(tt[j], m, eta[j])); } } } weibull_regression. </description>
+    </item>
+    
+    <item>
+      <title>Rstanでワイブル回帰の推定</title>
+      <link>http://blog.gepuro.net/posts/estimation_of_weibull_regression_in_rstan/</link>
+      <pubDate>Thu, 04 Dec 2014 12:17:47 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/estimation_of_weibull_regression_in_rstan/</guid>
+      <description>weibull_regression.stan data { int&lt;lower=1&gt; J; // number of data int status[J]; real&lt;lower=0&gt; tt[J]; real x[J]; } parameters { real&lt;lower=1, upper=3&gt; m; real beta; real beta0; } transformed parameters { real&lt;lower=0&gt; eta[J]; for (j in 1:J) eta[j] &lt;- exp(beta * x[j] + beta0); } model { for(j in 1:J){ if(status[j] == 1){ increment_log_prob(weibull_log(tt[j], m, eta[j])); } if(status[j] == 0){ increment_log_prob(weibull_ccdf_log(tt[j], m, eta[j])); } } } mを1から3ぐらいにしておかないと、推定値が遥か彼方に飛ばされることがある。ワイブル分布は厄介やね。
+weibull_regression.R library(rstan) set.seed(0) n &lt;- 1000 # 台数 m &lt;- 2 # 形状パラメータ beta &lt;- -1 # 係数 beta0 &lt;- 10 # 切片 x &lt;- rnorm(n) data. </description>
+    </item>
+    
+    <item>
+      <title>Rstanでワイブル分布のパラメータ推定（打切りのあるデータで）</title>
+      <link>http://blog.gepuro.net/posts/parameter_estimation_of_weibull_distribution_with_rstan_with_data_with_truncation/</link>
+      <pubDate>Thu, 04 Dec 2014 03:35:00 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/parameter_estimation_of_weibull_distribution_with_rstan_with_data_with_truncation/</guid>
+      <description>weibull.stan data { int&lt;lower=1&gt; J; // number of data int status[J]; real&lt;lower=0&gt; tt[J]; } parameters { real&lt;lower=1&gt; m; real&lt;lower=1&gt; eta; } model { for(j in 1:J){ if(status[j] == 1){ increment_log_prob(weibull_log(tt[j], m, eta)); } if(status[j] == 0){ increment_log_prob(weibull_ccdf_log(tt[j], m, eta)); } } } weibull.R サンプルデータの生成 &gt; set.seed(0) &gt; data.df &lt;- data.frame(tt = rweibull(1000, shape = 2, scale = 100), + status = rep(1,1000)) &gt; data.df[data.df$tt &gt; 30,]$status &lt;- 0 &gt; data. </description>
+    </item>
+    
+    <item>
+      <title>Rstanでワイブル分布のパラメータ推定</title>
+      <link>http://blog.gepuro.net/posts/parameter_estimation_of_weibull_distribution_with_rstan/</link>
+      <pubDate>Wed, 03 Dec 2014 23:25:57 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/parameter_estimation_of_weibull_distribution_with_rstan/</guid>
+      <description>Rstanでワイブル分布のパラメータ推定をしてみる。打切りを考慮するにはどうしたら良いのだろうか？
+Stan Modeling Language User&rsquo;s Guide and Reference Manual, v2.5.0の83ページ辺りを読めば出来そう。
+weibull.stan data { int&lt;lower=0&gt; J; // number of data real&lt;lower=0&gt; tt[J]; // time } parameters { real&lt;lower=0&gt; m; real&lt;lower=0&gt; eta; } model { for(j in 1:J) tt[j] ~ weibull(m, eta); } weibull.R library(rstan) data.ls &lt;- list(J = 1000, tt = rweibull(1000, shape = 2, scale = 100)) fit &lt;- stan(file = &#39;weibull.stan&#39;, data = data.ls, iter = 1000, chains = 4) 結果 &gt; fit Inference for Stan model: weibull. </description>
+    </item>
+    
+    <item>
+      <title>条件付き推測木のサンプルデータ生成と推定</title>
+      <link>http://blog.gepuro.net/posts/sample_data_generation_and_estimation_of_conditional_guess_tree/</link>
+      <pubDate>Wed, 03 Dec 2014 01:56:35 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/sample_data_generation_and_estimation_of_conditional_guess_tree/</guid>
+      <description>条件付き推測木（決定木）で生存時間解析 寿命分布が異なるように説明変数で分割する。
+詳細はhttp://cran.r-project.org/web/packages/party/party.pdfで。
+データ生成 set.seed(0) n &lt;- 1000 x &lt;- rbinom(n, size=1, prob=1/3) data.df &lt;- data.frame(x = x, tt = ifelse(x==0, rweibull(n, scale=200, shape=2), rweibull(n, scale=300, shape=3)), status = rep(1,n) ) 推定 &gt; library(party) &gt; (model &lt;- ctree(Surv(tt, status)~x, data=data.df)) Conditional inference tree with 2 terminal nodes Response: Surv(tt, status) Input: x Number of observations: 1000 1) x &lt;= 0; criterion = 1, statistic = 150.161 2)* weights = 664 1) x &gt; 0 3)* weights = 336 &gt; data. </description>
+    </item>
+    
+    <item>
+      <title>ワイブル回帰と比例ハザードモデルのサンプルデータ生成と推定</title>
+      <link>http://blog.gepuro.net/posts/generation_and_estimation_of_sample_data_of_weibull_regression_and_proportional_hazard_model/</link>
+      <pubDate>Tue, 02 Dec 2014 17:02:18 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/generation_and_estimation_of_sample_data_of_weibull_regression_and_proportional_hazard_model/</guid>
+      <description>ワイブル回帰 ワイブル分布を仮定して、形状パラメータ共通、尺度パラメータを説明変数で変わるモデル
+\begin{align*}
+F(t|x) = 1 - \exp\left( - \left( \frac{t}{\eta(x)} \right)^m \right) \\
+\eta(x) = \exp(\beta * x)
+\end{align*}
+ワイブル回帰のサンプルデータ set.seed(0) n &lt;- 1000 # 台数 m &lt;- 2 # 形状パラメータ beta &lt;- -1 # 係数 beta0 &lt;- 10 # 切片 x &lt;- rnorm(n) data.df &lt;- data.frame(tt = rweibull(n, shape = m, scale=exp(beta * x + beta0)), x = x, status=rep(1,n)) weibregで推定 &gt; library(eha) &gt; weibreg(Surv(tt, status)~x, data=data.df) Call: weibreg(formula = Surv(tt, status) ~ x, data = data. </description>
+    </item>
+    
+    <item>
+      <title>記事ページに「前の記事」「次の記事」を追加した</title>
+      <link>http://blog.gepuro.net/posts/i_added_previous_article_and_next_article_on_article_page/</link>
+      <pubDate>Wed, 26 Nov 2014 20:56:46 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_added_previous_article_and_next_article_on_article_page/</guid>
+      <description>他のブログを見ていると、「前の記事へ」「次の記事へ」と記事の最後にあるのを見て、いいなあと思ったので、追加しました。これで、サイトの滞在時間が伸びるかな？ </description>
+    </item>
+    
+    <item>
+      <title>dplyrのWindowed rank functionsを試してみる</title>
+      <link>http://blog.gepuro.net/posts/try_the_windowed_rank_functions_of_dplyr/</link>
+      <pubDate>Wed, 05 Nov 2014 00:08:56 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/try_the_windowed_rank_functions_of_dplyr/</guid>
+      <description>何気なく下の動画を眺めてたら、window functionが紹介されてたので、手元で試してみる
+ helpに載っているサンプルコードの結果
+&gt; x &lt;- c(5, 1, 3, 2, 2) &gt; row_number(x) [1] 5 1 4 2 3 &gt; min_rank(x) [1] 5 1 4 2 2 &gt; dense_rank(x) [1] 4 1 3 2 2 &gt; percent_rank(x) [1] 1.00 0.00 0.75 0.25 0.25 &gt; cum_dist(x) [1] 1.0 0.2 0.8 0.6 0.6 &gt; ntile(x, 2) [1] 2 1 2 1 1  row_number : ランクを求める。（同点は先に出た方が初めになる）
+ min_rank : ランクを求める。（同点は同じランクになる）
+ dense_rank : min_rankの逆 </description>
+    </item>
+    
+    <item>
+      <title>bootstrapを3系にした</title>
+      <link>http://blog.gepuro.net/posts/i_made_bootstrap_3_series/</link>
+      <pubDate>Thu, 30 Oct 2014 01:27:33 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_made_bootstrap_3_series/</guid>
+      <description>前々から気になっていたので、デザインを変えました。
+bootstrapサイトのサンプルに載っているブログ用のテンプレートにしてみました。しばらくは、これでいこうと思う。 </description>
+    </item>
+    
+    <item>
+      <title>みどりぼん第11回で発表してきた</title>
+      <link>http://blog.gepuro.net/posts/midoribon_has_announced_in_the_11th/</link>
+      <pubDate>Sun, 26 Oct 2014 15:14:40 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/midoribon_has_announced_in_the_11th/</guid>
+      <description>以下が資料です。いつもより倍以上の低クオリティで申し訳ないです。。。
+  </description>
+    </item>
+    
+    <item>
+      <title>学務情報システムの単位修得状況照会ページでGPAを計算するブックマークレットを作った</title>
+      <link>http://blog.gepuro.net/posts/we_created_a_bookmarklet_that_calculates_gpa_on_the_inquiry_page_of_credits_acquisition_system_of_academic_information_system/</link>
+      <pubDate>Mon, 08 Sep 2014 22:27:22 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/we_created_a_bookmarklet_that_calculates_gpa_on_the_inquiry_page_of_credits_acquisition_system_of_academic_information_system/</guid>
+      <description>学務情報システムの単位修得状況照会ページでGPAを計算するブックマークレットを作った。
+javascript:var body = window.frames[2];var f = body.window.frameElement.valueOf();var ff = f.contentDocument.children[0];var result = ff.children[1].children[5].children[1];var sum = 0;var count = 0;for(i=0; i &lt; result.childElementCount; i=i+1){var node = result.children[i];var record = node.children[9];str = record.textContent;if(str.search(/合/) &gt; 0){sum += 0;count += 0;}else if(str.search(/不/) &gt; 0){sum += 0;count += 1;}else if(str.search(/可/) &gt; 0){sum += 1;count += 1;}else if(str.search(/良/) &gt; 0){sum += 2;count += 1;}else if(str.search(/優/) &gt; 0){sum += 3;count += 1;}else if(str.search(/秀/) &gt; 0){sum += 4;count += 1;}} alert(&#34;GPA is &#34; + sum/count); URLにコピペして実行してください。 </description>
+    </item>
+    
+    <item>
+      <title>第42回R勉強会＠東京（#TokyoR）で「R入門（dplyrでデータ加工)」を発表しました</title>
+      <link>http://blog.gepuro.net/posts/introduction_to_r_data_processing_with_dplyr_was_announced_at_the_42nd_r_study_meeting__tokyo_tokyor/</link>
+      <pubDate>Sat, 30 Aug 2014 17:07:02 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/introduction_to_r_data_processing_with_dplyr_was_announced_at_the_42nd_r_study_meeting__tokyo_tokyor/</guid>
+      <description>下が発表資料です。
+  R入門（dplyrでデータ加工)-TokyoR42  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>「TokyoWebmining Hackathon</title>
+      <link>http://blog.gepuro.net/posts/i_participated_in_tokyowebmining_hackathon__1/</link>
+      <pubDate>Mon, 04 Aug 2014 16:32:47 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_participated_in_tokyowebmining_hackathon__1/</guid>
+      <description>TokyoWebmining Hackathon #1に参加してきました。ハッカソンとしては3度目の参加になります。
+このハッカソンでは、Home&rsquo;sより提供されたデータでリコメンドエンジンを作るというものでした。予めチームを組んで参加する人が多い中、僕はソロで参加しました。当日にチームを組んだのですが、互いにソロで参加した人で構成されました。
+ハッカソンに参加するたびに感じるのは、事前準備の重要さです。既に分析環境が出来上がっている人から環境構築を始める人までいて、作業開始時間に差が出てしまいます。また、手元のノートパソコンは、十分な計算速度ではないので、分析サーバが必須になります。
+分析時間が足りない事は目に見えていたので、一番シンプルなモデルを作り、残り時間で改良していく方式をとったおかげで、Home&rsquo;sさんが用意したスコア計算において、一番高得点になりました。
+今度ハッカソンに参加するときは、分析環境とモデル構築コードを予め準備しておき、データを投げるだけにしておきたいと思いました。第２回の開催を楽しみにしてます。 </description>
+    </item>
+    
+    <item>
+      <title>第六回「データ解析のための統計モデリング入門」で発表してきました</title>
+      <link>http://blog.gepuro.net/posts/it_was_announced_in_the_6th_introduction_to_statistical_modeling_for_data_analysis/</link>
+      <pubDate>Fri, 01 Aug 2014 14:40:52 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/it_was_announced_in_the_6th_introduction_to_statistical_modeling_for_data_analysis/</guid>
+      <description>以下が発表資料です。
+  第六回「データ解析のための統計モデリング入門」前半  from Atsushi Hayakawa 
+熟読した方は気づくと思いますが、ヘッセ行列を求める微分をした元の関数の一部を省略して定義しています。微分したら消えるから良いよね？ </description>
+    </item>
+    
+    <item>
+      <title>ガンマ分布のパラメータ推定をする</title>
+      <link>http://blog.gepuro.net/posts/perform_parameter_estimation_of_gamma_distribution/</link>
+      <pubDate>Tue, 22 Jul 2014 18:54:59 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/perform_parameter_estimation_of_gamma_distribution/</guid>
+      <description> R言語でガンマ分布のパラメータを推定する方法を2通り示す。
+データの生成 &gt; x &lt;- rgamma(1000, shape=2, rate=0.5) 最尤法による推定 &gt; fitdistr(x, &#34;gamma&#34;) shape rate 1.81070179 0.45850801 (0.07471446) (0.02177244) モーメント法による推定 &gt; med.gam &lt;- mean(x) &gt; var.gam &lt;- var(x) &gt; (shape &lt;- med.gam/var.gam) [1] 0.45973 &gt; (rate &lt;- ((med.gam)^2)/var.gam) [1] 1.815528 参考
+ http://cran.r-project.org/doc/contrib/Ricci-distributions-en.pdf
+ http://lokad.jp/actuary/wp-content/uploads/2010/09/Gamma.pdf
+ http://ja.wikipedia.org/wiki/%E3%82%AC%E3%83%B3%E3%83%9E%E5%88%86%E5%B8%83
+   </description>
+    </item>
+    
+    <item>
+      <title>golangデビューしたので、初めて書いたコードを晒す</title>
+      <link>http://blog.gepuro.net/posts/golang_i_debut_so_i_will_expose_the_code_i_wrote_for_the_first_time/</link>
+      <pubDate>Thu, 10 Jul 2014 02:46:39 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/golang_i_debut_so_i_will_expose_the_code_i_wrote_for_the_first_time/</guid>
+      <description>フィボナッチ数列を求める package main import fmt &#34;fmt&#34; func fib(n int) int{ if n &lt;= 2{ return n } else{ return fib(n-1) + fib(n-2) } } func main(){ for i :=1; i &lt; 10; i++{ fmt.Printf(&#34;%d\n&#34;, fib(i)) } } 素数を求める package main import fmt &#34;fmt&#34; func main(){ // init  n := 100 prm := make([]int, n) for i := 1; i &lt; n; i++{ prm[i] = i } // Sieve_of_Eratosthenes  for i := 2; i &lt; n; i++{ if prm[i] == 0{ continue } for j := 2; i*j &lt; n; j++{ prm[i*j] = 0 } } // output  for i := 1; i &lt; n; i++{ if prm[i] ! </description>
+    </item>
+    
+    <item>
+      <title>JuliaTokyo</title>
+      <link>http://blog.gepuro.net/posts/lt_was_performed_in_juliatokyo__1_with_the_title_random_forest_at_julia_03/</link>
+      <pubDate>Sat, 05 Jul 2014 18:05:51 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/lt_was_performed_in_juliatokyo__1_with_the_title_random_forest_at_julia_03/</guid>
+      <description>JuliaTokyo #1でLTをしました。
+以下が資料です。
+  Julia0.3でランダムフォレスト  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>Julia 0.3で箱ひげ図を描く</title>
+      <link>http://blog.gepuro.net/posts/draw_a_box_whisker_at_julia_03/</link>
+      <pubDate>Fri, 20 Jun 2014 22:32:21 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/draw_a_box_whisker_at_julia_03/</guid>
+      <description>データやパッケージのロードは、「Julia 0.3でヒストグラムを描く」を参照してください。
+箱ひげ図を描くには、次のようなコマンドを打つ。
+julia &gt; plot(iris[[:SepalLength, :Species]], Geom.boxplot, x=&#34;Species&#34;, y=&#34;SepalLength&#34;) Rでは変数が一つだけでも箱ひげ図を描くことが出来るけど、JuliaのGadflyではx軸とy軸を指定する必要があるみたい。また、x軸やy軸のラベル名も指定しないと動かなかった。
+現状では、Rの方が手軽に作図出来るなあって印象です。
+ // Minimum and maximum scale extents var MIN_SCALE = 1.0/3.0; var MAX_SCALE = 10.0; // Traverse upwards from a d3 selection to find and return the first // node with "plotroot" class. var getplotroot = function(selection) { var node = selection.node(); while (node && node.classList && !node.classList.contains("plotroot")) { node = node.parentNode; } return d3.select(node); }; // Construct a callback for toggling geometries on/off using color groupings. </description>
+    </item>
+    
+    <item>
+      <title>Julia 0.3でヒストグラムを描く</title>
+      <link>http://blog.gepuro.net/posts/draw_a_histogram_at_julia_03/</link>
+      <pubDate>Fri, 20 Jun 2014 22:09:30 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/draw_a_histogram_at_julia_03/</guid>
+      <description>RDatasetsを読み込んで、ヒストグラムを描いてみました。
+bincountでヒストグラムの粗さを指定出来ます。Rでいうbreaksは無いのだろうか。
+julia&gt; Pkg.add(&#34;RDatasets&#34;) julia&gt; using RDatasets julia&gt; using Gadfly julia&gt; iris = dataset(&#34;datasets&#34;, &#34;iris&#34;) julia&gt; plot(x=iris[:SepalLength], Geom.histogram(bincount=30))  // Minimum and maximum scale extents var MIN_SCALE = 1.0/3.0; var MAX_SCALE = 10.0; // Traverse upwards from a d3 selection to find and return the first // node with "plotroot" class. var getplotroot = function(selection) { var node = selection.node(); while (node && node.classList && !node.classList.contains("plotroot")) { node = node.parentNode; } return d3. </description>
+    </item>
+    
+    <item>
+      <title>RとJuliaの散布図比較</title>
+      <link>http://blog.gepuro.net/posts/comparison_of_scatter_plot_of_r_and_julia/</link>
+      <pubDate>Mon, 16 Jun 2014 19:57:39 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/comparison_of_scatter_plot_of_r_and_julia/</guid>
+      <description>RとJulia0.3でGadflyを使う時の比較です。
+通常の散布図 R
+plot(x=1:10, y=1:10) Julia 0.3
+plot(x=1:10, y=1:10) データを直線で結ぶ R
+plot(x=1:10, y=1:10, type=&#34;o&#34;) Julia
+plot(x=1:10, y=1:10, Geom.point, Geom.line) 軸名とかタイトルとか R
+plot(x=1:10, y=1:10, xlab=&#34;x label&#34;, ylab=&#34;y label&#34;, main=&#34;Graph Title&#34;) Julia
+plot(x=1:10, y=1:10, Guide.xlabel(&#34;x label&#34;), Guide.ylabel(&#34;y label&#34;), Guide.title(&#34;Graph Title&#34;)) 全部使うと、
+ d3=function(){function n(n){return null!=n&&!isNaN(n)}function t(n){return n.length}function e(n){for(var t=1;n*t%1;)t*=10;return t}function r(n,t){try{for(var e in t)Object.defineProperty(n.prototype,e,{value:t[e],enumerable:!1})}catch(r){n.prototype=t}}function u(){}function i(){}function o(n,t,e){return function(){var r=e.apply(t,arguments);return r===t?n:r}}function a(n,t){if(t in n)return t;t=t.charAt(0).toUpperCase()+t.substring(1);for(var e=0,r=la.length;re;++e){var u=la[e]+t;if(u in n)return u}}function c(){}function s(){}function l(n){function t(){for(var t,r=e,u=-1,i=r. </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04にJulia 0.3をインストールした</title>
+      <link>http://blog.gepuro.net/posts/i_installed_julia_03_on_ubuntu_1404/</link>
+      <pubDate>Sun, 15 Jun 2014 18:01:25 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_installed_julia_03_on_ubuntu_1404/</guid>
+      <description>https://launchpad.net/~staticfloat/+archive/julianightliesよりPPAを追加した。
+$ sudo apt-get update $ sudo apt-get upgrade $ sudo apt-get install julia パッケージリストを読み込んでいます... 完了 依存関係ツリーを作成しています 状態情報を読み取っています... 完了 インストールすることができないパッケージがありました。おそらく、あり得 ない状況を要求したか、(不安定版ディストリビューションを使用しているの であれば) 必要なパッケージがまだ作成されていなかったり Incoming から移 動されていないことが考えられます。 以下の情報がこの問題を解決するために役立つかもしれません: 以下のパッケージには満たせない依存関係があります: julia : 依存: libcholmod1.7.1 しかし、インストールすることができません 依存: libumfpack5.4.0 しかし、インストールすることができません 依存: librmath-julia-dev しかし、インストールすることができません E: 問題を解決することができません。壊れた変更禁止パッケージがあります。 と表示された。
+パッケージ: libcholmod1.7.1 (1:3.4.0-1ubuntu3) ,パッケージ: libcolamd2.7.1 (1:3.4.0-3ubuntu1) 
+$ wget http://kr.archive.ubuntu.com/ubuntu/pool/main/s/suitesparse/libcholmod1.7.1_3.4.0-1ubuntu3_amd64.deb $ wget http://kr.archive.ubuntu.com/ubuntu/pool/main/s/suitesparse/libcolamd2.7.1_3.4.0-3ubuntu1_amd64.deb $ wget http://kr.archive.ubuntu.com/ubuntu/pool/main/s/suitesparse/libamd2.2.0_3.4.0-1ubuntu3_amd64.deb $ wget http://kr.archive.ubuntu.com/ubuntu/pool/main/s/suitesparse/libumfpack5.4.0_3.4.0-3ubuntu1_amd64.deb としてから、dpkg -i でパッケージをインストールしたんだが、
+$ sudo apt-get install julia パッケージリストを読み込んでいます... 完了 依存関係ツリーを作成しています 状態情報を読み取っています. </description>
+    </item>
+    
+    <item>
+      <title>padding-leftで表示域を右にずらす</title>
+      <link>http://blog.gepuro.net/posts/use_paddingleft_to_shift_the_display_area_to_the_right/</link>
+      <pubDate>Sun, 15 Jun 2014 15:34:56 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/use_paddingleft_to_shift_the_display_area_to_the_right/</guid>
+      <description>見出し部分のスタイルを今までは、
+&lt;h4 style=&#34;border-left:solid 3px blue;&#34;&gt;ほげ&lt;/h4&gt; ほげ のようにしていたが、
+&lt;h4 style=&#34;border-left:solid 3px blue; padding-left: 8px;&#34;&gt;ほげ&lt;/h4&gt; ほげ にした方が読みやすいとのアドバイスを頂いたので、早速変更した。
+デザインは、難しいなあ。 </description>
+    </item>
+    
+    <item>
+      <title>第39回R勉強会＠東京（#TokyoR）でLTをしてきました</title>
+      <link>http://blog.gepuro.net/posts/i_did_lt_at_the_39th_r_study_meeting__tokyo_tokyor/</link>
+      <pubDate>Tue, 03 Jun 2014 18:06:09 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_did_lt_at_the_39th_r_study_meeting__tokyo_tokyor/</guid>
+      <description>第39回R勉強会＠東京（#TokyoR）でLTをしてきました。以下がその時の資料です。
+  家に早く帰りたい  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>最適化計算のメモ（最小値や最大値を求める）</title>
+      <link>http://blog.gepuro.net/posts/memo_of_optimization_calculation_find_minimum_value_and_maximum_value/</link>
+      <pubDate>Mon, 14 Apr 2014 11:23:43 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_of_optimization_calculation_find_minimum_value_and_maximum_value/</guid>
+      <description>hoge &lt;- function(x){ x1 &lt;- x[1] x2 &lt;- x[2] x1^2 + x2^2 } optim(c(1,1), hoge) のように実行すれば、最小値を計算できる。最大値を計算するときは、
+optim(c(1,1), hoge, control=list(fnscale=-1)) のようにする。 </description>
+    </item>
+    
+    <item>
+      <title>Atom フィード形式に対応しました</title>
+      <link>http://blog.gepuro.net/posts/supported_atom_feed_format/</link>
+      <pubDate>Tue, 25 Mar 2014 19:00:44 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/supported_atom_feed_format/</guid>
+      <description>Generating Feeds with Flaskを参考にして、当ブログをAtomフィード形式に対応させました。こちらです。 </description>
+    </item>
+    
+    <item>
+      <title>第14回 「はじめてのパターン認識」 読書会で発表しました</title>
+      <link>http://blog.gepuro.net/posts/the_14th_first_time_pattern_recognition_was_announced_at_the_reading_meeting/</link>
+      <pubDate>Mon, 24 Mar 2014 09:44:07 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/the_14th_first_time_pattern_recognition_was_announced_at_the_reading_meeting/</guid>
+      <description>その時の資料です。
+  はじパタ11章　後半  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>gepuro流☆変数名の付け方</title>
+      <link>http://blog.gepuro.net/posts/gepuro_flow__how_to_name_variable_names/</link>
+      <pubDate>Sat, 14 Dec 2013 16:52:34 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/gepuro_flow__how_to_name_variable_names/</guid>
+      <description>R Advent Calendar 2013の14日目担当のgepuroです。この記事の内容は、Japan.R 2013の飛び入りLTで話した内容です。
+変数名の付け方 irisというデータセットを例にします。
+read.csv()をする時 ファイル名と変数名を同じにしておく。
+ファイル名に日本語が含まれる場合は、英語にするかヘボン式で。
+iris &lt;- read.csv(&#34;iris.csv&#34;) subset()をする時 subsetした時の条件をドットで繋ぐ
+iris.setosa &lt;- subset(iris, iris$Species == &#34;setosa&#34;) iris.SepalLength6m &lt;- subset(iris, iris$Sepal.Length &gt; 6) iris.SepalLength6me &lt;- subset(iris, iris$Sepal.Length &gt;= 6) iris.SepalLength6l &lt;- subset(iris, iris$Sepal.Length &lt; 6) より大きいはmoreの&rdquo;m&rdquo;、より小さいはlessの&rdquo;l&rdquo;、イコールを含む時は、&rdquo;e&rdquo;を付ける。
+####　mergeする時は、_で繋ぐ
+data1_data2 &lt;- merge(data1, data2, by=&#34;id&#34;, all=T) コードを見たまんまです。
+データの形が変わったら、変数名を付け直す syukei &lt;- table(iris$Species) aggregate()やreshape()などを使うときも同様です。
+変数名が長くなってきて、コードが見づらくなったら、付け直す なるべく変数名を付け直したくないけど、我慢できなくなる事がある。
+まとめ 自己流の変数名の付け方を紹介しました。これがベストだとは思っていないですが、他の人とコードを共有したり、自分でデータを解析していく時の戸惑いが少しは軽減できると思います。また、前処理のコードを別のファイルにしておく事もオススメです。
+Google流のコーディングスタイルは、Google&rsquo;s R Style Guideをご参照ください。 </description>
+    </item>
+    
+    <item>
+      <title>「PostgreSQLで単回帰分析」というタイトルで部誌を書きました</title>
+      <link>http://blog.gepuro.net/posts/i_wrote_a_journal_titled_single_regression_analysis_with_postgresql/</link>
+      <pubDate>Sat, 30 Nov 2013 14:13:30 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_wrote_a_journal_titled_single_regression_analysis_with_postgresql/</guid>
+      <description>MMAという大学のサークルで、秋号の部詩を発行しました。
+2013年 秋号にて公開されています。
+他の部員たちも記事を書いているので、是非読んでみてください。 </description>
+    </item>
+    
+    <item>
+      <title>東北&amp;北海道へ行った時のツイート</title>
+      <link>http://blog.gepuro.net/posts/tweet_when_going_to_tohoku_and_hokkaido/</link>
+      <pubDate>Tue, 12 Nov 2013 20:21:58 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/tweet_when_going_to_tohoku_and_hokkaido/</guid>
+      <description>今さらだけど、ブログに載せておく。
+2013年08月17日(土) 旅をしてくる。 posted at 10:52:32 やっと日立か。 posted at 13:41:03 乗るバスを間違えて焦ってたけど、遠回りをするだけで済んだみたい。危なかった。 posted at 17:21:47 乗り換えの待ち時間で飯を食う posted at 18:51:12 気仙沼に行くか否か posted at 23:57:39  2013年08月18日(日) 明日は、仙台市→気仙沼→一関かな。 posted at 00:29:57 トイレ行きたい。 posted at 09:23:18 松島に行くか。 posted at 10:39:31 かんなぎに出てきた商店街を見たけど、あまり面白くなかった。 posted at 10:40:03 ここで一句 posted at 11:47:43 松島や ああ松島や 松島や posted at 11:48:02 船に乗ってたら、昼飯の時間がなくなってしまった。 posted at 13:03:41 これから気仙沼に行ってくる posted at 14:49:08 海鮮丼が美味しいらしい。 posted at 14:49:47 東家（あずまや）｜お品書き www.wankosoba-azumaya.co.jp/menu/index.html 明日はここに行きたい posted at 14:52:44 もう少ししたら折り返さないと、電車に間に合わない。 posted at 16:36:33 飲茶どん 駅前店 - 一ノ関/ラーメン [食べログ] tabelog. </description>
+    </item>
+    
+    <item>
+      <title>dentoo.lt</title>
+      <link>http://blog.gepuro.net/posts/i_participated_in_dentoolt__5/</link>
+      <pubDate>Sun, 10 Nov 2013 17:32:43 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_participated_in_dentoolt__5/</guid>
+      <description>Xaro Cydeyknさん, A Rough Introduction to PythonTeX  pythontex,Sympyを使おう。
+ 5歳の幼稚園児から、積分を解きたいというお便りがきた。
+  ロクロさん, えーしー  無線LANの規格
+ IEEE 802.11 ac,5GHz帯を利用
+ チャネル数が19
+ MIMO方式の拡張、複数のアンテナを使用する。11nは、4x4。11acは、8x8。
+ ルータやPCは、2x2、スマホは1x1
+ 理論値は足し算ではなく、掛け算
+ 5GHzは空いている
+  komekome09さん,CygwinにRuby on Railsを入れようとした話  cygwinにrailsをインストール
+ gitを使ったりして、rubyのインストール。
+ cygwinの64bitを使うな。
+ railsのインストールが来なかった。
+  参加者から
+ LANG=Cすると上手くいくこともある。  ねおねおさん,出席管理4クズ  美大生です。
+ 出席管理4クズというアプリケーションを作った。
+ 使いやすいアプリがなかった
+ クズレベル搭載
+ 連続欠席でボーナスポイント
+ 後期が始まると、インストール数が増えた
+  ponkotuyさん,艦これHacking  ネットワーク調査
+ 全パケット通信を取得してFilter </description>
+    </item>
+    
+    <item>
+      <title>第35回R勉強会＠東京（#TokyoR）でLTをしてきました</title>
+      <link>http://blog.gepuro.net/posts/i_did_lt_at_the_35th_r_study_meeting__tokyo_tokyor/</link>
+      <pubDate>Sun, 10 Nov 2013 13:45:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_did_lt_at_the_35th_r_study_meeting__tokyo_tokyor/</guid>
+      <description>第35回R勉強会＠東京（#TokyoR）でLTをしてきました。以下が資料です。
+  </description>
+    </item>
+    
+    <item>
+      <title>Juliaのインストール</title>
+      <link>http://blog.gepuro.net/posts/installation_of_julia/</link>
+      <pubDate>Sun, 10 Nov 2013 02:13:09 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/installation_of_julia/</guid>
+      <description>ubuntu13.10で、ソースからコンパイルしてみました。
+$ git clone https://github.com/JuliaLang/julia.git $ cd julia $ make 時間がかかるので、バイナリでインストールするのが良いです。
+i7-3770でコンパイルをすると、40分程の時間が必要です。
+gepuro@ubuntu$ julia _ _ _ _(_)_ | A fresh approach to technical computing (_) | (_) (_) | Documentation: http://docs.julialang.org _ _ _| |_ __ _ | Type &#34;help()&#34; to list help topics | | | | | | |/ _` | | | | |_| | | | (_| | | Version 0.2.0-rc3+37 (2013-11-09 06:29 UTC) _/ |\__&#39;_|_|_|\__&#39;_| | Commit 287ace1 (0 days old master) |__/ | x86_64-linux-gnu julia&gt; 1 + 1 2 julia&gt; 2^10 1024 julia&gt; print(&#34;hello&#34;) hello こんな感じに動作確認しました。 </description>
+    </item>
+    
+    <item>
+      <title>似てる記事も表示させた</title>
+      <link>http://blog.gepuro.net/posts/i_also_displayed_similar_articles/</link>
+      <pubDate>Thu, 07 Nov 2013 14:21:55 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_also_displayed_similar_articles/</guid>
+      <description>一ヶ月ぐらい前から、似てない記事を表示させていたのだけど、サイトの滞在時間が伸びていないので、似てる記事も表示させる事にしました。
+アクセスログを見てみると、似てない記事リストを見て別の記事へ飛んだユーザが居たので、無意味という訳ではなさそうです。
+サイトのデザインも満足していないので、改良したい。 </description>
+    </item>
+    
+    <item>
+      <title>さくらVPS上のUbuntuにLXCを導入して、vpnに繋げるまで</title>
+      <link>http://blog.gepuro.net/posts/until_we_introduce_lxc_to_ubuntu_on_sakura_vps_and_connect_it_to_vpn/</link>
+      <pubDate>Sun, 27 Oct 2013 20:51:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/until_we_introduce_lxc_to_ubuntu_on_sakura_vps_and_connect_it_to_vpn/</guid>
+      <description>VritualBoxなどの仮想マシンになれていた自分にとって、LXCはハードルが高かったのだが、三度目の挑戦ぐらいで使い方が分かったので、記録しておく。
+LXCのインストール sudo apt-get install debootstrap lxc lxctl コンテナの作成 sudo lxc-create -t ubuntu -n develop ネットワークの設定 SoftEther VPNをraspberry piにインストールした のようにして、SoftEther VPNを導入しておく。
+/etc/network/interfaces auto vpn_se_vpn iface vpn_se_vpn inet static address 192.168.0.100 netmask 255.255.255.0 network 192.168.0.0 broadcast 192.168.11.255 gateway 192.168.0.1 dns-nameserver 192.168.0.1 auto br0 iface br0 inet static address 192.168.0.100 netmask 255.255.255.0 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1 dns-nameserver 192.168.0.1 bridge_ports vpn_se_vpn bridge_stp off bridge_maxwait 3 として設定が終わったら、vpn clientを起動する。
+コンテナのネットワーク設定 lxc.network.type=veth lxc.network.link=br0 lxc. </description>
+    </item>
+    
+    <item>
+      <title>SoftEther VPNをraspberry piにインストールした</title>
+      <link>http://blog.gepuro.net/posts/i_installed_softether_vpn_on_raspberry_pi/</link>
+      <pubDate>Sat, 26 Oct 2013 16:46:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_installed_softether_vpn_on_raspberry_pi/</guid>
+      <description>SoftEther VPN プロジェクトで開発されているVPNをraspberyy piにインストールしました。クライアントは、windows7とubuntu 12.04のserver版で、動作確認しました。
+raspberyy pi での作業 wget http://www.softether-download.com/files/softether/v2.00-9387-rtm-2013.09.16-tree/Linux/SoftEther%20VPN%20Server/32bit%20-%20ARM%20EABI/softether-vpnserver-v2.00-9387-rtm-2013.09.16-linux-arm_eabi-32bit.tar.gz tar zxvf softether-vpnserver-v2.00-9387-rtm-2013.09.16-linux-arm_eabi-32bit.tar.gz cd vpnclient make でコンパイルが完了する。
+あとは、
+sudo ./vpnserver start でvpnが起動する。
+vpnの設定をする これよりwindowsで作業をする。
+SoftEther VPN Server and VPN Bridge (Ver 2.00, Build 9387, rtm)よりGUIで操作可能なサーバー管理マネージャをインストールする。
+ここでの作業メモが残っていないが、画面の指示に従えっていけば、設定が完了した。
+クライアントのインストール(windows) SoftEther VPN Client (Ver 2.00, Build 9387, rtm)よりwindows用のクライアントをダウンロードして、インストールすれば良い。ポート番号は8888にしたら、上手く動いた。
+クライアントのインストール(ubuntu server) SoftEther VPN Client (Ver 2.00, Build 9387, rtm)よりlinuxで64bit用のvpnクライアントをダウンロードした。
+解凍して、makeすれば、vpnclientとvpncmdが現れる。
+まず、
+sudo ./vpnclient start を実行する。どうやら、管理者権限の必要があるみたい。
+./vpncmd でvpnの設定を行う.
+vpnのコンソール画面に移動したら、
+NicCreate でNicを作成したのち、
+NicEnable で有効にする。次に、
+AccountCreate AccountPasswordSet でwindowsでの作業で作成したアカウントと同じものを作る。（作業後のまとめて書いているので、足りないのがあるかもしれない） </description>
+    </item>
+    
+    <item>
+      <title>GetNenshuJPというパッケージを開発しました</title>
+      <link>http://blog.gepuro.net/posts/i_developed_a_package_called_getnenshujp/</link>
+      <pubDate>Sun, 20 Oct 2013 20:16:04 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_developed_a_package_called_getnenshujp/</guid>
+      <description>http://cran.r-project.org/web/packages/GetNenshuJP/index.htmlにて公開されています。データは、年収プロというサイトからパースしています。
+利用方法は、
+library(GetNenshuJP) GetNenshuData(&#34;7203&#34;) とすれば、良いです。
+&#39;data.frame&#39;: 11 obs. of 10 variables: $ code : Factor w/ 1 level &#34;7203&#34;: 1 1 1 1 1 1 1 1 1 1 ... $ name : Factor w/ 1 level &#34;トヨタ自動車&#34;: 1 1 1 1 1 1 1 1 1 1 ... $ year : num 2012 2011 2010 2009 2008 ... $ period : Factor w/ 11 levels &#34;第100期 平成16年03月31日末&#34;,..: 10 9 8 7 6 5 4 3 2 1 . </description>
+    </item>
+    
+    <item>
+      <title>Flaskの日本語特のバグ?</title>
+      <link>http://blog.gepuro.net/posts/flag_japanese_special_bug/</link>
+      <pubDate>Wed, 16 Oct 2013 20:20:12 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/flag_japanese_special_bug/</guid>
+      <description>@app.route(&#34;/hoge/&lt;fuga&gt;&#34;, defaults={&#34;page&#34;:1}) @app.route(&#34;/hoge/&lt;fuga&gt;/&#34;, defaults={&#34;page&#34;:1}) @app.route(&#34;/hoge/&lt;fuga&gt;/&lt;int:page&gt;&#34;) などのようにルーティングを指定した時に、
+OK
+ /hoge/日本語
+ /hoge/日本語/
+ /hoge/日本語/2
+  NG
+ /hoge/日本語/1  となっている。
+ルーティングの部分で問題になっているような気がするのだが、もしかしたら他の部分かもしれない。調査が終了したら、報告したいな。 </description>
+    </item>
+    
+    <item>
+      <title>コードのハイライティングを出来るようにした</title>
+      <link>http://blog.gepuro.net/posts/i_made_code_highlighting_possible/</link>
+      <pubDate>Wed, 16 Oct 2013 19:53:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_made_code_highlighting_possible/</guid>
+      <description>Pygmentsを
+ pip install Pygments  でインストールして、
+markdown.markdown(html, [&#39;fenced_code&#39;, &#39;codehilite&#39;]) とすれば良い。
+あとは、
+https://github.com/richleland/pygments-css からお気に入りのハイライティングを選んできて、適切な箇所に置く。
+以下がサンプル
+ print &quot;Hello World&quot;  print &#34;Hello World&#34;  #!/usr/bin/python # -*- coding:utf-8 -*- print &quot;Hello World&quot;  参考:
+ http://pythonhosted.org/Markdown/extensions/code_hilite.html
+ https://github.com/richleland/pygments-css
+  追記 markdownは2.1.1、Pygmentsは1.6で動作確認をしている。バージョンが異なると挙動が変わる模様。 </description>
+    </item>
+    
+    <item>
+      <title>タイトルの表示方法を変更した</title>
+      <link>http://blog.gepuro.net/posts/changed_display_method_of_title/</link>
+      <pubDate>Wed, 16 Oct 2013 19:09:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/changed_display_method_of_title/</guid>
+      <description>タイトル表示にカテゴリも表示するようにした。今までは、タイトルにカテゴリが表示されていなかったので、twitterなどの共有する時に不便だった。これで改善できたはず。 </description>
+    </item>
+    
+    <item>
+      <title>差分を求めながら、累積和のベクトルを得る</title>
+      <link>http://blog.gepuro.net/posts/while_obtaining_the_difference_obtain_the_cumulative_sum_vector/</link>
+      <pubDate>Wed, 16 Oct 2013 18:26:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/while_obtaining_the_difference_obtain_the_cumulative_sum_vector/</guid>
+      <description>値が戻る時は、リセットする。
+よく使う気がするので、関数にしておく。
+cumsum2 &lt;- function(x){ mae &lt;- x[1] tmp &lt;- c(mae) for(i in 2:length(x)){ if(mae &gt; x[i]){ tmp &lt;- c(tmp, tmp[length(tmp)] + x[i]) }else{ tmp &lt;- c(tmp, tmp[length(tmp)] + (x[i]-mae)) } mae &lt;- x[i] } tmp } </description>
+    </item>
+    
+    <item>
+      <title>Rubyをドットインストールで学んだ</title>
+      <link>http://blog.gepuro.net/posts/i_learned_ruby_with_dot_installation/</link>
+      <pubDate>Wed, 16 Oct 2013 11:13:55 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_learned_ruby_with_dot_installation/</guid>
+      <description>普段はPythonやRを使っている人が気になった事
+ print,puts,pの使い分け
+ 破壊的メソッドを利用するには、&rdquo;!&ldquo;をつける
+ 配列から複数取り出す時は、hairetu[0..2]のようにする
+ hairetu[1,2]で1番目から2個分アクセスする
+ hairetu[1,0]=[&ldquo;a&rdquo;,&ldquo;b&rdquo;]で一番目の後に配列を挿入出来る
+ 共通部分(&amp;), 全体重複なし(|), 差分(-),全体重複あり(+)
+ ユニーク(hairetu).uniq, ソート(hairetu.sort)
+ 先頭,末尾の追加unshift,pushと削除shiftとpop
+ ハッシュオブジェクト（連想配列) {&ldquo;hash&rdquo;=&gt;10, &ldquo;rensou&rdquo;=&gt;20}
+ サイズ: rensou.size, rensou.empty?, rensou.has_key?(&ldquo;hash&rdquo;), rensou.has_value?(10)
+ Timeクラスが便利,strftime(&ldquo;%Y/%m/%d&rdquo;)
+ if then end, if, elsif,else
+ =~ : 正規表現用の比較演算子 if /hoge/ =~ &ldquo;fuga hoge&rdquo;
+  参考:
+ Ruby入門 (全32回)    </description>
+    </item>
+    
+    <item>
+      <title>似てない記事の推薦エンジンのバグを直した</title>
+      <link>http://blog.gepuro.net/posts/fixed_a_bug_in_recommendation_engine_for_nonsimilar_articles/</link>
+      <pubDate>Mon, 14 Oct 2013 14:52:55 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/fixed_a_bug_in_recommendation_engine_for_nonsimilar_articles/</guid>
+      <description>先日より、各記事の下部に似てない記事を表示させていたが、記事によって表示されないものがあった。原因が分かったので、修正を行いました。
+cos類似度を計算する時に、各記事の組み合わせを作成する箇所でバグがありました。
+本来は、
+ itertools.permutations  とするところを、
+ itertools.combinations  としていました。
+現段階では、A,Bの類似度とB,Aの類似度を二度計算しているので、記事の数が増えてくると修正を加える必要が出てきそうです。
+参考:
+ 10.1. itertools — 効率的なループ実行のためのイテレータ生成関数   </description>
+    </item>
+    
+    <item>
+      <title>第34回R勉強会＠東京（#TokyoR）で発表してきました。</title>
+      <link>http://blog.gepuro.net/posts/i_presented_it_at_the_34th_r_study_meeting__tokyo__tokyo_r/</link>
+      <pubDate>Sun, 13 Oct 2013 16:22:51 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_presented_it_at_the_34th_r_study_meeting__tokyo__tokyo_r/</guid>
+      <description>以下がその時に利用した資料です。
+ 他の発表者の資料(見つけ次第、追記します。）
+  アクションマイニングを用いた最適なアクションの導出  from sfchaos  
+  Google&#39;s r style guideのすゝめ  from Takashi Kitano 
+  Tokyo.R女子部#2「RMeCabを使おう」  from Sachiko Hirata 
+  StanTutorial  from Teito Nakagawa 
+  10分で分かるr言語入門ver2.4  from Nobuaki Oshiro </description>
+    </item>
+    
+    <item>
+      <title>「第１００８回　ドキッ！分析屋だらけの、大ザーユー会」でLTをしてきました</title>
+      <link>http://blog.gepuro.net/posts/ive_been_doing_lt_at_the_1008th_doki_analytics_full_of_large_zahya/</link>
+      <pubDate>Sat, 05 Oct 2013 01:37:55 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/ive_been_doing_lt_at_the_1008th_doki_analytics_full_of_large_zahya/</guid>
+      <description>以下が発表資料です。(一部修正を加えています。）
+  第１００８回　ドキッ！分析屋だらけの、大ザーユー会 - ブログの類似記事を表示させてみる  from Atsushi Hayakawa 
+参加者からのコメントで、似てない記事を表示した方が面白いとあったので、order by descをorder byに変更しました。 </description>
+    </item>
+    
+    <item>
+      <title>テーブル一覧を取得</title>
+      <link>http://blog.gepuro.net/posts/get_table_list/</link>
+      <pubDate>Thu, 03 Oct 2013 09:08:24 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/get_table_list/</guid>
+      <description>コンソール上で
+ $ psql mydb  などのように接続したあと、
+ \d  と入力するか、
+ select * from pg_tables where not tablename like 'pg%' order by tablename;  とクエリを投げると、DB上のテーブル名を取得できる。 </description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLにおける文字列の連結</title>
+      <link>http://blog.gepuro.net/posts/string_concatenation_in_postgresql/</link>
+      <pubDate>Wed, 04 Sep 2013 23:12:04 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/string_concatenation_in_postgresql/</guid>
+      <description>文字列の連結は、
+ hoge || poyo  とする。
+ (hoge || poyo) as mozi  のようにして、列名をつける事が出来るし、
+ (hoge || poyo)::Date  のようにして、型変換を行うことも出来る。 </description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLでfrom句を使う時に気をつける事</title>
+      <link>http://blog.gepuro.net/posts/be_careful_when_using_from_clause_in_postgresql/</link>
+      <pubDate>Wed, 04 Sep 2013 23:04:20 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/be_careful_when_using_from_clause_in_postgresql/</guid>
+      <description>from句で、テーブルを複数選択したい時に
+ from table1,table2  や
+ from (select * from table1) as t1, (select * from table2) as t2  とするのは良いが、
+ from table1, (select * from table2) as t2  が出来ないと思ってたが、出来た。(twitterで教えて頂きましたので、修正しました。)
+作業している時に、サブクエリに関するエラーが出ていたのですが、手元で動かしても再現出来ないので、再び出会ったら記事にします。（もしかしたら、エラーメッセージを勘違いしてたのかも） </description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLでnullの比較をする</title>
+      <link>http://blog.gepuro.net/posts/compare_null_in_postgresql/</link>
+      <pubDate>Wed, 04 Sep 2013 22:32:31 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/compare_null_in_postgresql/</guid>
+      <description>本日、陥った罠を忘れないために記録しておきます。
+where句でnullが入った値を比較したい時に、&lt;&gt;を用いると、正しく動作しない。なので、is distinct fromを変わりに用いると良い。これは、nullが入っていない場合は、&lt;&gt;と同じ動作をするようです。
+参考:9.2. 比較演算子 </description>
+    </item>
+    
+    <item>
+      <title>gitのまとめページ</title>
+      <link>http://blog.gepuro.net/posts/gits_summary_page/</link>
+      <pubDate>Sat, 31 Aug 2013 08:56:00 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/gits_summary_page/</guid>
+      <description>「チーム開発に必要なgit コマンドを神速で習得しよう！」のサイトにgitを使う際に、大切な事がまとめられています。
+使いこなせるようになりたいです。 </description>
+    </item>
+    
+    <item>
+      <title>ネストされたリストを平坦にする</title>
+      <link>http://blog.gepuro.net/posts/flatten_nested_list/</link>
+      <pubDate>Thu, 29 Aug 2013 16:24:03 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/flatten_nested_list/</guid>
+      <description>Python で flatten - ネストしたリストをフラットにするを参考にして、タプルが含まれていても、実行出来るようにした。
+ def flatten(L): if isinstance(L, (list, tuple)): if L == [] or L == (): return [] else: return flatten(L[0]) + flatten(L[1:]) else: return [L]  isinstanceの箇所を変更しただけです。 </description>
+    </item>
+    
+    <item>
+      <title>PythonからPostgreSQLにアクセスする</title>
+      <link>http://blog.gepuro.net/posts/accessing_postgresql_from_python/</link>
+      <pubDate>Thu, 29 Aug 2013 16:12:17 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/accessing_postgresql_from_python/</guid>
+      <description>psycopg2を使うと便利なようです。
+以下は、最低限必要になりそうなサンプル。
+ import psycopg2 con = psycopg2.connect( database = "database" , user = "username" , password = "password" , host = "host" , port = 5432 ) cur = con.cursor() cur.execute("select * from tablename") cur.fetchall()   </description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLに条件式の書き方</title>
+      <link>http://blog.gepuro.net/posts/how_to_write_a_conditional_expression_in_postgresql/</link>
+      <pubDate>Wed, 28 Aug 2013 17:52:04 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/how_to_write_a_conditional_expression_in_postgresql/</guid>
+      <description>case式を用いる。
+ select a, case a when 0 then 'zero' when 1 then 'one' else a end from table;  すると、次のように得られる.
+a | case
+&mdash;&mdash;&mdash;&mdash;- | &mdash;&mdash;&mdash;&mdash;-
+0 | &lsquo;zero&rsquo;
+1 | &lsquo;one&rsquo;
+2 | 2
+参考:6.12. 条件式 </description>
+    </item>
+    
+    <item>
+      <title>PostgreSQLにおけるキャストの方法</title>
+      <link>http://blog.gepuro.net/posts/casting_method_in_postgresql/</link>
+      <pubDate>Wed, 28 Aug 2013 17:03:31 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/casting_method_in_postgresql/</guid>
+      <description>2種類の書き方があるみたい。
+ cast(hoge as integer)  か
+ hoge::integer  で出来る。個人的には、後者の方が好きかな。
+データの型は、公式ドキュメントに纏められている。
+参考: 第8章　データ型 </description>
+    </item>
+    
+    <item>
+      <title>RからPostgreSQLへアクセスする</title>
+      <link>http://blog.gepuro.net/posts/accessing_postgresql_from_r/</link>
+      <pubDate>Wed, 28 Aug 2013 16:51:36 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/accessing_postgresql_from_r/</guid>
+      <description>library("RPostgreSQL") con 簡単ですね。 </description>
+    </item>
+    
+    <item>
+      <title>無料で読める統計書のまとめサイトが凄い</title>
+      <link>http://blog.gepuro.net/posts/summary_of_free_statistical_statements_summary_site_is_amazing/</link>
+      <pubDate>Sun, 11 Aug 2013 23:00:03 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/summary_of_free_statistical_statements_summary_site_is_amazing/</guid>
+      <description>オンラインで無料で読める統計書22冊にある統計書のまとめが非常に良いと思ったので、記録しておきます。オンラインでこれだけ豊富な情報に触れる事が出来るなんて、良い時代ですね。 </description>
+    </item>
+    
+    <item>
+      <title>最急降下＋wolfe条件で方程式の解を求める</title>
+      <link>http://blog.gepuro.net/posts/solve_the_equation_with_the_steepest_descent__wolfe_condition/</link>
+      <pubDate>Sat, 10 Aug 2013 12:40:54 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/solve_the_equation_with_the_steepest_descent__wolfe_condition/</guid>
+      <description>$100(x_1 - x_2^2)^2 + (x_2 - 1)^2$の解を最急降下法で求める課題が大学の講義で出たのですが、なかなか面白かったので、ブログに残しておきます。
+解を求める関数については、http://www.wolframalpha.com/input/?i=100%28x_1+-+x_2^2%29^2+%2B+%28x_2+-+1%29^2&amp;dataset=を見れば、良いでしょう。
+ library(MASS) kansu 結果は、(x1,x2)=(0.9937275, 0.9968645)となった。真の解は、(x1,x2)=(1,1)であるから、精度よく求められていることが分かる。
+収束する様子は、次のようになっている。 </description>
+    </item>
+    
+    <item>
+      <title>第16回Zansaの会に参加しました</title>
+      <link>http://blog.gepuro.net/posts/i_participated_in_the_16th_zansa_meeting/</link>
+      <pubDate>Sat, 10 Aug 2013 11:16:22 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_participated_in_the_16th_zansa_meeting/</guid>
+      <description>その時の資料です。
+  再発事象の解析をやってみる  from Atsushi Hayakawa </description>
+    </item>
+    
+    <item>
+      <title>データサイエンティスト養成読本を書きました</title>
+      <link>http://blog.gepuro.net/posts/i_wrote_a_data_scientist_training_reading_book/</link>
+      <pubDate>Thu, 08 Aug 2013 13:13:56 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_wrote_a_data_scientist_training_reading_book/</guid>
+      <description>データサイエンティスト養成読本 [ビッグデータ時代のビジネスを支えるデータ分析力が身につく! ] という本を書かせて頂きました。
+共に書いた人は、普段からお世話になっている人ばかりで、安心感がありました。修士1年という時期に、素晴らしい経験が出来たと思います。今後も精進を続けて行きますので、よろしくお願いします。 </description>
+    </item>
+    
+    <item>
+      <title>memcachedを導入した</title>
+      <link>http://blog.gepuro.net/posts/introduced_memcached/</link>
+      <pubDate>Thu, 08 Aug 2013 02:15:25 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/introduced_memcached/</guid>
+      <description>http://flask.pocoo.org/docs/patterns/caching/を参考にして、memcachedをgepulogに導入しました。
+ from werkzeug.contrib.cache import MemcachedCache cache = MemcachedCache(['127.0.0.1:11211'])  としておいて、
+ cache.get("key") cache.set("key", "value", timeout=5*60) cache.delete("key")  などのようにして使うことが出来る。
+サーバのメモリはまだ余裕があるので、有効活用できるかな？ </description>
+    </item>
+    
+    <item>
+      <title>テンプレートを少し変更した</title>
+      <link>http://blog.gepuro.net/posts/i_changed_the_template_slightly/</link>
+      <pubDate>Thu, 08 Aug 2013 00:56:20 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_changed_the_template_slightly/</guid>
+      <description>左下のadsenseが記事に被ることがあったので、テンプレートを少しだけ変更した。
+これで、前よりは僅かながら見やすくなったはず。
+なんだか左下が寂しくなりましたね。 </description>
+    </item>
+    
+    <item>
+      <title>チェビシェフの不等式でMathJaxの練習</title>
+      <link>http://blog.gepuro.net/posts/mathjax_practice_in_chebyshev_inequality/</link>
+      <pubDate>Wed, 07 Aug 2013 23:59:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/mathjax_practice_in_chebyshev_inequality/</guid>
+      <description>MathJax使いやすいですね。
+\begin{align*}
+\sigma^2 &amp; = \int_{\infty}^{\infty} (x-\mu)^2 f(x) dx \\
+&amp; = \int{\infty}^{\mu - k\sigma} (x-\mu)^2 f(x) dx + \int{\mu-k\sigma}^{\mu+k\sigma} (x-\mu) ^2 f(x) dx + \int_{\mu+k\sigma}^{\infty} (x-\mu)^2 f(x) dx \\
+&amp; \geq \int{-infty}^{\mu-k\sigma} (x-\mu)^2 f(x) dx + \int{\mu+k\sigma}^{\infty} (x-\mu)^2 f(x) dx \\
+&amp; = \int_{|x-\mu| \geq k \sigma} (x-\mu)^2 f(x) dx \\
+&amp; \geq \int_{|x-\mu| \geq k\sigma} (x-\mu)^2 f(x) dx \\
+&amp; \geq k^2 \sigma^2 \int_{|x-\mu| \geq k \sigma} f(x) dx \\ </description>
+    </item>
+    
+    <item>
+      <title>はじめてのパターン認識読書会　第四回</title>
+      <link>http://blog.gepuro.net/posts/first_pattern_recognition_reading_council_4th/</link>
+      <pubDate>Tue, 30 Jul 2013 20:29:11 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/first_pattern_recognition_reading_council_4th/</guid>
+      <description>第四章の前半です。
+手書きスライドです。
+  </description>
+    </item>
+    
+    <item>
+      <title>plot()に凡例を追加する</title>
+      <link>http://blog.gepuro.net/posts/add_a_legend_to_plot_/</link>
+      <pubDate>Mon, 29 Jul 2013 22:12:15 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/add_a_legend_to_plot_/</guid>
+      <description>サンプルコードを載せておく。
+ plot(1:10,1:10, type="l", lty=1) lines(1:10,seq(1,5.5,by=0.5),lty=2) legend(locator(1), c("実線","点線"),lty=1:2)  出力は、下のようになる。
+locator(1)を使うと、凡例をどこに表示させるかをマウスポインタで選択できるので便利。
+また、ltyをcolにすれば、色ごとに表示できる。
+(普段良く使うコードをまとめて置くと、忘れた時に楽になると信じてる </description>
+    </item>
+    
+    <item>
+      <title>X線天文衛星すざくの観測データ</title>
+      <link>http://blog.gepuro.net/posts/observation_data_of_xray_astronomy_satellite_suzaku/</link>
+      <pubDate>Sun, 28 Jul 2013 20:01:56 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/observation_data_of_xray_astronomy_satellite_suzaku/</guid>
+      <description>「すざく」ファーストステップガイドという102ページにも渡るドキュメントにであり、すざくのデータをこれから解析しようと思った新人君に向けた資料のようです。
+POSデータやsuicaの履歴データ、アクセスログ、状態監視データなど様々なデータが世の中にあってどれも興味深くて解析をしたいのだが、衛星による観測データを触るのも非常に興味深い。一般向けに公開されているデータもあるようなので、誰でも新たな知識発見に関われるかもしれないという興奮がある。
+「すざく」衛星向け DARTS の機能向上あたりを読めば、どんなデータがあるかを知ることが出来そうだ。
+これから夏休みだし、少しでも弄れたら良いな。
+(ここに書けば、サボらないと信じて </description>
+    </item>
+    
+    <item>
+      <title>ccchartで簡単に綺麗なグラフを描く</title>
+      <link>http://blog.gepuro.net/posts/easily_draw_beautiful_graphs_with_ccchart/</link>
+      <pubDate>Fri, 26 Jul 2013 21:20:11 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/easily_draw_beautiful_graphs_with_ccchart/</guid>
+      <description>ccchartというJavaScriptでグラフを描画することが出来るライブラリが手軽に綺麗なグラフを描けそうです。
+以下は、サイトに載っていたサンプルです。
+   var chartdata68 = { "config": { "title": "Option markerWidth for useMarker: css-ring", "subTitle": "css-ringのリング直径。デフォルト10", "type": "line", "useMarker": "css-ring", "lineWidth": 1, "borderWidth": 4, "markerWidth": 15 }, "data": [ ["年度",2007,2008,2009,2010,2011,2012,2013], ["紅茶",435,332,524,688,774,825,999], ["コーヒー",600,335,584,333,457,788,900], ["ジュース",60,435,456,352,567,678,1260], ["ウーロン",200,123,312,200,402,300,512] ] }; ccchart.init("ccchart_sample", chartdata68);  使いこなせると便利だと思うのでした。 </description>
+    </item>
+    
+    <item>
+      <title>Tokyo.R#32の気になった</title>
+      <link>http://blog.gepuro.net/posts/i_became_interested_in_tokyor__32/</link>
+      <pubDate>Sat, 20 Jul 2013 18:09:35 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_became_interested_in_tokyor__32/</guid>
+      <description>気になったスライドをベタ張り
+  Tokyor32 network analysis  from Mitsunori Sato 
+  質的変数の相関・因子分析  from Mitsuo Shimohata 
+
+本とかブログとか
+ Data Journalism Handbook 
+ データ解析のための統計モデリング入門――一般化線形モデル・階層ベイズモデル・MCMC (確率と情報の科学) 
+ [統計][リスク] &ldquo;相関&rdquo;の話＆そのついでに&rdquo;21世紀の相関（MIC）&rdquo;の話（ややマニア向け
+ 順序尺度の相関係数（ポリコリック相関係数）について
+   </description>
+    </item>
+    
+    <item>
+      <title>R言語のヒストグラムの軸目盛を変える</title>
+      <link>http://blog.gepuro.net/posts/change_axis_scale_of_r_language_histogram/</link>
+      <pubDate>Mon, 08 Jul 2013 18:33:09 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/change_axis_scale_of_r_language_histogram/</guid>
+      <description>hist()でヒストグラムを書く時に軸の目盛を変える方法を忘れるのでメモ
+ bpoint  </description>
+    </item>
+    
+    <item>
+      <title>plot()を使う時の軸をいじる</title>
+      <link>http://blog.gepuro.net/posts/fiddling_with_the_axis_when_using_plot_/</link>
+      <pubDate>Tue, 25 Jun 2013 16:30:20 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/fiddling_with_the_axis_when_using_plot_/</guid>
+      <description>サンプルコードを載せておく
+ plot(1:10,1:10,axes=F) axis(1, at=(0, 10, by=2), las=2, cex.axis=0.7) # 下側、縦書き、フォント小さめ axis(2, at=seq(0,10, by=5), las=1, cex.axis=0.7) #左側、横書き、フォント小さめ box() # 線で図を囲む   </description>
+    </item>
+    
+    <item>
+      <title>Shift-JISなcsvファイルをRで読み込む</title>
+      <link>http://blog.gepuro.net/posts/read_shiftjis_csv_file_with_r/</link>
+      <pubDate>Sat, 15 Jun 2013 14:53:17 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/read_shiftjis_csv_file_with_r/</guid>
+      <description>タイトル通りです。
+ filename 一行で書ける方法はないのかなあ？ </description>
+    </item>
+    
+    <item>
+      <title>Rでエクセルファイルを読み込む</title>
+      <link>http://blog.gepuro.net/posts/read_excel_file_with_r/</link>
+      <pubDate>Thu, 13 Jun 2013 15:49:33 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/read_excel_file_with_r/</guid>
+      <description>R言語で、エクセルファイルを読み込むときのメモ
+ install.packages("xlsx", dep=T) library(xlsx) df csvファイルを読み込むときに比べて、かなり遅いような気がする。 </description>
+    </item>
+    
+    <item>
+      <title>第31回R勉強会＠東京（#TokyoR）で発表してきました</title>
+      <link>http://blog.gepuro.net/posts/i_presented_it_at_the_31st_r_study_group__tokyo_tokyor/</link>
+      <pubDate>Mon, 03 Jun 2013 23:16:24 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_presented_it_at_the_31st_r_study_group__tokyo_tokyor/</guid>
+      <description>タイトルは、「RとPythonによるデータ解析入門」です。
+  </description>
+    </item>
+    
+    <item>
+      <title>第11回　集合知プログラミング勉強会で発表しました</title>
+      <link>http://blog.gepuro.net/posts/it_was_announced_at_the_11th_meeting_intelligence_programming_study_meeting/</link>
+      <pubDate>Fri, 10 May 2013 14:33:49 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/it_was_announced_at_the_11th_meeting_intelligence_programming_study_meeting/</guid>
+      <description>集合知プログラミング勉強会の最終回でした。
+テーマは、遺伝的プログラミングです。
+ 近いうちに、はじめてのパターン認識の勉強会が開かれるそう。
+参加したいな。
+  </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/3/31~2013/4/28)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_3_31_2013_4_28/</link>
+      <pubDate>Sun, 28 Apr 2013 12:12:21 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_3_31_2013_4_28/</guid>
+      <description> 「データ分析にワクワクを」高専出身ベンチャーFULLERが、『App Ape』でスマホのアプリ解析を変える 
+ 恥ずかしい英語におさらばできる無料の本格英文チェッカー「Ginger」が日本で正式ローンチ
+ 履歴書に入れてはいけない6つの言葉
+ [python]リスト内包表記とλ式
+ 「plyrパッケージで君も前処理スタ☆」改め「plyrパッケージ徹底入門」
+ GAE/PythonでMemcachedを使ってみた
+ raspberry pi(ラズベリーパイ)を使ってみる - LANポートを増設して簡易ルータにできるかな、できたらいいな
+   </description>
+    </item>
+    
+    <item>
+      <title>このブログをもう少し使いやすくしたいな</title>
+      <link>http://blog.gepuro.net/posts/i_want_to_make_this_blog_a_bit_easier_to_use/</link>
+      <pubDate>Mon, 15 Apr 2013 01:31:27 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_want_to_make_this_blog_a_bit_easier_to_use/</guid>
+      <description>修正を加えたいことを箇条書きでメモしておく
+ 記事の区切りを分かりやすく
+ 左下の広告が本文と重ならないようにする。(ブラウザのサイズによって重なってしまう事がある）
+ 下書き,非公開記事を作成出来るようにする。
+ memcachedを使って、高速化したい。
+ プログラムをシンタックスハイライト表示したい
+   </description>
+    </item>
+    
+    <item>
+      <title>Dentoo.LT</title>
+      <link>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_jump_in_lt/</link>
+      <pubDate>Sun, 14 Apr 2013 18:12:28 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_jump_in_lt/</guid>
+      <description>飛び入りLT
+@kazoo04 &ldquo;圧縮アルゴリズムZopfli&rdquo;  Googleが今年開発した圧縮アルゴリズム
+ zip互換、圧縮率が高い
+ 詳しくはRFC1951
+ LZSS, 表記方法は複数ある。
+ Huffman
+ いろんな条件を何度も試して、一番良いものを採用する。
+ BlockSplitter
+  itochan (@i315)さん &ldquo;Bitcoinでお金を稼ぐ&rdquo;  itochan.jp
+ Bitcoin:P2Pでやりとりする電子マネー
+ 通貨の供給に規制されない
+ 通貨の生み出し方：ユーザが生成する。マイニング
+ ブロックと呼ばれる通貨の単位
+ Bitcoinは稼げないのでやめましょう。
+ 彼女ほしい
+  @akuraru &ldquo;MVCのすすめ&rdquo;  iOSアプリつくってる。
+ Scala好き
+ バグを減らしたい。テストがしたい。仕方が分からない。
+ レイアウトを作る。アクティビティ
+ テストできる
+ 情報処理
+ 情報操作
+  Model-View-Controllerの略
+ モデルとプレゼンテーションの分離
+ 型保証でおｋ
+  @4xz fourxz さん &ldquo;貸した本が返ってくるLT&rdquo;  まさかのブルースクリーン </description>
+    </item>
+    
+    <item>
+      <title>Dentoo.LT</title>
+      <link>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_part_3/</link>
+      <pubDate>Sun, 14 Apr 2013 17:17:28 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_part_3/</guid>
+      <description>その3です。
+@yosida95 さん &ldquo;自宅VPSのススメ。&rdquo;  http://yosida95.com/
+ 自宅にサーバはありますか？
+ 自宅でVPSは運営していますか？
+ ホスト型、ハイバーバイザ型
+ Scientific Linux(第一世代）、Ubuntu Server(第二世代)
+ 仮想化環境
+ KVM,QEMU+libvirt
+ AMX-V, Intel-VT
+  コントロールパネル、Pyramidを使った
+ ミドルウェア,MySQL,Kestrel,noVNC(ウェブブラウザだけでVNCを実行できる）
+ サーバーリソースが余ってる。仮想化しよう。web上から制御したい
+ 思い立ったらすぐに仮想マシンが作れる
+ ハッカソン専用サーバー
+ プロダクト専用のサーバー
+ 分散システム実験し放題,Riak,自作分散KVSとか
+  yosida95&rsquo;s ServerはOSSではありません。
+ OpenStack使いましょう。
+ ここまでは余談です。
+ mixslide.com の展望、yosida95,oidong1, 2013/01/03に公開
+ 複数のスライドを一箇所にまとめられる。
+ 誰でも編集
+ 編集履歴を見られる
+ 今後：検索機能、ユーザの投稿スライド一覧、デザイナーのインターフェース実装待ち
+ インフラ的浸透
+  タイムアップ
+@catatsuy さん &ldquo;Markdown to LaTeX&rdquo;  卒業したい </description>
+    </item>
+    
+    <item>
+      <title>Dentoo.LT</title>
+      <link>http://blog.gepuro.net/posts/it_went_to_dentoolt__3_part_2/</link>
+      <pubDate>Sun, 14 Apr 2013 15:56:56 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/it_went_to_dentoolt__3_part_2/</guid>
+      <description>その2です。
+その1と同様に抜けが多い点については、ご了承ください。
+@alstamberさん &ldquo;Cerisier&rdquo;  スライドをJust In TImeコンパイル
+ LT皆勤賞
+ 好きなもの:λ,ニャル子,ドゥインドゥインしてる音楽,ゲーセン,スマートフォン
+ 10,000Downloads突破
+ 新機能案:定型文機能,カラムワープ,つながり(),ヒミツの機能
+ 将来の話:バグを減らすぞ減らすぞ減らすぞ
+ 100,000 tokensはまだまだ先かな。
+ Petite * Cerisier:桜はんぺん先生が主催する神サークル
+ 素晴らしいの連呼
+ 4&frasl;28:COMIC☆1: 行きましょう
+  コメント:
+ 認証出来無い＞次のバージョンで直ります。
+ センター試験の機能、来年復活？、オワコン化してる？
+ PixvのアカウントのIDは何番ですか？
+  ロクロ(@k5khrS) さん &ldquo;携帯端末メーカー再編の流れ&rdquo;  前回は、docomoのステマしました。
+ 数日前に、同じネタが投稿されてた。(パクリじゃないよ！）に
+ 端末メーカ10社(2007)→6社(2012)
+ 2007
+ シャープ,パナソニック,富士通,東芝,ソニエリ,などなど
+ インセンティブ
+ これにより、一定数の販売台数を確保できるようになった。
+ 割賦販売により買い替えサイクルが長くなった。
+  *三菱の撤退(2008.3)
+ 三洋が京セラに売却(2008.4)
+ NECがカシオ日立を吸収(2010.6),IS04
+  2012 </description>
+    </item>
+    
+    <item>
+      <title>Dentoo.LT</title>
+      <link>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_that_one/</link>
+      <pubDate>Sun, 14 Apr 2013 14:33:19 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_went_to_dentoolt__3_that_one/</guid>
+      <description>Dentoo.LT #3に参加したメモ書きです。
+Twitterを見てたりすると、メモの量が少なかったりします。
+当日のハッシュタグは、#dentoolt でした。
+@murasaki8823 さん &ldquo;無料でできるインストーラ作成ツールの紹介&rdquo;  InstallShxxxdが使いずらい！
+ Wixは、インストーラの構成をXMLで記述できる。
+ Wix(Windows Installer XML toolset)
+ Wix Edit: WiX専用ソースファイルエディタのGUIツール
+  コメント:
+ XMLはださい？  @U_Akhir0 さん &ldquo;Party with Twitter&rdquo;  TheWorld_JPの人
+ 1月：会社作った！ 3月：活動休止
+ Twitter:オワコン臭がする。逃げていく開発者、迫り来るAPIv1.0の死、APIの限界を感じる。
+ インタラクティブ性がない、サーバ側から能動的に出来無い。
+ LINE:電通大生無用のリア充ツール, メッセンジャーもたくさん種類ある。
+ Twitterでの音声通話をしたい！ →　実装
+ インターネットでワクワクしたい。Party
+ オンラインでパーティを実現したい「音声のグループチャットを利用」
+ 一緒にPartyを造りませんか？仲間募集。
+  コメント:
+ 他のサービスとの差別化は？
+ オフパコの危険性
+  @eserver_dip_jp さん &ldquo;本当は怖い(?)M$のお話&rdquo; ライセンス編
+ hiro1357です。 </description>
+    </item>
+    
+    <item>
+      <title>第9回集合知プログラミング勉強会でBad Data Handbookについて発表してきました</title>
+      <link>http://blog.gepuro.net/posts/i_have_made_a_presentation_on_the_bad_data_handbook_at_the_9th_collection_intelligence_programming_study_group/</link>
+      <pubDate>Thu, 04 Apr 2013 11:19:25 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_have_made_a_presentation_on_the_bad_data_handbook_at_the_9th_collection_intelligence_programming_study_group/</guid>
+      <description>第9回集合知プログラミング勉強会で、Bad Data Handbookの紹介をしてきました。
+ この本は、読み物として非常に面白いので、興味を持った方は、是非読んでみると良いと思います。
+  </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/312~2013/3/30)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_312__2013_3_30/</link>
+      <pubDate>Sat, 30 Mar 2013 00:45:57 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_312__2013_3_30/</guid>
+      <description> ぷらっとホーム Mini Keyboardシリーズ
+ レイアウトが考えやすくなるデザインのルール
+ キャパオーバーになった時の対処法
+ 日本人の働く時間を減らそう「土曜日のパパは私のもの」キャンペーン
+ http://d.hatena.ne.jp/teruyastar/20130319/1363637714
+ [CSS初心者向け]ブログで良く見かけるシンプルな見出しの作り方
+ 2014年春採用版 IT業界就職人気ランキング
+ 科学的根拠に基づいたコピーライティングの7つの秘訣
+ python から google spreadsheet を DB っぽく使って GAE で動かす + おまけ
+ rdiffを使ったSQLiteのバックアップ
+ 分類における重複性の表現手法 : 重複クラスタリング
+ ネットワーク構造解析に基づく重複クラスタ抽出法(セッション3:データマイニング)
+   </description>
+    </item>
+    
+    <item>
+      <title>中国地方を一周してきた</title>
+      <link>http://blog.gepuro.net/posts/i_have_been_around_the_chugoku_area/</link>
+      <pubDate>Fri, 22 Mar 2013 16:14:14 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_have_been_around_the_chugoku_area/</guid>
+      <description>3/13〜3/19の間、6泊7日で18切符を使って中国地方を一周してきました。
+主な経路として、
+東京→熱海→浜松→豊橋→米原→大阪→姫路→倉敷→尾道→広島→新山口→秋吉台→東萩→出雲→出雲大社前→松江しんじ湖→松江→米子→鳥取→地元へ帰る
+
+でした。
+宿泊としては、ネットカフェとビジネスホテルを交互に泊まるようにして、疲れが残らないように気をつけた。
+宿泊費は、2000円→2500円→3500円→1800円→5000円→2000円といった感じの貧乏旅行でした。一日で使ったお金は、交通費と宿泊費と飲食費、観光費等の全部を合わせて7000円〜10000円程度になるかと。
+山陰線を移動している時は、emobileが圏外な事が多くて、あまり記録が残っていないかもしれない。
+また、端末のバッテリー温存のため、極力使わないようにしたので、ツイートも断片的だったりする。
+姫路では、初めてゲストハウスに泊まって緊張していたが、スタッフの人や同日に泊まった人と、何気ない雑談が出来て良かったと思う。
+今回の旅で、気に入ったスポットとしては、明石と倉敷と鳥取砂丘がある。もちろん、他の観光地も楽しかった。
+明石は、天文科学館でプラネタリウムや展示を見て、人丸前駅のホームに引かれている子午線を見て、明石駅の南側にある商店街で明石焼きを食べるという充実したコースだった。
+また、倉敷には、古い町並みが残っている美観地区は、景色も良く、遊び場所もあった。食べ歩きをするだけでも、楽しめるだろう。桃太郎のからくり博物館へ行って、鏡や錯視などを使った展示がされていたり、桃太郎に関する文献や映像が展示されていた。
+旅の最後に訪れた鳥取砂丘は、日本にもこんな景観があるのだなあという感動を覚えた。残念ながら、前日に雨が降ってしまったので、砂のサラサラ感を堪能することは出来なかったが、海に面している砂丘は、素晴らしい景色であった。
+今回は中国地方を周ったが、今度は東北地方を周りたい。夏休みがチャンスだろうか。
+旅の大まかな記録は、twitterに残している貼っておく。
+2013年03月13日(水) ひめじガハハゲストハウス　himeji588.com/room/　候補2 posted at 23:59:20 姫路の安宿ゲストハウス　縁楽堂　www.engakudou.com　当日でも大丈夫かな？ posted at 23:54:50 明日は、大阪→神戸→姫路という予定なのだが、どこに行くと面白いかな？ posted at 23:53:55 @nearforest 旅の恥は掻き捨てってね。 posted at 23:52:15 今日は、電車→寝る→読書→寝る→乗り換え→読書　みたいな感じだった。 posted at 23:49:57 @nearforest 僕は、一人旅だよ。 posted at 23:49:23 オンラインゲームやるって言えば良かったかも。 posted at 23:40:37 ネカフェに入ったが、PCがしょぼいので、結局自分のを使うことになるとは・・・。 posted at 23:40:07 @kimukou2628 美味しかったです。 posted at 23:39:09 牛スジネギ焼き via.me/-agip6bc posted at 21:47:21 RT @ttakimoto: 国会議員がの質問通告が遅いのが国会の非効率、霞ヶ関の非効率、長時間労働の原因だよね。ということで、これを「見える化」したいので、「通告到着時間投稿サイト」を作ろうと思うのだけれども、興味がある人はリツイートしてね。RTが多かったら、霞ヶ関の「中の人」を巻き込んで作っちゃうぉ posted at 21:31:16 RT @tyatsuta: IT技術者も足りない足りないと言われつつ待遇的にはご覧の有様だよ状態なので、データサイエンティストにはその辺うまくやっていただきたく。 posted at 21:29:41 @kenchan0130_aki 今日の夜に、明日の宿を探すつもりです！ posted at 21:25:41 訛りがあって、大阪感が出てる posted at 21:24:50 久々の大阪だ。中学生以来なのでは？ posted at 21:24:04 メディアカフェポパイ桜橋店-店舗紹介 www. </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/2/21〜2013/3/11)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_2_21__2013_3_11/</link>
+      <pubDate>Mon, 11 Mar 2013 19:18:04 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_2_21__2013_3_11/</guid>
+      <description> これは反則！！アクセス数を10倍以上増やす17の隠された法則
+ Amazon EC2 を使った無限IPアドレスの作り方
+ [HTML5/CSS]jqGridで簡単リッチなテーブル作成
+ Python + FlaskでMVC的なことをやってみた
+ Python の Flask で REST API を作ってみる
+ [技術][Python]Flask で CSV 出力
+ [技術][Python]Flask で CSV 出力(修正版) 
+ パーフェクトPython (PERFECT SERIES 5) [大型本]
+ エキスパートPythonプログラミング [大型本]
+ 30代エンジニア2180人に聞いた平均年収の実態と満足度
+   </description>
+    </item>
+    
+    <item>
+      <title>Flaskでhttpsを使う</title>
+      <link>http://blog.gepuro.net/posts/using_https_with_flask/</link>
+      <pubDate>Fri, 01 Mar 2013 22:40:47 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/using_https_with_flask/</guid>
+      <description>認証を使うようなサービスは、SSLを用いてセキュアな通信をしたい。
+Flask自身が持ってるwebサーバでは、SSLが使えないので、
+apacheやwsgiの力を借りる必要がある。
+まず、オレオレ証明書を作る。
+ $ openssl genrsa -aes128 1024  server.key $ openssl req -new -key server.key  server.csr $ openssl x509 -in server.csr -days 365 -req -signkey server.key  server.crt  とこんな感じで作れる。
+作成したものは、それぞれ
+ server.key ：秘密鍵
+ server.csr ：公開鍵
+ server.crt ：デジタル証明書
+  である。
+apacheの設定は、SSLの方は、
+ LoadModule ssl_module modules/mod_ssl.so \#Listen 443 AddType application/x-x509-ca-cert .crt AddType application/x-pkcs7-crl .crl SSLPassPhraseDialog builtin SSLSessionCache shmcb:/var/cache/mod_ssl/scache(512000) SSLSessionCacheTimeout 300 SSLMutex default SSLRandomSeed startup file:/dev/urandom 256 SSLRandomSeed connect builtin SSLCryptoDevice builtin &lt;VirtualHost *:443 ServerName example. </description>
+    </item>
+    
+    <item>
+      <title>ubuntuにSublime Text 2をインストールするメモ</title>
+      <link>http://blog.gepuro.net/posts/note_installing_sublime_text_2_on_ubuntu/</link>
+      <pubDate>Fri, 01 Mar 2013 17:07:32 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/note_installing_sublime_text_2_on_ubuntu/</guid>
+      <description>$ sudo add-apt-repository ppa:webupd8team/sublime-text-2 $ sudo apt-get update $ sudo apt-get install sublime-text  簡単にインストール出来た。 </description>
+    </item>
+    
+    <item>
+      <title>postfixをインストールしたので、メールアドレスを公開した</title>
+      <link>http://blog.gepuro.net/posts/since_i_installed_postfix_i_posted_my_email_address/</link>
+      <pubDate>Thu, 28 Feb 2013 21:26:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/since_i_installed_postfix_i_posted_my_email_address/</guid>
+      <description>gepuro.netのプロフィール欄にメールアドレスを公開しました。
+スパム対策として画像化しておいたが、ユーザにとってはコピペ出来ないし、不便だな。 </description>
+    </item>
+    
+    <item>
+      <title>gepulog systemのバグを直した</title>
+      <link>http://blog.gepuro.net/posts/fixed_a_bug_in_gepulog_system/</link>
+      <pubDate>Thu, 28 Feb 2013 03:10:16 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/fixed_a_bug_in_gepulog_system/</guid>
+      <description>gepulog systemのバグを見つけた で分かっていたバグを直しました。
+使っていくうちに、他のバグも出てきそう。 </description>
+    </item>
+    
+    <item>
+      <title>scikit-learnのインストールをした</title>
+      <link>http://blog.gepuro.net/posts/i_installed_scikitlearn/</link>
+      <pubDate>Thu, 28 Feb 2013 02:42:02 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_installed_scikitlearn/</guid>
+      <description>Debian系のOSを使っている人は、
+ $ sudo apt-get install python-sklearn  でインストール出来る。
+最近、scikit-learnが流行って来ているようなので、少しずつ使っていきたいな。
+まずは、インストールの確認ということで、
+ $ ipython Python 2.7.3 (default, Sep 26 2012, 21:51:14) Type "copyright", "credits" or "license" for more information. IPython 0.13.1.rc2 -- An enhanced Interactive Python. ? - Introduction and overview of IPython's features. %quickref - Quick reference. help - Python's own help system. object? - Details about 'object', use 'object??' for extra details. In [1]: import sklearn In [2]: sklearn. </description>
+    </item>
+    
+    <item>
+      <title>gepulog systemのバグを見つけた</title>
+      <link>http://blog.gepuro.net/posts/i_found_a_bug_in_gepulog_system/</link>
+      <pubDate>Tue, 26 Feb 2013 12:02:38 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_found_a_bug_in_gepulog_system/</guid>
+      <description>カテゴリ表示が複数ページに渡る時に、2ページ目以降に移動しようとすると、カテゴリ表示が解除されてしまって、全表示の時と同じ状況になってしまうようです。
+早いうちに直さないと。 </description>
+    </item>
+    
+    <item>
+      <title>Djangoを始める</title>
+      <link>http://blog.gepuro.net/posts/start_django/</link>
+      <pubDate>Tue, 26 Feb 2013 00:34:35 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/start_django/</guid>
+      <description>画像ベースのサイトを作ってみたいかもしれない  に向けて、Django＆PostgreSQLでサイトを構築して行きたいと思う。
+まずは、Djangoの利用の準備を始める。
+データベースには、PostgreSQLの利用を想定する。
+LinuxMintでのインストール方法
+ $ sudo apt-get install python-django  PostgreSQLのインストール
+ $ sudo apt-get install postgresql $ sudo apt-get install postgresql-client  PostgreSQLのPython用のモジュール
+ $ sudo apt-get install python-psycopg2  
+プロジェクトを開始する  $ django-admin startproject gepupic  でプロジェクトを開始できる。
+すると、gepupicというフォルダが作成され、
+ gepupic/ manage.py gepupic/ \_\_init\_\_.py settings.py urls.py qsgi.py  という構成でファイルが作成される。
+開発用サーバーを起動する時は、
+ $ python manage.py runserver Validating models... 0 errors found Django version 1.4.1, using settings 'gepupic. </description>
+    </item>
+    
+    <item>
+      <title>gepulog systemのソースコードを公開しました</title>
+      <link>http://blog.gepuro.net/posts/source_code_of_gepulog_system_has_been_released/</link>
+      <pubDate>Wed, 20 Feb 2013 21:09:32 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/source_code_of_gepulog_system_has_been_released/</guid>
+      <description>githubにて、このブログシステムを公開しました。
+https://github.com/gepuro/gepulog-system
+ひとまず、作成したい機能が出来たので、開発を一休みするかもしれない。
+新たに必要な機能が出てきたら、コードを書いていくかと。 </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/2/12~2013/2/20)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_2_12_2013_2_20/</link>
+      <pubDate>Wed, 20 Feb 2013 19:59:49 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_2_12_2013_2_20/</guid>
+      <description> Twitter製フレームワーク「Flight」を試してみた！   こんにちは。クラスメソッドの稲毛です。 前回のパッケージ管理ツール「Bower」インストールに続いて、いよいよ本編となります「Flight」フレームワークです。 通常なら「Flightとは？」から始める所ですが、今回はどんどんサンプルを作っていくことで理解を深めてみました。   postfixで.forward、aliases転送
+ MySQL5.5をホームディレクトリ以下にインストールする
+   評価用にMySQL5.5.22をホームディレクトリ以下にインストールしてみました。 cmakeは別途インストールしてあります。   テキストマイニングで発掘！？ 売上とユーザーレビューの相関分析
+ KLab-データ分析グループのblog
+   </description>
+    </item>
+    
+    <item>
+      <title>設定ファイルを書く時はConfigParser</title>
+      <link>http://blog.gepuro.net/posts/when_writing_configuration_file_configparser/</link>
+      <pubDate>Sat, 16 Feb 2013 16:27:57 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/when_writing_configuration_file_configparser/</guid>
+      <description>何かプログラムを書いているときに、設定ファイルをどうするか悩むときがある。プログラムの初めの方に定数として宣言しておいて、そこを編集させるか、別のファイルに書かせるかの二通りが考えられそう。
+設定項目が短い場合は、JSONで記述するのも便利そうだが、長くなってくると見難くなりそうと感じる。
+今回紹介するライブラリは、ConfigParserです。Pythonで利用出来ます。
+ import ConfigParser CONFIG_FILE = 'settings.ini' conf = ConfigParser.SafeConfigParser() conf.read(CONFIG_FILE) USERNAME = conf.get('credential', 'username') PASSWORD = conf.get('credential', 'password') host = conf.get('options','host') port = conf.get('options','port')  Pythonコードは、上のように書くだけで良いです。
+設定ファイル``settings.ini&rdquo;は、
+ [credential] username=ユーザー名 password=パスワード [options] host=127.0.0.1 port=5000  とこんな感じです。
+割と簡単に書けるので、今後も使っていきたいですね。 </description>
+    </item>
+    
+    <item>
+      <title>画像ベースのサイトを作ってみたいかもしれない</title>
+      <link>http://blog.gepuro.net/posts/i_might_wish_to_create_an_imagebased_site/</link>
+      <pubDate>Fri, 15 Feb 2013 04:05:30 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_might_wish_to_create_an_imagebased_site/</guid>
+      <description>このブログシステムを作っていくなかで、webアプリを作る流れが少しずつではあるが分かってきた気がした。このシステムは、文字ベースでシンプルな構成になっている。なので、次は、画像が主役になるようなシステムも作ってみたいと思うようになった。
+また、Flaskは便利なライブラリではあるが、標準で用意されていない機能を使おうとすると途端に手間が増える事も体感してきた。なので、大規模なシステムで使われている？Djangoも弄ってみたいなあと思ったり。
+このブログシステムは、安定して動作しているようなので、そろそろ公開しても良さそう。誰かに使ってもらえたり、ツッコミを入れてもらえたら、嬉しいな。
+プロフィールページも作らねば。 </description>
+    </item>
+    
+    <item>
+      <title>cPickleでPythonオブジェクトを保存する</title>
+      <link>http://blog.gepuro.net/posts/save_python_object_with_cpickle/</link>
+      <pubDate>Tue, 12 Feb 2013 17:30:30 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/save_python_object_with_cpickle/</guid>
+      <description>Pythonでは、cPickle(またはpickle)、shelveというように変数を永続化することが出来るモジュールがあります。
+用途としては、データベースを使用するほどの規模ではないが、データを保存しておきたい時に便利です。
+shelveを使えば、辞書型を保存しておくことができます。
+今回、紹介するcPickleは、Pythonオブジェクトをシリアライズして保存することができます。例えば、辞書型、配列型、文字列といった様々なデータを保存しておくことが出来ます。
+cPickleとPickleの大きな違いは、実行速度です。cPickleの方が最大で1000倍早いそう。(自身では未確認)
+このgepulogでは、cPickleを利用しています。使っている場所は、サイドバーにあるカテゴリと最近の更新の部分です。こちらのデータは、変化が少なく、同じデータを何度も表示するので、データベースへ毎回アクセスするよりも早くなるはず。(サイトのレスポンスを表示してくれるサイトでは早くなっているように見える)
+編集者用の画面をもう少し直したいなあ。 </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/2/3~2013/2/11)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_2_3_to_2013_2_11/</link>
+      <pubDate>Mon, 11 Feb 2013 19:08:46 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_2_3_to_2013_2_11/</guid>
+      <description>気になった
+ Twitter Bootstrap みたいにカンタンにサイト作れるCSSライブラリがあれば教えてください。
+ シンプルなもう一つのCSS Framework「inuit.css」
+   ワディットのHPを改修する際に使ったんだけど、最近気に入ってるCSS Frameworkが「inuit.css」。CSS Frameworkは便利なんだけどどうしても使っていると「それっぽさ」が出ちゃうので（特にTwitter Bootstrapなんかｗ）こまめにみんなが使ってないようなものを探している。   File APIを利用してファイルアップロード   「5000枚の写真をアップロードできるWebアプリがほしい」と無茶な依頼があったので、HTML5のFile APIを使ってサンプルを作ってみました。   余ったクリアファイルで作る「防水ブックカバー」   飲みかけのコーヒー缶をうっかり倒し、本を濡らした、風呂で読書したら本がしわしわになった――。そんな時、便利なのが防水ブックカバー。オフィスで余っているクリアファイルで簡単に作れるのだ。   初学者の自分がPython/Django/TweepyでTwitter OAuth認証作ったのでまとめ   Python/Django/TweepyでTwitterのOAuth認証システムを、Python/Django初学者向けに作ってみました。   CSSフレームワークは良くないと思った理由    もっと挑発的なタイトルにして冒頭で「このタイトルは釣りです」とか書こうとか思ったけど、各方面からの報復が怖いので止めた（←どこから）。   必要な質問は3種類だけ。無駄なことが嫌いな人向け会議の進め方。   「95%」、みなさんはこの数字が何か知っていますか？　これは会議における「コメント交換の割合」です。人は放っておくとコメントの交換しかせず、結論を出すことを殆どしません。このような会議はどうやって改善すればよいのでしょうか。今回は、無駄な会議が嫌いな人に向けた会議のやり方を紹介します。   エキスパートPythonプログラミング [大型本]
+ [ニュースレター作成にお勧め！著作権表示フリーの無料イラスト素材サイト7選
+  ](http://nyusureta.com/usefultools/453/)
+ ニュースレターは基本的に文章を書くことになりますが、イラストがあると目を引きます全体的に楽しい雰囲気になります。しかしWeb上で探して無断で使うことは、リスクを考えると絶対にやってはいけません。   </description>
+    </item>
+    
+    <item>
+      <title>google カスタム検索の導入</title>
+      <link>http://blog.gepuro.net/posts/introduction_of_google_custom_search/</link>
+      <pubDate>Tue, 05 Feb 2013 19:08:05 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/introduction_of_google_custom_search/</guid>
+      <description>サイドメニューの下側にgoogle カスタム検索を追加しました。
+本ブログ内での検索に対応しています。
+気が向いたら、自分で実装するかもしれない。 </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/1/26~2013/2/2)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_1_26__2013_2_2/</link>
+      <pubDate>Sun, 03 Feb 2013 22:25:30 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_1_26__2013_2_2/</guid>
+      <description>今週の気になった。
+ なぜ500円で出来る？ 話題のフォトブックサービス「TOLOT」の工場で聞いてきた   以前にもライフハッカーで「ワンコインで文庫本サイズのフォトブックを作成できるサービス」として採り上げたのが「TOLOT」です。   ブラック企業を見ぬく為の　たった５つの方法   バブル崩壊後の平成不況後からもそうですが、リーマンショック以降の日本経済の低迷もあって存続の危機に立たされている企業が日本国内にはかなり増えています。   Dropbox x inotify (on Linux Server) による安直な大容量パーソナル・クラウド・ストレージの構築Add Star   音楽ファイルとかを溜め込んでいる Linux サーバ中のファイルに，クラウドっぽく遠隔から好きなときに push / pull できると嬉しいというニーズが msr_humpy の中で急騰．   gitコマンドチートシート 
+ Ruby on Railsの基礎 (全46回) 
+   代表的なWebアプリケーションフレームワークであるRuby on Railsについて、その概念と使い方を説明していきます。   Twitter Bootstrapのテンプレート、カラーテーマなどをカスタマイズできるサービス   Twitter Bootstrap は、簡単に今風のデザインのサイトが作成できるということで注目を集めています。 特にバージョン2では、レスポンシブWebデザインに対応し、PCでもスマホでも画面サイズに合わせた最適な表示をさせることができます。 そんなBootstrapの見た目をカスタマイズするためのサービスを集めてみました。   「はやぶさ」がAPIに　アプリ開発、大学生が挑戦へ   JAXAが小惑星探査機「はやぶさ」をAPI化し、データを利用してもらうプロジェクトが始まる。   鍵の仕組みがわかるパーフェクトなアニメGIF   鍵ってどうやってロックを解除するの？ 謎に包まれた鍵穴の世界が明らかになりました。これがパーフェクトじゃないというなら、一体どのアニメGIFがパーフェクトだというのか. </description>
+    </item>
+    
+    <item>
+      <title>編集画面にリアルタイムでのプレビューを付けよう！</title>
+      <link>http://blog.gepuro.net/posts/lets_preview_the_editing_screen_in_real_time/</link>
+      <pubDate>Tue, 29 Jan 2013 23:55:10 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/lets_preview_the_editing_screen_in_real_time/</guid>
+      <description>wikiやブログなどでの投稿画面において、リアルタイムでプレビュー画面を表示させるのは、利便性がかなり向上する。その便利さを知ったのは、ATNDというイベント告知・管理サイトです。このブログに移る前に利用していたブログサービスでは、確認の度に別のページに遷移する必要がありました。そのため、書きながら確認という作業が出来なくて不便を感じることも。（数式や記法の確認など）
+なので、このブログシステムでは、編集画面にプレビュー画面を表示させて、Markdown法で書いた結果を逐次的に確認出来るようにしています。リアルタイムプレビュー付きのHTMLエディタを作ろう - jQuery入門のサイトを参考に作成しました。現段階では、直にhtmlやJavaScriptを書けるようになっていますが、管理者でないと利用できないようになっているので、問題はないと考えてる。
+リアルタイムのプレビュー画面を設置すると非常に利便性が向上するのだが、懸念事項は無いのだろうか。今の段階で思い浮かぶのは、トラフィック量が増えることであろうか。文字を入力する度に通信を行なっているのであるから、多人数で利用する場合は、問題が起きかねない。プレビューをJavaScriptのみで完結できるならば、このような心配は無くなるのかもしれない。 </description>
+    </item>
+    
+    <item>
+      <title>メモランダム(2013/1/20~2013/1/26)</title>
+      <link>http://blog.gepuro.net/posts/memo_random_2013_1_20_2013_1_26/</link>
+      <pubDate>Sat, 26 Jan 2013 21:50:20 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/memo_random_2013_1_20_2013_1_26/</guid>
+      <description>今週の気になるページ一覧
+ IBMが描くテキスト・マイニングの未来とは    コールセンターなどに集まってくる個々のデータを単体で見ても、それがトラブルなのか要望なのか、または、一般的なものなのか特殊なものなのか、判断が付かないものもあり­ます。   Pythonプログラマー歓喜！JavaScriptの代わりにPythonが使える「Brython」   BrythonはJavaScriptの代わりにPythonを使ってプログラミングできるようにするライブラリです。   formに複数の送信ボタン   １つのformで複数ボタンを作り、どのボタンが押されたのかをCGI側で判定したい場合があります。   世界一インターネットが早い国はどこ？   世界中でインターネットが使われているけど、どの国のインターネットが一番早いか知ってますか？ ヒントは日本でもアメリカでもありません。   第１章　統計手法を使う前に   第１章　統計手法を使う前に 統計の技術を数字の遊びにしてはいけません。実際に、本当にデータを自分で集めているなら、他人に説得できるかどうかは別ですが、あまり統計は使わなくてもそれなりの結果結論を得ることができます。   Amagasaki_Serial_Killer_Suspected
+ JSONPath が便利でスクレイピングが捗る話
+   JSONPath というのがあって、いわゆる XPath の JSON 版です。   小説や文章の作成で気をつけたい要素を手軽に解析「下読みさん」    文章の作成で気をつけたい要素を手軽に解析できるソフト。句読点や接続詞、形容詞、こそあど、人称などの出現数をカウントし、使いすぎなどの改善点をアドバイスしてくれる。   Probabilistic Graphical Models Spring 2012   Overview A graphical model is a probabilistic model, where the conditional dependencies between the random variables is specified via a graph. </description>
+    </item>
+    
+    <item>
+      <title>デザイン変更その2</title>
+      <link>http://blog.gepuro.net/posts/design_change_part_2/</link>
+      <pubDate>Sat, 26 Jan 2013 20:03:58 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/design_change_part_2/</guid>
+      <description>カテゴリを選択して表示した時に、サイドバーの色を変更するようにしました。
+いままでは、色などの変化がないために、どのカテゴリを選択したかが分かりにくかったが、今回の変更によって改善された。パンくずリストの導入も検討したが、サイトの階層が深くなるような事は無いので、見送った。
+また、内部的な変更のため気づくことは少ないかと思われるが、リファクタリングを少しだけ行なって、プログラムの整理を行ったり、不必要なCSSやJavaScriptを取り除いて、レスポンスの向上を行った。
+管理者画面の修正や、ある条件下で起こるバグの修正を早く行いたいなあ。少しはまともになったら、ソースコードを公開できたら良いなあと思ってる。 </description>
+    </item>
+    
+    <item>
+      <title>デザイン変更</title>
+      <link>http://blog.gepuro.net/posts/change_design/</link>
+      <pubDate>Fri, 25 Jan 2013 12:14:52 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/change_design/</guid>
+      <description>デザインを少しだけ変更しました。変更内容は、区切り線の削除とカテゴリ表示を日付の横に変更しました。少しずつでありますが、より見やすくしていけたらと思います。 </description>
+    </item>
+    
+    <item>
+      <title>検索エンジン構築の調べ</title>
+      <link>http://blog.gepuro.net/posts/search_engine_construction/</link>
+      <pubDate>Mon, 21 Jan 2013 10:56:10 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/search_engine_construction/</guid>
+      <description>本ブログに検索窓を追加するべき調べている時のメモをまとめておく。
+ SQLiteの全文検索を使ってみる   FTS3を使って全文検索してみた。 SQLiteの全文検索というと、昔はFTS1とか2とかのモジュールを使用する方式だったみたいだけど、現在はFTS3なるものがsqlite3.exeとかに含まれているので、得に下準備をすることなく使用できるっぽい。   TinySegmenterをPythonで書いてみた【Python】   oogle App Engineではpure-Pythonなライブラリしか使えないため、Google App Engineで形態素解析をする場合には、Yahoo!の形態素解析サービスに処理を投げているものが多い。そうなると当然、他のサービスに依存してしまうため、そのサービスが落ちたりすると困ったことになる。できれば自分で形態素解析をしたいのだが、自分で全て書くには手間がかかるし、MeCabやChasenなどはpure-Pythonなものではないため使えない。   extbody &ndash; Blog&amp;News本文領域抽出ツール   Blogのページや、ニュース記事のページから、本文を含む領域のHTMLを抽出します。 いくつもの経験則を組み合わせた抽出方法によって、80%程度の正解率で抽出できます。 日本語/英語を自動判定し、それぞれに対応した抽出を行います。  こんなところだろうか。このあたりを組み合わせれば、簡易的な検索エンジンを構築する事は出来そう。（精度とか速度は、気にしない場合）
+より良いものを実現したい場合は、Googleのカスタム検索を利用するの良いかな。本格的に、構築したい場合は、Apache Solrを利用するのが流行りなのだろうか。 </description>
+    </item>
+    
+    <item>
+      <title>Python-Markdownが便利！</title>
+      <link>http://blog.gepuro.net/posts/pythonmarkdown_is_useful/</link>
+      <pubDate>Mon, 21 Jan 2013 00:27:28 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/pythonmarkdown_is_useful/</guid>
+      <description>gepulogで、記事を書く際に利用しているライブラリの一つであるPython-Markdownの紹介です。
+Markdownというのは、文書を書くときに記述するマークアップ言語で、プレーンテキストをhtmlに変換してくれる優れものです。Pythonでの利用方法は、簡単で、
+ \#!/usr/bin/python \# -*- coding:utf-8 -*- import markdown text = u"プレーンテキスト" print markdown.markdown(text)  で、利用できます。すると出力は、
+ ``プレーンテキスト
+``  のように出力されます。
+書き方は、http://daringfireball.net/やhttp://ja.wikipedia.org/wiki/Markdownを参考にすると良さそうです。自分自身、まだ使い始めて間も無いので、調べながらでないと書けないけれども、慣れると便利になりそうですね。 </description>
+    </item>
+    
+    <item>
+      <title>記事一覧と</title>
+      <link>http://blog.gepuro.net/posts/list_of_articles_and/</link>
+      <pubDate>Sun, 20 Jan 2013 10:59:14 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/list_of_articles_and/</guid>
+      <description>さっそくですが、 記事一覧 を作成しました。また、各記事ごとにtwitter上での反応を表示するウィジェットを貼りました。こっそりと変更した事としては、カテゴリの表示をprodcutみたいに変更したことですね。
+検索機能は、どのように実装しようか。。。 </description>
+    </item>
+    
+    <item>
+      <title>いきなり仕様変更(コメント欄)</title>
+      <link>http://blog.gepuro.net/posts/specification_change_suddenly_comment_field/</link>
+      <pubDate>Sun, 20 Jan 2013 03:08:44 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/specification_change_suddenly_comment_field/</guid>
+      <description>当初は、コメント欄を自作していましたが、twitter上でフォロワーの方に、スパム対策やSQLiteの行ロックを指摘して頂いたので、コメント欄をfacebookに変更しました。
+このようなコメントを頂けると、非常に嬉しいですね。 </description>
+    </item>
+    
+    <item>
+      <title>Blogを引っ越した&amp;作った</title>
+      <link>http://blog.gepuro.net/posts/i_moved_and_made_a_blog/</link>
+      <pubDate>Sun, 20 Jan 2013 01:39:26 +0900</pubDate>
+      
+      <guid>http://blog.gepuro.net/posts/i_moved_and_made_a_blog/</guid>
+      <description>今まで、はてなダイアリーでブログを書いてきたが、折角の独自ドメインを取ったので、こちらに引越しました。それと共に、ブログの名前も変更しました。
+実は、このブログは自分で作成しました。当初は、wordpressなどのように完成度の高いソフトウェアを使うのも良いですが、自分で作ってみた方が面白いと思いました。使用した主なソフトウェアは、次の通りです。
+ Python
+ SQLite3
+ Flask
+ Twitter Bootstrap
+  です。
+このBlogのシステム自体は、とてもシンプルに作成していて、500Kバイト未満だったりします。
+他にもライブラリ等を使用していますが、後ほど紹介して行けたらと思います。おそらくバグが出てくるので、直しながら使っていくかと。また、記事の一覧機能や検索機能など追加したい要素がいくつもあったりします。
+XSS怖い </description>
+    </item>
+    
+  </channel>
+</rss>
