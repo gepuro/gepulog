@@ -13,10 +13,10 @@
 {{ end }}
 <link rel="shortcut icon" href="{{ .Site.BaseURL }}/image/favicon.ico" />
 
-<style>{{ readFile "../static/css/style.css" | safeCSS }}</style>
+<style>{{ readFile "/static/css/style.css" | safeCSS }}</style>
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
-<style>{{ readFile "../static/css/monokai.css" | safeCSS }}</style>
+<style>{{ readFile "/static/css/monokai.css" | safeCSS }}</style>
 </head>
 <body>
