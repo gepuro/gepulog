@@ -3,7 +3,7 @@ languageCode = "ja"
 title = "gepulog"
 theme = "kiss-master"
 googleAnalytics = "UA-37803439-1"
-copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2018"
+copyright = "&copy; <a href=\"https://github.com/gepuro\">gepuro</a> 2013"
 disqusShortname = ""
 publishdir = "docs"
 pygmentsCodefences = true # ```で囲んだコードをハイライトする設定
@@ -35,6 +35,7 @@ linkedin = ""
 facebook = "atsushi.hayakawa.0715"
 instagram = ""
 codepen = ""
+slideshare = "gpeuro"
 
 [taxonomies]
 tag ="tags"
