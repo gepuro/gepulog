@@ -12,15 +12,11 @@
 {{- partial "social/opengraph" . -}}
 {{ end }}
 <link rel="shortcut icon" href="{{ .Site.BaseURL }}/image/favicon.ico" />
+
 <link rel="stylesheet" href="{{ .Site.BaseURL }}/css/style.css"/>
 {{- range .Site.Params.Assets.customCSS -}}
 <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <link rel="preload" as="style" href="{{ .Site.BaseURL }}/css/monokai.css"/>
-<script>
-    $('link[as = "style"]').attr('rel','stylesheet');
-</script>
 </head>
 <body>
